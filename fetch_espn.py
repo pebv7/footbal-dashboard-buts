@@ -5,7 +5,21 @@ import json, urllib.request, datetime, zoneinfo, pathlib
 
 PARIS = zoneinfo.ZoneInfo("Europe/Paris")
 SAISON_DEBUT = "20260701"
-BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={a}-{b}&limit=1000"
+HOTES = [
+    "https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={a}-{b}&limit=1000",
+    "https://site.web.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={a}-{b}&limit=1000",
+]
+
+# ESPN renvoie 403 aux clients qui ne ressemblent pas à un navigateur.
+ENTETES = {
+    "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+                   "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"),
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
+    "Referer": "https://www.espn.com/",
+    "Origin": "https://www.espn.com",
+    "Connection": "keep-alive",
+}
 
 COMPETITIONS = {
     "fr.1": "fra.1", "en.1": "eng.1", "es.1": "esp.1", "de.1": "ger.1",
@@ -14,11 +28,21 @@ COMPETITIONS = {
 }
 
 def recuperer(slug):
+    """Essaie chaque hôte, avec relances. Lève la dernière erreur si tout échoue."""
+    import time
     fin = (datetime.date.today() + datetime.timedelta(days=1)).strftime("%Y%m%d")
-    url = BASE.format(slug=slug, a=SAISON_DEBUT, b=fin)
-    req = urllib.request.Request(url, headers={"User-Agent": "dashboard-buts/1.0"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.load(r)
+    derniere = None
+    for modele in HOTES:
+        url = modele.format(slug=slug, a=SAISON_DEBUT, b=fin)
+        for essai in range(3):
+            try:
+                req = urllib.request.Request(url, headers=ENTETES)
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    return json.load(r)
+            except Exception as e:
+                derniere = e
+                time.sleep(2 * (essai + 1))
+    raise derniere
 
 def matchs_termines(payload):
     """-> [date, heure_paris, domicile, exterieur, buts_dom, buts_ext, [minutes_buts]]"""
@@ -65,6 +89,9 @@ def journees(matchs):
         resultat.append([n] + m)
     return resultat
 
+def total_ok(data):
+    return sum(len(c.get("matchs", [])) for c in data["competitions"].values()) > 0
+
 def main():
     data = {"_genere": datetime.datetime.now(PARIS).isoformat(timespec="seconds"),
             "_source": "ESPN", "competitions": {}}
@@ -81,10 +108,15 @@ def main():
         except Exception as e:
             print(f"{code:6} ECHEC : {e}")
             data["competitions"][code] = {"nom": code, "erreur": str(e), "matchs": []}
-    pathlib.Path("data.json").write_text(
-        json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    if total_ok(data):
+        pathlib.Path("data.json").write_text(
+            json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     total = sum(len(c["matchs"]) for c in data["competitions"].values())
-    print(f"\ndata.json écrit : {total} matchs sur {len(COMPETITIONS)} compétitions")
+    echecs = sum(1 for c in data["competitions"].values() if c.get("erreur"))
+    print(f"\ndata.json écrit : {total} matchs, {echecs} compétition(s) en échec")
+    if total == 0:
+        print("ECHEC TOTAL : aucune donnée récupérée, data.json non écrasé")
+        raise SystemExit(1)
 
 if __name__ == "__main__":
     main()
