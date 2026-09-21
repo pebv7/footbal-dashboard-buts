@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 """Récupère les résultats ESPN des compétitions suivies et écrit data.json.
 Aucune dépendance externe : bibliothèque standard uniquement."""
-import json, urllib.request, datetime, zoneinfo, pathlib
+import json, urllib.request, datetime, zoneinfo, pathlib, time
 
 PARIS = zoneinfo.ZoneInfo("Europe/Paris")
-SAISON_DEBUT = "20260701"
-HOTES = [
-    "https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={a}-{b}&limit=1000",
-    "https://site.web.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={a}-{b}&limit=1000",
+SAISON_DEBUT = datetime.date(2026, 7, 1)
+
+# site.api.espn.com est souvent en 403 (Akamai). site.web.api accepte
+# un jour à la fois ; une plage dates=A-B renvoie 400.
+SCOREBOARD = [
+    "https://site.web.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={d}",
+    "https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={d}",
+]
+CALENDRIER = [
+    "https://sports.core.api.espn.com/v2/sports/soccer/leagues/{slug}/calendar/ondays",
 ]
 
-# ESPN renvoie 403 aux clients qui ne ressemblent pas à un navigateur.
 ENTETES = {
     "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
                    "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"),
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
     "Referer": "https://www.espn.com/",
-    "Origin": "https://www.espn.com",
-    "Connection": "keep-alive",
 }
 
 COMPETITIONS = {
@@ -27,22 +30,92 @@ COMPETITIONS = {
     "cl": "uefa.champions", "el": "uefa.europa",
 }
 
-def recuperer(slug):
-    """Essaie chaque hôte, avec relances. Lève la dernière erreur si tout échoue."""
-    import time
-    fin = (datetime.date.today() + datetime.timedelta(days=1)).strftime("%Y%m%d")
+def lire_json(url):
+    req = urllib.request.Request(url, headers=ENTETES)
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.load(r)
+
+def essayer(modeles, **params):
+    """Essaie chaque URL, avec une relance. Lève la dernière erreur si tout échoue."""
     derniere = None
-    for modele in HOTES:
-        url = modele.format(slug=slug, a=SAISON_DEBUT, b=fin)
-        for essai in range(3):
+    for modele in modeles:
+        url = modele.format(**params)
+        for essai in range(2):
             try:
-                req = urllib.request.Request(url, headers=ENTETES)
-                with urllib.request.urlopen(req, timeout=60) as r:
-                    return json.load(r)
+                return lire_json(url)
             except Exception as e:
                 derniere = e
-                time.sleep(2 * (essai + 1))
+                time.sleep(1 * (essai + 1))
     raise derniere
+
+def extraire_jours(valeur, limite):
+    """Normalise les dates de calendrier ESPN (chaînes ISO ou structures imbriquées)."""
+    jours = set()
+    if isinstance(valeur, str) and len(valeur) >= 10:
+        try:
+            d = datetime.date.fromisoformat(valeur[:10])
+        except ValueError:
+            return jours
+        if SAISON_DEBUT <= d <= limite:
+            jours.add(d)
+        return jours
+    if isinstance(valeur, dict):
+        dates = valeur.get("dates")
+        if isinstance(dates, list) and dates and isinstance(dates[0], str):
+            return extraire_jours(dates, limite)
+        event_date = valeur.get("eventDate")
+        if isinstance(event_date, dict):
+            trouves = extraire_jours(event_date, limite)
+            if trouves:
+                return trouves
+        for cle in ("calendar", "entries", "items"):
+            if cle in valeur:
+                jours |= extraire_jours(valeur[cle], limite)
+        return jours
+    if isinstance(valeur, list):
+        for item in valeur:
+            jours |= extraire_jours(item, limite)
+    return jours
+
+def jours_matchs(slug, limite):
+    try:
+        cal = essayer(CALENDRIER, slug=slug)
+        jours = extraire_jours(cal, limite)
+        if jours:
+            return sorted(jours)
+    except Exception:
+        pass
+    payload = essayer(SCOREBOARD, slug=slug, d=limite.strftime("%Y%m%d"))
+    jours = extraire_jours((payload.get("leagues") or [{}])[0].get("calendar"), limite)
+    if not jours:
+        jours = {limite - datetime.timedelta(days=i) for i in range(16)}
+    return sorted(jours)
+
+def recuperer(slug):
+    """Agrège le scoreboard de chaque jour de match déjà joué (ou prévu demain)."""
+    limite = datetime.datetime.now(PARIS).date() + datetime.timedelta(days=1)
+    jours = jours_matchs(slug, limite)
+    fusion = {"leagues": [], "events": []}
+    vus = set()
+    derniere = None
+    for jour in jours:
+        try:
+            payload = essayer(SCOREBOARD, slug=slug, d=jour.strftime("%Y%m%d"))
+        except Exception as e:
+            derniere = e
+            continue
+        if payload.get("leagues") and not fusion["leagues"]:
+            fusion["leagues"] = payload["leagues"]
+        for ev in payload.get("events") or []:
+            ident = ev.get("id") or ev.get("uid")
+            if ident:
+                if ident in vus:
+                    continue
+                vus.add(ident)
+            fusion["events"].append(ev)
+    if not fusion["events"] and not fusion["leagues"]:
+        raise derniere or RuntimeError(f"aucune journée récupérée pour {slug}")
+    return fusion
 
 def matchs_termines(payload):
     """-> [date, heure_paris, domicile, exterieur, buts_dom, buts_ext, [minutes_buts]]"""
