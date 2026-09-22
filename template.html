@@ -91,16 +91,35 @@ section{padding-top:26px;scroll-margin-top:104px}
 /* ---- chart ---- */
 .chartbox{margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .chartbox svg{display:block;width:100%;height:auto;min-width:0}
+.jbars{display:grid;margin-top:10px;gap:6px;align-items:end;height:240px;
+  padding:10px 8px 8px;background:var(--surf);border:1px solid var(--line);border-radius:8px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch}
+.jcol{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;
+  min-width:0;padding:0;border:0;background:transparent;color:inherit;cursor:pointer;font:inherit}
+.jcol .jv{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:13px;line-height:1;
+  color:var(--txt);margin-bottom:4px}
+.jcol .jtrack{position:relative;width:100%;flex:1;min-height:40px;display:flex;align-items:flex-end;
+  background:var(--surf2);border-radius:6px 6px 2px 2px;overflow:hidden}
+.jcol .jtrack .bandz{position:absolute;left:0;right:0;background:var(--band);opacity:.22;pointer-events:none}
+.jcol .jtrack .meanz{position:absolute;left:0;right:0;height:0;border-top:1.5px dashed var(--txt);opacity:.55;pointer-events:none}
+.jcol .jtrack i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:var(--amber);min-height:3px}
+.jcol.cool .jtrack i{background:var(--blue)}
+.jcol.mint .jtrack i{background:var(--mint)}
+.jcol.rose .jtrack i{background:var(--rose)}
+.jcol.dim .jtrack i{background:var(--dim)}
+.jcol .jl{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:12px;color:var(--mut);margin-top:5px}
+.jcol:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 .chartleg{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:8px;font-size:12px;color:var(--mut)}
 .chartleg i{display:inline-block;width:14px;height:8px;border-radius:2px;margin-right:5px;vertical-align:middle}
 .chartleg .band{background:var(--band);opacity:.35}
 .chartleg .mean{border-top:2px dashed var(--txt);height:0;width:16px;margin-right:5px;vertical-align:middle}
 .chartleg .bar{background:var(--amber)}
 .metstrip{position:sticky;top:72px;z-index:30;display:flex;flex-wrap:wrap;gap:8px;align-items:center;
-  margin:10px 0 0;padding:8px 10px;background:var(--surf);border:1px solid var(--line);border-radius:8px}
-.metstrip .chip{background:var(--surf2);border:1px solid var(--amber);color:var(--amber);border-radius:999px;
-  padding:5px 11px;font:500 12.5px/1 "IBM Plex Sans",sans-serif}
-.metstrip .hint{font-size:12px;color:var(--dim);margin:0}
+  margin:10px 0 0;padding:10px 12px;background:var(--surf);border:1px solid var(--amber);border-radius:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.metstrip .chip{background:var(--amber);color:var(--bg);border-radius:999px;
+  padding:7px 14px;font:700 14px/1 "Barlow Condensed",sans-serif;letter-spacing:.02em}
+.metstrip .hint{font-size:12.5px;color:var(--mut);margin:0;flex:1;min-width:140px}
 .verdict{margin-top:10px;border-left:3px solid var(--line2);padding:9px 0 9px 13px;font-size:13.5px;color:var(--mut)}
 .verdict b{color:var(--txt);font-weight:500}
 
@@ -164,13 +183,18 @@ th.sticky{z-index:3}
 .tdetail{margin-top:10px}
 .tbox.collapsed{display:none}
 .mrow{display:grid;grid-template-columns:62px 1fr 52px;gap:10px;align-items:center;margin-top:9px}
-.mrow.latebucket .mlab{color:var(--amber);font-weight:500}
+.mrow.latebucket .mlab{color:var(--amber);font-weight:600}
 .mlab{font-size:12.5px;color:var(--mut)}
 .mtrack{height:14px;background:var(--surf2);border-radius:7px;overflow:hidden}
-.mtrack i{display:block;height:100%;background:var(--amber);border-radius:7px}
-.mrow.latebucket .mtrack i{background:var(--amber);box-shadow:inset 0 0 0 1px var(--amber)}
+.mtrack i{display:block;height:100%;background:var(--blue);border-radius:7px;opacity:.85}
+.mrow.latebucket .mtrack i{background:var(--amber);opacity:1}
 .mval{font-family:"Barlow Condensed",sans-serif;font-size:17px;font-weight:600;text-align:right}
-.mlate{margin-top:14px;border-left:3px solid var(--amber);padding:9px 0 9px 13px;font-size:13.5px;color:var(--mut)}
+.mzone{margin-top:14px;padding:12px;background:var(--surf);border:1px solid var(--amber);border-radius:8px}
+.mzone .zh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;margin-bottom:8px}
+.mzone .zh .tag{font:700 12px/1 "IBM Plex Sans",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--amber)}
+.mzone .zh .kpi{font-family:"Barlow Condensed",sans-serif;font-size:28px;font-weight:700;color:var(--amber);line-height:1}
+.mzone .zh .kpi em{font-style:normal;font-size:14px;color:var(--mut);font-weight:500;margin-left:4px}
+.mlate{margin-top:12px;border-left:3px solid var(--amber);padding:9px 0 9px 13px;font-size:13.5px;color:var(--mut)}
 .mlate b{color:var(--txt);font-weight:500}
 .crow{border-top:1px solid var(--line);padding:13px 0 11px}
 .crow:first-child{border-top:0}
@@ -182,8 +206,9 @@ th.sticky{z-index:3}
 .dot.lo{background:var(--blue)}.dot.hi{background:var(--rose)}
 .dot.on{background:var(--amber);z-index:3;width:32px;height:32px;top:6px;margin-left:-16px;
   box-shadow:0 0 0 2px var(--amber)}
-.ccur{margin-top:6px;font-size:12.5px;color:var(--mut);text-align:center}
-.ccur b{color:var(--amber);font-weight:500}
+.ccur{margin-top:6px;font-size:13px;color:var(--mut);text-align:center;
+  padding:6px 8px;background:var(--surf2);border-radius:6px}
+.ccur b{color:var(--amber);font-weight:600}
 .cends{display:flex;justify-content:space-between;gap:12px;margin-top:8px;font-size:12.5px;color:var(--mut)}
 .cends .r{text-align:right}
 .cends b{font-family:"Barlow Condensed",sans-serif;font-size:19px;font-weight:600;display:block;line-height:1.05}
@@ -220,7 +245,8 @@ b.wip{font-weight:500}
   .tbox.desk-only.collapsed{display:none}
   .tbox.desk-only{margin-top:8px}
   .metstrip{top:56px}
-  .chartbox svg{min-width:0}
+  .chartbox.desk-chart{display:none}
+  .jbars{height:220px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
@@ -271,7 +297,8 @@ html{scroll-behavior:smooth}
   <h2>Par journée</h2>
   <p class="sub">La bande grise est l'intervalle où une journée tombe 19 fois sur 20 si rien ne change. Elle s'élargit quand la journée compte peu de matchs. Tant que les barres restent dedans, il n'y a pas de tendance à lire.</p>
   <div class="metstrip" id="metstrip" hidden></div>
-  <div class="chartbox" id="chart"></div>
+  <div class="chartbox desk-chart" id="chart"></div>
+  <div class="jbars" id="jbars" aria-label="Valeurs par journée"></div>
   <div class="chartleg" id="chartleg" hidden>
     <span><i class="bar"></i>Valeur par journée</span>
     <span><i class="band"></i>Bande de hasard</span>
@@ -608,8 +635,16 @@ function metricStrip(){
   const isPct=metric!=="avg";
   const val=isPct?fr(S[metric])+" %":fr(S[metric],2);
   strip.hidden=false;
-  strip.innerHTML=`<span class="chip">Métrique : ${lab} · ${val}</span>
-    <p class="hint">Reste visible en descendant vers le graphique — changez-la dans Repères</p>`;
+  strip.innerHTML=`<span class="chip">${lab} · ${val}</span>
+    <p class="hint">Métrique tracée — touchez une autre valeur dans Repères pour changer</p>`;
+}
+function jbarTone(k){
+  if(k==="avg"||/^o\d/.test(k))return "";
+  if(/^u\d/.test(k))return "cool";
+  if(k==="ggp")return "mint";
+  if(k==="hw")return "rose";
+  if(k==="ngp"||k==="dr")return "dim";
+  return "cool";
 }
 function chart(){
   const isPct=metric!=="avg",base=S[metric],lab=METRICS.find(m=>m[0]===metric)[1];
@@ -642,6 +677,26 @@ function chart(){
   s+=`<text x="${pl}" y="14" fill="${cTxt}" font-size="12.5" font-family="Barlow Condensed,sans-serif" font-weight="600">${lab} par journée</text></svg>`;
   el("#chart").innerHTML=s;
   el("#chart").querySelectorAll("rect[data-md]").forEach(r=>r.addEventListener("click",()=>pick(+r.dataset.md,true)));
+  /* Portrait columns — visible under 620px (Stitch mobile chart) */
+  const tone=jbarTone(metric);
+  const scale=isPct?100:maxV;
+  const jb=el("#jbars");
+  if(jb){
+    jb.style.gridTemplateColumns=`repeat(${Math.max(R.length,1)},minmax(0,1fr))`;
+    jb.innerHTML=R.map(r=>{
+      const v=r[metric], pctH=Math.max(2,100*Math.min(v,scale)/scale);
+      const se=showBand?band(r.n,isPct,base):0;
+      const hi=Math.min(scale,base+se),lo=Math.max(0,base-se);
+      const top=100*(1-hi/scale), bot=100*(1-lo/scale);
+      const meanTop=100*(1-Math.min(base,scale)/scale);
+      const bandHtml=showBand?`<span class="bandz" style="top:${top}%;height:${Math.max(0,bot-top)}%"></span>
+        <span class="meanz" style="top:${meanTop}%"></span>`:"";
+      return `<button type="button" class="jcol ${tone}" data-md="${r.md}" aria-label="${r.lab} ${isPct?fr(v)+" %":fr(v,2)}">
+        <span class="jv">${isPct?fr(v):fr(v,2)}</span>
+        <span class="jtrack">${bandHtml}<i style="height:${pctH}%"></i></span>
+        <span class="jl">${r.lab.replace(/^Journ[ée]e\s+/i,"J")}</span></button>`;}).join("");
+    jb.onclick=e=>{const b=e.target.closest("[data-md]"); if(b)pick(+b.dataset.md,true);};
+  }
   const leg=el("#chartleg"); if(leg)leg.hidden=false;
   metricStrip();}
 function verdict(){
@@ -794,14 +849,18 @@ function minutes(){
     el("#minnote").textContent="Les minutes de but ne sont pas dans les données actuellement chargées. Elles arrivent avec le flux ESPN quand il les fournit ; la copie embarquée ne les contient pas.";
     el("#minbars").innerHTML=""; return;}
   const max=Math.max(...st.counts);
-  el("#minnote").textContent=`Répartition des ${st.goals} buts dont la minute est connue, sur ${st.n} match${st.n>1?"s":""}.`;
-  el("#minbars").innerHTML=BUCKETS.map(([a,,lab],i)=>{
+  const early=BUCKETS.slice(0,4), lateB=BUCKETS.slice(4);
+  const row=(a,lab,i,late)=>{
     const p=100*st.counts[i]/st.goals;
-    const late=a>=60;
-    return `<div class="mrow${late?" latebucket":""}"><span class="mlab">${lab}${late?" · live":""}</span>
+    return `<div class="mrow${late?" latebucket":""}"><span class="mlab">${lab}</span>
       <span class="mtrack"><i style="width:${max?100*st.counts[i]/max:0}%"></i></span>
-      <span class="mval">${fr(p)} %</span></div>`;}).join("")
-    +`<div class="mlate">À partir de la 70ᵉ minute : <b>${fr(st.latePct)} %</b> des buts, soit ${fr(st.latePerMatch,2)} but par match sur les vingt dernières minutes. Probabilité qu\u2019il en tombe au moins un : <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> si les buts arrivent au hasard.</div>`;
+      <span class="mval">${fr(p)} %</span></div>`;};
+  el("#minnote").textContent=`Répartition des ${st.goals} buts dont la minute est connue, sur ${st.n} match${st.n>1?"s":""}.`;
+  el("#minbars").innerHTML=early.map(([a,,lab],i)=>row(a,lab,i,false)).join("")
+    +`<div class="mzone"><div class="zh"><span class="tag">Fenêtre live 60–90</span>
+        <span class="kpi">${fr(st.latePct)}<em>% dès la 70ᵉ</em></span></div>`
+    +lateB.map(([a,,lab],i)=>row(a,lab,i+4,true)).join("")
+    +`<div class="mlate">À partir de la 70ᵉ minute : <b>${fr(st.latePct)} %</b> des buts, soit ${fr(st.latePerMatch,2)} but par match sur les vingt dernières minutes. Probabilité qu\u2019il en tombe au moins un : <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> si les buts arrivent au hasard.</div></div>`;
 }
 
 
