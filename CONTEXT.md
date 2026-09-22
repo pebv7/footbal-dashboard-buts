@@ -20,7 +20,7 @@ par rapport au score en cours.
 ```
 fetch_espn.py    API ESPN  ──────────────►  data.json
 build.py         data.json + template.html ►  index.html
-update.yml       enchaîne les deux, chaque heure, commit + push
+update.yml       enchaîne les deux, une fois par jour, commit + push
 GitHub Pages     sert index.html
 ```
 
@@ -33,7 +33,7 @@ embarquée n'est qu'un secours pour le cas hors ligne.
 | Fichier | Rôle |
 |---|---|
 | `template.html` | **le dashboard** — c'est ici qu'on développe. Contient le marqueur `__SNAP__` |
-| `index.html` | produit du build. **Ne jamais éditer à la main**, écrasé chaque heure |
+| `index.html` | produit du build. **Ne jamais éditer à la main**, écrasé une fois par jour |
 | `fetch_espn.py` | récupère les matchs terminés + les minutes de but |
 | `build.py` | injecte les données dans le template |
 | `data.json` | sortie brute d'ESPN |
@@ -119,7 +119,7 @@ repli, avec contrainte d'unicité — sans quoi « Atlético Madrid » s'apparie
 - `historique.json` n'existe pas encore : les vues « 2025/26 » et « Écart » sont vides.
   Le correctif propre est d'ajouter une passe sur la saison 2025/26 dans `fetch_espn.py`.
 - Le dashboard ne lit pas `data.json` : il va directement à ESPN. Le lire en second
-  recours rendrait le secours vieux d'une heure plutôt que du dernier build.
+  recours rendrait le secours vieux d'un jour plutôt que du dernier build.
 - **xG en direct** : non implémenté. ESPN expose un endpoint de détail par match
   (`/summary?event={id}`) qui contient le boxscore, mais une requête par rencontre.
   Faisable pour les 5-10 matchs en cours à un instant donné. Non vérifié : ce endpoint

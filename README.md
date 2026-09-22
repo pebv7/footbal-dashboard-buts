@@ -8,7 +8,7 @@ seuils over/under, répartition des minutes de but, comparaison entre championna
 ```
 fetch_espn.py   interroge l'API ESPN         -> data.json
 build.py        injecte data.json            -> index.html
-GitHub Actions  enchaîne les deux, chaque heure, et publie
+GitHub Actions  enchaîne les deux, une fois par jour, et publie
 GitHub Pages    sert index.html
 ```
 
@@ -43,7 +43,7 @@ Dashboard : [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.gith
 | `build.py` | fusionne `data.json` dans `template.html` |
 | `template.html` | le dashboard, avec le marqueur `__SNAP__` |
 | `index.html` | résultat du build, servi par Pages — **ne pas modifier à la main** |
-| `data.json` | données ESPN brutes, régénérées chaque heure |
+| `data.json` | données ESPN brutes, régénérées une fois par jour |
 | `historique.json` | optionnel : même format, saison précédente, pour les comparaisons |
 
 ## Points de vigilance
