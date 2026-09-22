@@ -1,6 +1,7 @@
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Marchés de buts — suivi multi-championnats</title>
+<title>Goal markets — multi-league tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -277,33 +278,33 @@ html{scroll-behavior:smooth}
 <header class="top">
   <div class="in">
     <div class="r1">
-      <span class="brand">Marchés de buts</span>
-      <select id="lg" aria-label="Championnat"></select>
-      <button class="btn" id="rf">Mettre à jour</button>
-      <button class="btn icon" id="th" aria-label="Basculer le thème clair ou sombre" title="Thème clair / sombre">◐</button>
+      <span class="brand">Goal markets</span>
+      <select id="lg" aria-label="Competition"></select>
+      <button class="btn" id="rf">Refresh</button>
+      <button class="btn icon" id="th" aria-label="Toggle light or dark theme" title="Light / dark theme">◐</button>
       <span class="stamp" id="stamp"></span>
     </div>
     <div class="navwrap" id="navwrap"><nav id="nav">
-      <a href="#s-live" data-s="s-live" id="navlive" hidden>● En direct</a>
-      <a href="#s-rep" data-s="s-rep">Repères</a>
-      <a href="#s-jrn" data-s="s-jrn">Journées</a>
-      <a href="#s-tab" data-s="s-tab">Tableau</a>
-      <a href="#s-tps" data-s="s-tps">Horaires</a>
+      <a href="#s-live" data-s="s-live" id="navlive" hidden>● Live</a>
+      <a href="#s-rep" data-s="s-rep">Markers</a>
+      <a href="#s-jrn" data-s="s-jrn">Matchdays</a>
+      <a href="#s-tab" data-s="s-tab">Table</a>
+      <a href="#s-tps" data-s="s-tps">Kick-offs</a>
       <a href="#s-clb" data-s="s-clb">Clubs</a>
       <a href="#s-min" data-s="s-min">Minutes</a>
-      <a href="#s-cmp" data-s="s-cmp">Championnats</a>
+      <a href="#s-cmp" data-s="s-cmp">Leagues</a>
     </nav></div>
   </div>
 </header>
 <p id="msg"></p>
 
 <div class="wrap">
-<div id="state" class="state">Chargement…</div>
+<div id="state" class="state">Loading…</div>
 
 <div id="main" hidden>
 
 <section id="s-live" hidden>
-  <h2>En direct</h2>
+  <h2>Live</h2>
   <p class="sub" id="livenote"></p>
   <div id="livelist"></div>
 </section>
@@ -311,143 +312,143 @@ html{scroll-behavior:smooth}
 <section id="s-rep">
   <h2 id="ttl"></h2>
   <p class="sub" id="cover"></p>
-  <p class="lbl">Repères de la saison — touchez une valeur pour la tracer journée par journée</p>
+  <p class="lbl">Season markers — tap a value to plot it matchday by matchday</p>
   <div id="rep"></div>
 </section>
 
 <section id="s-jrn">
-  <h2>Par journée</h2>
-  <p class="sub">La bande grise est l'intervalle où une journée tombe 19 fois sur 20 si rien ne change. Elle s'élargit quand la journée compte peu de matchs. Tant que les barres restent dedans, il n'y a pas de tendance à lire.</p>
+  <h2>By matchday</h2>
+  <p class="sub">The grey band is the range where a matchday lands 19 times out of 20 if nothing has changed. It widens when the matchday has few games. While the bars stay inside it, there is no trend to read.</p>
   <div class="metstrip" id="metstrip" hidden></div>
   <div class="chartbox desk-chart" id="chart"></div>
-  <div class="jbars" id="jbars" aria-label="Valeurs par journée"></div>
+  <div class="jbars" id="jbars" aria-label="Values by matchday"></div>
   <div class="chartleg" id="chartleg" hidden>
-    <span><i class="bar"></i>Valeur par journée</span>
-    <span><i class="band"></i>Bande de hasard</span>
-    <span><i class="mean"></i>Moyenne de saison</span>
+    <span><i class="bar"></i>Value by matchday</span>
+    <span><i class="band"></i>Chance band</span>
+    <span><i class="mean"></i>Season average</span>
   </div>
   <div class="opts" id="opts">
-    <button class="opt" data-o="band" aria-pressed="true">Bande de hasard</button>
-    <button class="opt" data-o="roll" aria-pressed="false">Moyenne mobile 5</button>
+    <button class="opt" data-o="band" aria-pressed="true">Chance band</button>
+    <button class="opt" data-o="roll" aria-pressed="false">5-matchday moving average</button>
   </div>
   <div class="verdict" id="verdict"></div>
 </section>
 
 <section id="s-tab">
-  <h2>Toutes les journées</h2>
-  <p class="sub">Choisissez les colonnes utiles, triez par un en-tête, touchez une ligne pour ouvrir les matchs.</p>
+  <h2>All matchdays</h2>
+  <p class="sub">Pick useful columns, sort by a header, tap a row to open the matches.</p>
   <div class="opts scrollx" id="cols">
-    <button class="opt" data-c="ess" aria-pressed="true">Essentiel</button>
+    <button class="opt" data-c="ess" aria-pressed="true">Essentials</button>
     <button class="opt" data-c="ou" aria-pressed="false">Over / Under</button>
-    <button class="opt" data-c="res" aria-pressed="false">GG &amp; résultats</button>
-    <button class="opt" data-c="all" aria-pressed="false">Tout</button>
+    <button class="opt" data-c="res" aria-pressed="false">BTTS &amp; results</button>
+    <button class="opt" data-c="all" aria-pressed="false">All</button>
   </div>
   <div class="wksum" id="wksum"></div>
   <div class="opts" id="wktog" style="display:none">
-    <button class="opt" id="wkdetail" aria-pressed="false">Voir le détail du tableau</button>
+    <button class="opt" id="wkdetail" aria-pressed="false">Show table detail</button>
   </div>
   <div class="tbox desk-only" id="wkbox"><div class="tscroll">
     <table id="wk"><thead><tr>
-      <th class="l sticky">J</th><th class="l">Date</th><th>M</th><th>Buts</th><th>Moy</th>
-      <th>GG</th><th>NG</th><th>+0,5</th><th>−0,5</th><th>+1,5</th><th>−1,5</th><th>+2,5</th><th>−2,5</th>
-      <th>+3,5</th><th>−3,5</th><th>1</th><th>N</th><th>2</th><th>0‑0</th>
+      <th class="l sticky">MD</th><th class="l">Date</th><th>M</th><th>Goals</th><th>Avg</th>
+      <th>BTTS</th><th>No</th><th>+0.5</th><th>−0.5</th><th>+1.5</th><th>−1.5</th><th>+2.5</th><th>−2.5</th>
+      <th>+3.5</th><th>−3.5</th><th>1</th><th>X</th><th>2</th><th>0‑0</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
   <div class="panel" id="panel"></div>
 </section>
 
 <section id="s-tps">
-  <h2>Par jour de match</h2>
-  <p class="sub">Chaque ligne regroupe tous les matchs joués ce jour-là dans la compétition affichée.</p>
+  <h2>By match day</h2>
+  <p class="sub">Each row groups every match played on that weekday in the competition shown.</p>
   <div class="tbox"><div class="tscroll">
     <table id="dow"><thead><tr>
-      <th class="l sticky">Jour</th><th>Matchs</th><th>Moy</th><th>GG</th><th>+1,5</th><th>+2,5</th><th>+3,5</th><th>0‑0</th><th>Dom.</th>
+      <th class="l sticky">Day</th><th>Matches</th><th>Avg</th><th>BTTS</th><th>+1.5</th><th>+2.5</th><th>+3.5</th><th>0‑0</th><th>Home</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
 
-  <h2 style="margin-top:28px">Par heure de coup d'envoi</h2>
+  <h2 style="margin-top:28px">By kick-off time</h2>
   <p class="sub" id="slotnote"></p>
   <div class="tbox"><div class="tscroll">
     <table id="slot"><thead><tr>
-      <th class="l sticky">Créneau</th><th>Matchs</th><th>Moy</th><th>GG</th><th>+1,5</th><th>+2,5</th><th>+3,5</th><th>0‑0</th><th>Dom.</th>
+      <th class="l sticky">Slot</th><th>Matches</th><th>Avg</th><th>BTTS</th><th>+1.5</th><th>+2.5</th><th>+3.5</th><th>0‑0</th><th>Home</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
 </section>
 
 <section id="s-clb">
-  <h2>Par club</h2>
+  <h2>By club</h2>
   <div class="opts" id="tmview">
-    <button class="opt" data-v="cur" aria-pressed="true">Saison en cours</button>
+    <button class="opt" data-v="cur" aria-pressed="true">Current season</button>
     <button class="opt" data-v="prev" aria-pressed="false">2025/26</button>
-    <button class="opt" data-v="diff" aria-pressed="false">Écart</button>
+    <button class="opt" data-v="diff" aria-pressed="false">Diff</button>
   </div>
   <p class="sub" id="tmnote" style="margin-top:10px"></p>
-  <input class="search" id="q" type="search" placeholder="Filtrer un club…" aria-label="Filtrer un club">
+  <input class="search" id="q" type="search" placeholder="Filter a club…" aria-label="Filter a club">
   <div class="tbox"><div class="tscroll">
     <table id="tm"><thead><tr>
-      <th class="l sticky">Club</th><th>J</th><th>Pts</th><th>BP</th><th>BC</th><th>Moy</th><th>GG</th><th>+1,5</th><th>+2,5</th><th>+3,5</th><th>Clean sheet</th>
+      <th class="l sticky">Club</th><th>P</th><th>Pts</th><th>GF</th><th>GA</th><th>Avg</th><th>BTTS</th><th>+1.5</th><th>+2.5</th><th>+3.5</th><th>Clean sheet</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
   <p class="hint" id="qhint"></p>
 </section>
 
 <section id="s-min">
-  <h2>Minutes de but</h2>
+  <h2>Goal minutes</h2>
   <p class="sub" id="minnote"></p>
   <div id="minbars"></div>
 </section>
 
 <section id="s-cmp">
-  <h2>Qui est le plus extrême</h2>
-  <p class="sub">Chaque ligne place les 8 compétitions entre leur minimum et leur maximum. Le point ambre est la compétition affichée ; touchez un point pour basculer dessus.</p>
+  <h2>Who is the most extreme</h2>
+  <p class="sub">Each row places the 8 competitions between their minimum and maximum. The amber dot is the competition shown; tap a dot to switch to it.</p>
   <div class="opts" id="cmpside">
-    <button class="opt" data-s="over" aria-pressed="true">Au-dessus du seuil</button>
-    <button class="opt" data-s="under" aria-pressed="false">En dessous du seuil</button>
+    <button class="opt" data-s="over" aria-pressed="true">Above the line</button>
+    <button class="opt" data-s="under" aria-pressed="false">Below the line</button>
   </div>
   <p class="hint" id="cmphint"></p>
   <div id="cmp"></div>
 
-  <h2 style="margin-top:30px">Toutes les compétitions</h2>
-  <p class="sub">Le maximum de chaque colonne est en ambre, le minimum en bleu. Triez par un en-tête.</p>
+  <h2 style="margin-top:30px">All competitions</h2>
+  <p class="sub">The maximum of each column is amber, the minimum blue. Sort by a header.</p>
   <div class="cpsum" id="cpsum"></div>
   <div class="opts" id="cptog" style="display:none">
-    <button class="opt" id="cpdetail" aria-pressed="false">Voir le détail du tableau</button>
+    <button class="opt" id="cpdetail" aria-pressed="false">Show table detail</button>
   </div>
   <div class="tbox desk-only" id="cpbox"><div class="tscroll">
     <table id="cp"><thead><tr>
-      <th class="l sticky">Compétition</th><th>Matchs</th><th>Moy</th><th id="hGG">GG</th>
-      <th id="h05">+0,5</th><th id="h15">+1,5</th><th id="h25">+2,5</th><th id="h35">+3,5</th><th>1</th><th>N</th><th>2</th><th>Buts 70ᵉ+</th>
+      <th class="l sticky">Competition</th><th>Matches</th><th>Avg</th><th id="hGG">BTTS</th>
+      <th id="h05">+0.5</th><th id="h15">+1.5</th><th id="h25">+2.5</th><th id="h35">+3.5</th><th>1</th><th>X</th><th>2</th><th>Goals 70′+</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
-  <p class="hint">Attention aux effectifs : certaines compétitions n'ont que deux ou trois tours joués, donc leurs extrêmes bougeront beaucoup. La colonne « Matchs » donne le poids de chaque ligne.</p>
+  <p class="hint">Watch the sample sizes: some competitions have only two or three rounds played, so their extremes will swing a lot. The “Matches” column shows the weight of each row.</p>
 </section>
 
 <p class="note">
-Données : API ESPN, récupérée une fois par jour par un workflow GitHub Actions et embarquée dans ce fichier. Une copie des matchs joués est embarquée dans ce fichier pour qu'il fonctionne sans réseau ; « Mettre à jour » retélécharge la source, ce qui suppose un navigateur autorisé à sortir sur Internet. Le dépôt est tenu par des bénévoles, donc une journée peut arriver avec un jour ou deux de retard — la date de la dernière rencontre enregistrée est indiquée sous le titre.
-Seuls les matchs joués entrent dans les calculs. « GG » = les deux équipes marquent. « 1 / N / 2 » = victoire à domicile, nul, victoire à l'extérieur. Toutes les heures de coup d'envoi sont converties en heure de Paris, y compris pour l'Angleterre et le Portugal.
+Data: ESPN API, fetched once a day by a GitHub Actions workflow and embedded in this file. A copy of completed matches is embedded so the page works offline; “Refresh” re-downloads the source, which needs a browser allowed to reach the internet. The repo is run by volunteers, so a matchday can arrive a day or two late — the date of the last recorded match is shown under the title.
+Only completed matches enter the calculations. “BTTS” = both teams to score. “1 / X / 2” = home win, draw, away win. All kick-off times are converted to Paris time, including England and Portugal.
 </p>
 </div>
 </div>
 
-<nav class="bnav" id="bnav" aria-label="Navigation principale">
-  <a href="#s-live" data-tab="live" id="btnlive" hidden><span class="ico" aria-hidden="true">●</span>En direct</a>
+<nav class="bnav" id="bnav" aria-label="Main navigation">
+  <a href="#s-live" data-tab="live" id="btnlive" hidden><span class="ico" aria-hidden="true">●</span>Live</a>
   <a href="#s-rep" data-tab="stats" aria-current="true"><span class="ico" aria-hidden="true">≡</span>Stats</a>
-  <a href="#s-cmp" data-tab="cmp"><span class="ico" aria-hidden="true">⇄</span>Comparer</a>
+  <a href="#s-cmp" data-tab="cmp"><span class="ico" aria-hidden="true">⇄</span>Compare</a>
 </nav>
-<button class="totop" id="totop">Haut de page</button>
+<button class="totop" id="totop">Back to top</button>
 
 <script>
 const SNAP=__SNAP__;
-const LEAGUES=[["fr.1","France · Ligue 1","Ligue 1"],["en.1","Angleterre · Premier League","Premier League"],
- ["es.1","Espagne · Liga","Liga"],["de.1","Allemagne · Bundesliga","Bundesliga"],
- ["it.1","Italie · Serie A","Serie A"],["pt.1","Portugal · Primeira Liga","Primeira Liga"],
- ["nl.1","Pays-Bas · Eredivisie","Eredivisie"],["tr.1","Turquie · Süper Lig","Süper Lig"],
- ["cl","Europe · Ligue des champions","Ligue des champions"],["el","Europe · Ligue Europa","Ligue Europa"]];
+const LEAGUES=[["fr.1","France · Ligue 1","Ligue 1"],["en.1","England · Premier League","Premier League"],
+ ["es.1","Spain · La Liga","La Liga"],["de.1","Germany · Bundesliga","Bundesliga"],
+ ["it.1","Italy · Serie A","Serie A"],["pt.1","Portugal · Primeira Liga","Primeira Liga"],
+ ["nl.1","Netherlands · Eredivisie","Eredivisie"],["tr.1","Turkey · Süper Lig","Süper Lig"],
+ ["cl","Europe · Champions League","Champions League"],["el","Europe · Europa League","Europa League"]];
 const SEASONS=["2026-27","2025-26"];
-const JOURS=["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"];
+const JOURS=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 const el=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
-const fr=(n,d=1)=>(n===null||n===undefined||isNaN(n))?"—":Number(n).toFixed(d).replace(".",",");
+const fr=(n,d=1)=>(n===null||n===undefined||isNaN(n))?"—":Number(n).toFixed(d);
 const pct=(a,b)=>b?100*a/b:null;
 const see=(n,o)=>{try{n&&n.scrollIntoView(o)}catch(e){}};
 
@@ -461,7 +462,7 @@ const lgSel=el("#lg");
 let M=[],R=[],S=null,prev=null,metric="o25",showBand=true,showRoll=false,teamView="cur";
 let LABELS=null,PREVLAB="25/26";
 let LIVEMATCHS=[],pollId=null,liveLine=2.5,wkOpen=false,cpOpen=false;
-const rlab=md=>LABELS?(LABELS[md-1]||("J"+md)):("J"+md);
+const rlab=md=>LABELS?(LABELS[md-1]||("MD"+md)):("MD"+md);
 const UNDER_LINES=[1.5,2.5,3.5];
 function underKey(line){return "u"+String(line).replace(".","")}
 function parseMinute(m){
@@ -475,7 +476,7 @@ function grabUrls(season,code){const p=`${season}/${code}.json`;
           `https://raw.githubusercontent.com/openfootball/football.json/master/${p}`];}
 async function grab(season,code){let err;
   for(const u of grabUrls(season,code)){
-    try{const r=await fetch(u,{cache:"no-store"}); if(r.ok)return await r.json(); err="statut "+r.status;}
+    try{const r=await fetch(u,{cache:"no-store"}); if(r.ok)return await r.json(); err="status "+r.status;}
     catch(e){err=e.message;}}
   throw new Error(String(err));}
 function parse(j){const out=[];
@@ -513,7 +514,7 @@ const SEASON_START="20260701";
 function ymd(d){return d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0");}
 const PARIS={timeZone:"Europe/Paris",hour12:false};
 const dFmt=new Intl.DateTimeFormat("fr-CA",{...PARIS,year:"numeric",month:"2-digit",day:"2-digit"});
-const tFmt=new Intl.DateTimeFormat("fr-FR",{...PARIS,hour:"2-digit",minute:"2-digit"});
+const tFmt=new Intl.DateTimeFormat("en-GB",{...PARIS,hour:"2-digit",minute:"2-digit"});
 function toParis(iso){const d=new Date(iso);
   if(isNaN(d.getTime()))return null;
   return {date:dFmt.format(d),time:tFmt.format(d).replace(/\s*h\s*/,":")};}
@@ -522,11 +523,11 @@ function norm(n){return n.toLowerCase()
   .replace(/\b(fc|afc|cf|sc|ac|as|rc|sv|bv|vfl|vfb|tsg|sk|bsc|cd|ud|rcd|sd|ssc|us|ss|uc|gd|sl|cs|sco|osc|ogc|aj|ea|club|de|del|the|1899|1901|1904|1907|1909|1913|1963|1907|05|07|29|65)\b/g," ")
   .replace(/[^a-z0-9]+/g," ").trim();}
 async function fetchEspn(code){
-  const slug=ESPN[code]; if(!slug) throw new Error("compétition non couverte");
+  const slug=ESPN[code]; if(!slug) throw new Error("competition not covered");
   const end=new Date(Date.now()+864e5);
   const url=`https://site.api.espn.com/apis/site/v2/sports/soccer/${slug}/scoreboard?dates=${SEASON_START}-${ymd(end)}&limit=1000`;
   const r=await fetch(url,{cache:"no-store"});
-  if(!r.ok) throw new Error("statut "+r.status);
+  if(!r.ok) throw new Error("status "+r.status);
   const j=await r.json();
   const out=[],live=[];
   for(const ev of j.events||[]){
@@ -588,11 +589,11 @@ function sortTable(t,col,dir){
     if(v===undefined||v==="")return null; const n=Number(v); return isNaN(n)?v:n;};
   rows.sort((a,b)=>{const x=val(a),y=val(b);
     if(x===null&&y===null)return 0; if(x===null)return 1; if(y===null)return -1;
-    const c=(typeof x==="number"&&typeof y==="number")?x-y:String(x).localeCompare(String(y),"fr");
+    const c=(typeof x==="number"&&typeof y==="number")?x-y:String(x).localeCompare(String(y),"en");
     return dir==="ascending"?c:-c;});
   rows.forEach(r=>body.appendChild(r));}
 function sortable(sel,defCol,defDir){const t=el(sel);t._def=[defCol,defDir];
-  [...t.tHead.rows[0].cells].forEach((th,i)=>{th.tabIndex=0;th.setAttribute("role","button");th.title="Trier";});
+  [...t.tHead.rows[0].cells].forEach((th,i)=>{th.tabIndex=0;th.setAttribute("role","button");th.title="Sort";});
   t.tHead.addEventListener("click",e=>{const th=e.target.closest("th");if(th)sortTable(t,th.cellIndex);});
   t.tHead.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;
     const th=e.target.closest("th");if(th){e.preventDefault();sortTable(t,th.cellIndex);}});}
@@ -601,21 +602,21 @@ function resort(sel){const t=el(sel),ths=[...t.tHead.rows[0].cells];
   if(i>=0)sortTable(t,i,ths[i].getAttribute("aria-sort")); else sortTable(t,t._def[0],t._def[1]);}
 
 /* ---------- kpi ---------- */
-const METRICS=[["ggp","GG"],["ngp","NG"],["o05","+0,5"],["u05","−0,5"],["o15","+1,5"],["u15","−1,5"],
- ["o25","+2,5"],["u25","−2,5"],["o35","+3,5"],["u35","−3,5"],["hw","Victoire à domicile"],["dr","Match nul"],
- ["aw","Victoire à l\u2019extérieur"],["avg","Buts par match"]];
+const METRICS=[["ggp","BTTS"],["ngp","No BTTS"],["o05","+0.5"],["u05","−0.5"],["o15","+1.5"],["u15","−1.5"],
+ ["o25","+2.5"],["u25","−2.5"],["o35","+3.5"],["u35","−3.5"],["hw","Home win"],["dr","Draw"],
+ ["aw","Away win"],["avg","Goals per match"]];
 const colour=k=>k==="avg"?"var(--amber)":/^o\d/.test(k)?"var(--amber)":/^u\d/.test(k)?"var(--blue)":
   k==="ggp"?"var(--mint)":k==="ngp"?"var(--dim)":k==="hw"?"var(--rose)":k==="dr"?"var(--dim)":"var(--blue)";
 const PAIRS=[
-  ["0,5 but",  "o05","+0,5","u05","−0,5","Le côté « −0,5 » est exactement le taux de 0‑0."],
-  ["1,5 but",  "o15","+1,5","u15","−1,5",""],
-  ["2,5 buts", "o25","+2,5","u25","−2,5",""],
-  ["3,5 buts", "o35","+3,5","u35","−3,5",""]];
+  ["0.5 goals",  "o05","+0.5","u05","−0.5","The −0.5 side is exactly the 0‑0 rate."],
+  ["1.5 goals",  "o15","+1.5","u15","−1.5",""],
+  ["2.5 goals", "o25","+2.5","u25","−2.5",""],
+  ["3.5 goals", "o35","+3.5","u35","−3.5",""]];
 function delta(k){ if(!prev||prev[k]===null||prev[k]===undefined||isNaN(prev[k]))return "";
-  const d=S[k]-prev[k]; return (d>=0?"+":"−")+fr(Math.abs(d),k==="avg"?2:1)+(k==="avg"?"":" pt")+" vs "+PREVLAB; }
-const CPAIR={o05:["u05","−0,5"],u05:["o05","+0,5"],o15:["u15","−1,5"],u15:["o15","+1,5"],
- o25:["u25","−2,5"],u25:["o25","+2,5"],o35:["u35","−3,5"],u35:["o35","+3,5"],
- ggp:["ngp","NG"],ngp:["ggp","GG"]};
+  const d=S[k]-prev[k]; return (d>=0?"+":"−")+fr(Math.abs(d),k==="avg"?2:1)+(k==="avg"?"":" pp")+" vs "+PREVLAB; }
+const CPAIR={o05:["u05","−0.5"],u05:["o05","+0.5"],o15:["u15","−1.5"],u15:["o15","+1.5"],
+ o25:["u25","−2.5"],u25:["o25","+2.5"],o35:["u35","−3.5"],u35:["o35","+3.5"],
+ ggp:["ngp","No BTTS"],ngp:["ggp","BTTS"]};
 function endBtn(k,lab,right){
   return `<button class="end${right?" r":""}" data-k="${k}" aria-pressed="${k===metric}">
     ${lab}<b style="color:${colour(k)}">${fr(S[k])} %</b><em>${delta(k)}</em></button>`;}
@@ -627,24 +628,24 @@ function pairRow(lab,ka,la,kb,lb,note){
 function tiles(){
   const d=delta("avg");
   let s=`<div class="grp">
-    <div class="grpH"><h3>Volume de buts</h3><span>part des matchs au-dessus et en dessous du seuil</span></div>
+    <div class="grpH"><h3>Goal volume</h3><span>share of matches above and below the line</span></div>
     <button class="hero" data-k="avg" aria-pressed="${metric==="avg"}">
       <span class="n">${fr(S.avg,2)}</span>
-      <span class="t">buts par match<em>${S.goals} buts en ${S.n} matchs${d?" · "+d:""}</em></span></button>
+      <span class="t">goals per match<em>${S.goals} goals in ${S.n} matches${d?" · "+d:""}</em></span></button>
     ${PAIRS.map(p=>pairRow(...p)).join("")}
   </div>
   <div class="grp">
-    <div class="grpH"><h3>Les deux équipes marquent</h3><span>GG et NG sont complémentaires</span></div>
-    ${pairRow("Sur l\u2019ensemble des matchs","ggp","GG","ngp","NG","")}
+    <div class="grpH"><h3>Both teams to score</h3><span>BTTS and No BTTS are complementary</span></div>
+    ${pairRow("Across all matches","ggp","BTTS","ngp","No BTTS","")}
   </div>
   <div class="grp">
-    <div class="grpH"><h3>Issue du match</h3><span>domicile, nul, extérieur</span></div>
-    <div class="pair"><div class="plab">Répartition des 1 / N / 2</div>
+    <div class="grpH"><h3>Match result</h3><span>home, draw, away</span></div>
+    <div class="pair"><div class="plab">1 / X / 2 split</div>
       <div class="pbar"><i style="width:${S.hw}%;background:var(--rose)"></i><i style="width:${S.dr}%;background:var(--dim)"></i><i style="width:${S.aw}%;background:var(--blue)"></i></div>
       <div class="pends">
-        <button class="end" data-k="hw" aria-pressed="${metric==="hw"}">1 domicile<b style="color:var(--rose)">${fr(S.hw)} %</b><em>${delta("hw")}</em></button>
-        <button class="end mid" data-k="dr" aria-pressed="${metric==="dr"}">N nul<b style="color:var(--dim)">${fr(S.dr)} %</b><em>${delta("dr")}</em></button>
-        <button class="end r" data-k="aw" aria-pressed="${metric==="aw"}">2 extérieur<b style="color:var(--blue)">${fr(S.aw)} %</b><em>${delta("aw")}</em></button>
+        <button class="end" data-k="hw" aria-pressed="${metric==="hw"}">1 home<b style="color:var(--rose)">${fr(S.hw)} %</b><em>${delta("hw")}</em></button>
+        <button class="end mid" data-k="dr" aria-pressed="${metric==="dr"}">X draw<b style="color:var(--dim)">${fr(S.dr)} %</b><em>${delta("dr")}</em></button>
+        <button class="end r" data-k="aw" aria-pressed="${metric==="aw"}">2 away<b style="color:var(--blue)">${fr(S.aw)} %</b><em>${delta("aw")}</em></button>
       </div></div>
   </div>`;
   el("#rep").innerHTML=s;}
@@ -658,7 +659,7 @@ function metricStrip(){
   const val=isPct?fr(S[metric])+" %":fr(S[metric],2);
   strip.hidden=false;
   strip.innerHTML=`<span class="chip">${lab} · ${val}</span>
-    <p class="hint">Métrique tracée — touchez une autre valeur dans Repères pour changer</p>`;
+    <p class="hint">Metric plotted — tap another value in Markers to change</p>`;
 }
 function jbarTone(k){
   if(k==="avg"||/^o\d/.test(k))return "";
@@ -675,7 +676,7 @@ function chart(){
   const y=v=>pt+(h-pt-pb)*(1-Math.min(v,maxV)/maxV);
   const cLine=cssv("--line"),cDim=cssv("--dim"),cTxt=cssv("--txt"),cBand=cssv("--band");
   const step=R.length<=14?1:Math.ceil(R.length/10);
-  let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${lab} par journée">`;
+  let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${lab} by matchday">`;
   (isPct?[0,25,50,75,100]:[0,1,2,3,4,5]).forEach(t=>{if(t>maxV)return;
     s+=`<line x1="${pl}" x2="${w-pr}" y1="${y(t)}" y2="${y(t)}" stroke="${cLine}" stroke-width=".8"/>
         <text x="${pl-6}" y="${y(t)+3.5}" fill="${cDim}" font-size="9.5" text-anchor="end">${isPct?t+"%":t}</text>`;});
@@ -684,19 +685,19 @@ function chart(){
       const hi=Math.min(isPct?100:maxV,base+se),lo=Math.max(0,base-se);
       s+=`<rect x="${pl+i*bw}" y="${y(hi)}" width="${bw+0.4}" height="${Math.max(0,y(lo)-y(hi))}" fill="${cBand}" opacity=".16"/>`;});
     s+=`<line x1="${pl}" x2="${w-pr}" y1="${y(base)}" y2="${y(base)}" stroke="${cTxt}" stroke-width="1" stroke-dasharray="5 4"/>
-        <text x="${w-pr}" y="${y(base)-6}" fill="${cTxt}" font-size="10" text-anchor="end">saison ${isPct?fr(base)+" %":fr(base,2)}</text>`;}
+        <text x="${w-pr}" y="${y(base)-6}" fill="${cTxt}" font-size="10" text-anchor="end">season ${isPct?fr(base)+" %":fr(base,2)}</text>`;}
   R.forEach((r,i)=>{const v=r[metric],x=pl+i*bw;
     const barW=Math.max(2.8,bw-1);
     s+=`<rect x="${x+(bw-barW)/2}" y="${y(v)}" width="${barW}" height="${h-pb-y(v)}" fill="${colour(metric)}" opacity=".88" pointer-events="none">
-        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"s":""})</title></rect>`;
+        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"es":""})</title></rect>`;
     s+=`<rect x="${x}" y="${pt}" width="${bw}" height="${h-pt-pb}" fill="transparent" data-md="${r.md}" style="cursor:pointer">
-        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"s":""})</title></rect>`;
+        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"es":""})</title></rect>`;
     if(i%step===0||i===R.length-1)
       s+=`<text x="${x+bw/2}" y="${h-10}" fill="${cDim}" font-size="10" text-anchor="middle" font-family="Barlow Condensed,sans-serif">${r.md}</text>`;});
   if(showRoll&&R.length>=3){const pts=R.map((r,i)=>{const sl=R.slice(Math.max(0,i-4),i+1);
       return [pl+i*bw+bw/2,y(sl.reduce((a,x)=>a+x[metric],0)/sl.length)];});
     s+=`<polyline fill="none" stroke="${cssv("--rose")}" stroke-width="2" stroke-linejoin="round" points="${pts.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")}"/>`;}
-  s+=`<text x="${pl}" y="14" fill="${cTxt}" font-size="12.5" font-family="Barlow Condensed,sans-serif" font-weight="600">${lab} par journée</text></svg>`;
+  s+=`<text x="${pl}" y="14" fill="${cTxt}" font-size="12.5" font-family="Barlow Condensed,sans-serif" font-weight="600">${lab} by matchday</text></svg>`;
   el("#chart").innerHTML=s;
   el("#chart").querySelectorAll("rect[data-md]").forEach(r=>r.addEventListener("click",()=>pick(+r.dataset.md,true)));
   /* Portrait columns — visible under 620px (Stitch mobile chart) */
@@ -717,7 +718,7 @@ function chart(){
       return `<button type="button" class="jcol ${tone}" data-md="${r.md}" aria-label="${r.lab} ${isPct?fr(v)+" %":fr(v,2)}">
         <span class="jv">${isPct?fr(v):fr(v,2)}</span>
         <span class="jtrack">${bandHtml}<i style="height:${pctH}%"></i></span>
-        <span class="jl">${r.lab.replace(/^Journ[ée]e\s+/i,"J")}</span></button>`;}).join("");
+        <span class="jl">${r.lab.replace(/^Matchday\s+/i,"MD")}</span></button>`;}).join("");
     jb.onclick=e=>{const b=e.target.closest("[data-md]"); if(b)pick(+b.dataset.md,true);};
   }
   const leg=el("#chartleg"); if(leg)leg.hidden=false;
@@ -726,10 +727,10 @@ function verdict(){
   const isPct=metric!=="avg",base=S[metric],lab=METRICS.find(m=>m[0]===metric)[1];
   const out=R.filter(r=>Math.abs(r[metric]-base)>band(r.n,isPct,base)).length,exp=R.length*0.05;
   let msg;
-  const u=LABELS?"tour":"journée", up=u+"s";
-  if(R.length<6)msg=`Trop peu de ${R.length>1?up:u} pour conclure : ${R.length} joué${LABELS?"":"e"}${R.length>1?"s":""}. Revenez quand il y en aura une dizaine.`;
-  else if(out<=exp+1)msg=`<b>Rien à lire pour l'instant.</b> ${out} ${out>1?up:u} sort${out>1?"ent":""} de la bande sur ${R.length}, alors que le hasard seul en produit environ ${fr(exp)}. La moyenne de ${isPct?fr(base)+" %":fr(base,2)} reste le meilleur point de départ.`;
-  else msg=`<b>${out} ${up} sortent de la bande</b> sur ${R.length}, contre environ ${fr(exp)} attendus par hasard. Regardez si les écarts vont dans le même sens ou s'ils s'annulent.`;
+  const u=LABELS?"round":"matchday", up=u+"s";
+  if(R.length<6)msg=`Too few ${R.length>1?up:u} to conclude: ${R.length} played. Come back when there are about ten.`;
+  else if(out<=exp+1)msg=`<b>Nothing to read yet.</b> ${out} ${out>1?up:u} sit${out===1?"s":""} outside the band out of ${R.length}, while chance alone produces about ${fr(exp)}. The average of ${isPct?fr(base)+" %":fr(base,2)} remains the best starting point.`;
+  else msg=`<b>${out} ${up} sit outside the band</b> out of ${R.length}, versus about ${fr(exp)} expected by chance. Check whether the gaps go the same way or cancel out.`;
   el("#verdict").innerHTML=`${lab} · ${msg}`;}
 
 /* ---------- weeks table ---------- */
@@ -743,12 +744,12 @@ function applyCols(){const keep=new Set(COLSETS[colset]);
   fades();}
 function weeks(){
   el("#wk tbody").innerHTML=R.map(r=>{
-    const dt=new Date(r.date+"T12:00:00").toLocaleDateString("fr-FR",{day:"2-digit",month:"short"});
+    const dt=new Date(r.date+"T12:00:00").toLocaleDateString("en-GB",{day:"2-digit",month:"short"});
     const c=[[r.n,r.n],[r.goals,r.goals],[r.avg,fr(r.avg,2)],[r.ggp,fr(r.ggp)],[r.ngp,fr(r.ngp)],
       [r.o05,fr(r.o05)],[r.u05,fr(r.u05)],[r.o15,fr(r.o15)],[r.u15,fr(r.u15)],[r.o25,fr(r.o25)],
       [r.u25,fr(r.u25)],[r.o35,fr(r.o35)],[r.u35,fr(r.u35)],[r.hw,fr(r.hw)],[r.dr,fr(r.dr)],
       [r.aw,fr(r.aw)],[r.nil,fr(r.nil)]];
-    return `<tr class="tap" data-md="${r.md}"><td class="l sticky j" data-v="${r.md}">${r.lab}${r.full?"":'<span class="wip" title="tour incomplet">•</span>'}</td><td class="l thin" data-v="${r.date}">${dt}</td>`+
+    return `<tr class="tap" data-md="${r.md}"><td class="l sticky j" data-v="${r.md}">${r.lab}${r.full?"":'<span class="wip" title="incomplete round">•</span>'}</td><td class="l thin" data-v="${r.date}">${dt}</td>`+
       c.map(v=>`<td data-v="${v[0]===null?"":v[0]}">${v[1]}</td>`).join("")+"</tr>";}).join("");
   el("#wk tbody").onclick=e=>{const tr=e.target.closest("tr"); if(tr)pick(+tr.dataset.md,true);};
   resort("#wk"); applyCols(); weekSummary();}
@@ -757,15 +758,15 @@ function weekSummary(){
   if(!box||!R.length){if(box)box.innerHTML="";return;}
   const r=R[R.length-1];
   const late=minuteStats(r.games);
-  box.innerHTML=`<div class="kcell" style="margin-bottom:8px"><span>${LABELS?r.lab:"Journée "+r.md}${r.full?"":" · en cours"}</span>
-    <b style="font-size:18px">${r.n} match${r.n>1?"s":""} · ${fr(r.avg,2)} buts/match</b></div>
+  box.innerHTML=`<div class="kcell" style="margin-bottom:8px"><span>${LABELS?r.lab:"Matchday "+r.md}${r.full?"":" · in progress"}</span>
+    <b style="font-size:18px">${r.n} match${r.n>1?"es":""} · ${fr(r.avg,2)} goals/match</b></div>
     <div class="kgrid">
-      <div class="kcell"><span>Moy. buts</span><b>${fr(r.avg,2)}</b></div>
-      <div class="kcell"><span>GG %</span><b>${fr(r.ggp)}</b></div>
-      <div class="kcell"><span>−2,5 %</span><b>${fr(r.u25)}</b></div>
-      <div class="kcell"><span>Buts 70ᵉ+</span><b>${late?fr(late.latePct):"—"}</b></div>
+      <div class="kcell"><span>Avg goals</span><b>${fr(r.avg,2)}</b></div>
+      <div class="kcell"><span>BTTS %</span><b>${fr(r.ggp)}</b></div>
+      <div class="kcell"><span>−2.5 %</span><b>${fr(r.u25)}</b></div>
+      <div class="kcell"><span>Goals 70′+</span><b>${late?fr(late.latePct):"—"}</b></div>
     </div>
-    <p class="hint">Sur mobile, le tableau 19 colonnes reste derrière « Voir le détail ». Touchez une ligne du détail pour ouvrir les matchs.</p>`;
+    <p class="hint">On mobile, the 19-column table stays behind “Show table detail”. Tap a detail row to open the matches.</p>`;
   if(tog)tog.style.display="";
   syncTableToggles();}
 function syncTableToggles(){
@@ -778,16 +779,16 @@ function syncTableToggles(){
   if(cpbox)cpbox.classList.toggle("collapsed",mobile&&!cpOpen);
   if(wkd)wkd.setAttribute("aria-pressed",String(wkOpen));
   if(cpd)cpd.setAttribute("aria-pressed",String(cpOpen));
-  if(wkd)wkd.textContent=wkOpen?"Masquer le tableau":"Voir le détail du tableau";
-  if(cpd)cpd.textContent=cpOpen?"Masquer le tableau":"Voir le détail du tableau";
+  if(wkd)wkd.textContent=wkOpen?"Hide table":"Show table detail";
+  if(cpd)cpd.textContent=cpOpen?"Hide table":"Show table detail";
 }
 function pick(md,scroll){
   const r=R.find(x=>x.md===md); if(!r)return;
   all("#wk tbody tr").forEach(tr=>tr.classList.toggle("sel",+tr.dataset.md===md));
-  const dt=new Date(r.date+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+  const dt=new Date(r.date+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
   const p=el("#panel");
-  p.innerHTML=`<h3>${LABELS?r.lab:"Journée "+md}</h3>
-    <p class="sub" style="margin:2px 0 0">à partir du ${dt} — ${r.goals} buts en ${r.n} match${r.n>1?"s":""}${r.full?"":` sur ${r.exp}, <b class="wip">encore en cours</b>`} (${fr(r.avg,2)} par match) · GG ${fr(r.ggp)} % · +2,5 ${fr(r.o25)} %</p>
+  p.innerHTML=`<h3>${LABELS?r.lab:"Matchday "+md}</h3>
+    <p class="sub" style="margin:2px 0 0">from ${dt} — ${r.goals} goals in ${r.n} match${r.n>1?"es":""}${r.full?"":` of ${r.exp}, <b class="wip">still in progress</b>`} (${fr(r.avg,2)} per match) · BTTS ${fr(r.ggp)} % · +2.5 ${fr(r.o25)} %</p>
     <div class="games">${r.games.map(m=>`<div class="g ${m.hg>0&&m.ag>0?"gg":"ng"}"><span>${shorten(m.h)}</span><span class="sc">${m.hg}‑${m.ag}</span><span class="aw">${shorten(m.a)}</span></div>`).join("")}</div>`;
   if(scroll){see(p,{block:"nearest"}); p.classList.add("flash"); setTimeout(()=>p.classList.remove("flash"),900);}}
 
@@ -805,7 +806,7 @@ function group(keyFn,tbl,order){
   resort(tbl);}
 function slotOf(m){if(!m.time)return null;
   const t=+m.time.slice(0,2)*60 + +m.time.slice(3,5);
-  if(t<17*60)return "avant 17h"; if(t<19*60)return "17h–18h59"; if(t<20*60+45)return "19h–20h44"; return "20h45 et plus";}
+  if(t<17*60)return "Before 5pm"; if(t<19*60)return "5pm–6:59pm"; if(t<20*60+45)return "7pm–8:44pm"; return "8:45pm+";}
 
 /* ---------- teams ---------- */
 function teams(){
@@ -829,21 +830,21 @@ function teams(){
     return `<td data-v="${v}"${cl}>${txt}</td>`;};
   const body=rows.map(r=>{
     let c=r.cur,delta=false,tag="";
-    if(teamView==="prev"){ if(r.prev)c=r.prev; else {c=nul;tag=' <span class="thin">nouveau</span>';} }
+    if(teamView==="prev"){ if(r.prev)c=r.prev; else {c=nul;tag=' <span class="thin">new</span>';} }
     else if(teamView==="diff"){ delta=true;
       if(r.prev)c=[null,null,null,null,...[4,5,6,7,8,9].map(i=>r.cur[i]-r.prev[i])];
-      else {c=nul;tag=' <span class="thin">nouveau</span>';} }
+      else {c=nul;tag=' <span class="thin">new</span>';} }
     return `<tr><td class="l sticky" data-v="${r.t}">${r.t}${tag}</td>`+c.map((v,i)=>cell(v,i,delta)).join("")+"</tr>";});
   if(teamView!=="cur")for(const k of Object.keys(hist).filter(k=>k!=="__names"&&!seen.has(k))){
     const c=teamView==="prev"?hist[k]:nul, nm=shorten(hist.__names[k]||k);
-    body.push(`<tr style="opacity:.55"><td class="l sticky" data-v="${nm}">${nm} <span class="thin">parti</span></td>`+
+    body.push(`<tr style="opacity:.55"><td class="l sticky" data-v="${nm}">${nm} <span class="thin">left</span></td>`+
       c.map((v,i)=>cell(v,i,false)).join("")+"</tr>");}
   el("#tm tbody").innerHTML=body.join("");
   el("#tmnote").textContent = teamView==="cur"
-    ? "Matchs déjà joués cette saison, les deux équipes confondues dans la rencontre."
+    ? "Matches already played this season, both teams counted in each fixture."
     : teamView==="prev"
-    ? "Bilan complet de 2025/26. Les promus n'ont pas de ligne chiffrée, les relégués restent visibles en grisé."
-    : "Écart en points de pourcentage entre la saison en cours et 2025/26, hausse en ambre et baisse en bleu. Sur si peu de matchs joués, c'est surtout du bruit.";
+    ? "Full 2025/26 record. Promoted sides have no numbers yet; relegated sides stay visible in grey."
+    : "Percentage-point gap between the current season and 2025/26 — up in amber, down in blue. With so few matches played, this is mostly noise.";
   resort("#tm"); filterTeams();}
 function filterTeams(){
   const q=el("#q").value.trim().toLowerCase();
@@ -851,7 +852,7 @@ function filterTeams(){
   all("#tm tbody tr").forEach(tr=>{total++;
     const ok=!q||tr.cells[0].textContent.toLowerCase().includes(q);
     tr.style.display=ok?"":"none"; if(ok)shown++;});
-  el("#qhint").textContent=q?`${shown} club${shown>1?"s":""} sur ${total}.`:"";}
+  el("#qhint").textContent=q?`${shown} club${shown>1?"s":""} of ${total}.`:"";}
 
 
 
@@ -869,16 +870,16 @@ function minuteStats(ms){
 function minutes(){
   const st=minuteStats(M);
   if(!st){
-    el("#minnote").textContent="Les minutes de but ne sont pas dans les données actuellement chargées. Elles arrivent avec le flux ESPN quand il les fournit ; la copie embarquée ne les contient pas.";
+    el("#minnote").textContent="Goal minutes are not in the data currently loaded. They arrive with the ESPN feed when it provides them; the embedded copy does not include them.";
     el("#minbars").innerHTML=""; return;}
   const late=st.latePct, early=100-late;
   const lateN=Math.round(st.goals*late/100), earlyN=st.goals-lateN;
   const r=52, circ=2*Math.PI*r, sw=12;
   const lateLen=circ*late/100, earlyLen=circ-lateLen;
-  const hints=["Ouverture","Installation","Fin 1ʳᵉ MT","Reprise","Amorce live","Pic 70ᵉ+"];
-  el("#minnote").textContent=`Répartition des ${st.goals} buts dont la minute est connue, sur ${st.n} match${st.n>1?"s":""}.`;
+  const hints=["Opening","Settling in","End of 1st half","Restart","Live window","70′+ peak"];
+  el("#minnote").textContent=`Breakdown of ${st.goals} goals with a known minute, across ${st.n} match${st.n>1?"es":""}.`;
   el("#minbars").innerHTML=`<div class="mdonut">
-    <div class="mring" role="img" aria-label="${fr(late)} % des buts dès la 70ᵉ">
+    <div class="mring" role="img" aria-label="${fr(late)} % of goals from the 70th onward">
       <svg viewBox="0 0 140 140">
         <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--surf2)" stroke-width="${sw}"/>
         <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--blue)" stroke-width="${sw}"
@@ -888,18 +889,18 @@ function minutes(){
           stroke-dasharray="${lateLen.toFixed(2)} ${circ.toFixed(2)}" stroke-dashoffset="${(-earlyLen).toFixed(2)}"
           transform="rotate(-90 70 70)" stroke-linecap="butt"/>
       </svg>
-      <div class="hub"><span class="lab">Zone critique</span><b>${fr(late)} %</b><em>70ᵉ+</em></div>
+      <div class="hub"><span class="lab">Critical zone</span><b>${fr(late)} %</b><em>70′+</em></div>
     </div>
     <div class="msum">
-      <div class="cell"><span>Avant la 70ᵉ</span><span class="n">${earlyN} but${earlyN>1?"s":""}</span><b>${fr(early)} %</b></div>
-      <div class="cell late"><span>Dès la 70ᵉ</span><span class="n">${lateN} but${lateN>1?"s":""}</span><b>${fr(late)} %</b></div>
+      <div class="cell"><span>Before the 70th</span><span class="n">${earlyN} goal${earlyN>1?"s":""}</span><b>${fr(early)} %</b></div>
+      <div class="cell late"><span>From the 70th</span><span class="n">${lateN} goal${lateN>1?"s":""}</span><b>${fr(late)} %</b></div>
     </div>
   </div>
   <div class="mlegs">${BUCKETS.map(([a,,lab],i)=>{
     const p=100*st.counts[i]/st.goals, lateB=a>=60;
     return `<div class="mleg${lateB?" latebucket":""}"><span class="mlab">${lab}</span>
       <span class="mhint">${hints[i]}</span><span class="mval">${fr(p)} %</span></div>`;}).join("")}</div>
-  <div class="mlate">À partir de la 70ᵉ minute : <b>${fr(st.latePct)} %</b> des buts, soit ${fr(st.latePerMatch,2)} but par match sur les vingt dernières minutes. Probabilité qu\u2019il en tombe au moins un : <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> si les buts arrivent au hasard.</div>`;
+  <div class="mlate">From the 70th minute: <b>${fr(st.latePct)} %</b> of goals, or ${fr(st.latePerMatch,2)} goals per match in the last twenty minutes. Chance of at least one: <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> if goals arrive at random.</div>`;
 }
 
 
@@ -912,14 +913,14 @@ function enDirect(){
     return;}
   sec.hidden=false; nav.hidden=false; if(bnav)bnav.hidden=false;
   const sea=S||(M.length?season(M):null);
-  el("#livenote").textContent=LIVEMATCHS.length+" rencontre"+(LIVEMATCHS.length>1?"s":"")+" en cours. Score actualisé chaque minute ; ces matchs n\u2019entrent pas dans les statistiques tant qu\u2019ils ne sont pas terminés. Touchez une ligne −N,5 pour la comparer au taux de la saison.";
+  el("#livenote").textContent=LIVEMATCHS.length+" match"+(LIVEMATCHS.length>1?"es":"")+" in progress. Score updates every minute; these matches do not enter the stats until they finish. Tap a −N.5 line to compare it with the season rate.";
   el("#livelist").innerHTML=LIVEMATCHS.map(function(m,i){
     const tot=(+m.hg||0)+(+m.ag||0), min=parseMinute(m), late=min!==null&&min>=70;
-    const clock=m.clock||m.periode||"en cours";
+    const clock=m.clock||m.periode||"live";
     const key=underKey(liveLine);
     const rate=sea&&sea[key]!=null?fr(sea[key]):"—";
     const chips=UNDER_LINES.map(function(line){
-      const lab="−"+String(line).replace(".",",");
+      const lab="−"+String(line);
       return '<button type="button" data-i="'+i+'" data-line="'+line+'" aria-pressed="'+String(line===liveLine)+'">'+lab+'</button>';
     }).join("");
     return '<div class="lv'+(late?" late":"")+'"><div class="row"><span>'+shorten(m.h)+'</span>'
@@ -927,9 +928,9 @@ function enDirect(){
       +'<span class="aw">'+shorten(m.a)+'</span>'
       +'<span class="mn pulse">'+clock+'</span></div>'
       +'<div class="meta"><span>Total <b>'+tot+'</b> but'+(tot>1?"s":"")+'</span>'
-      +(late?'<span>Fenêtre 70ᵉ+</span>':'')
+      +(late?'<span>70′+ window</span>':'')
       +'</div><div class="und">'+chips+'</div>'
-      +'<div class="rate">Saison −'+String(liveLine).replace(".",",")+' : <b>'+rate+' %</b></div></div>';
+      +'<div class="rate">Season −'+String(liveLine)+' : <b>'+rate+' %</b></div></div>';
   }).join("");
   el("#livelist").onclick=function(e){
     const b=e.target.closest("button[data-line]"); if(!b)return;
@@ -942,12 +943,12 @@ function enDirect(){
 
 /* ---------- comparaison des compétitions ---------- */
 let cmpSide="over";
-const CKPI_OVER=[["avg","Buts par match","Moyenne"],["ggp","GG, les deux équipes marquent","GG"],
- ["o05","+0,5 but","+0,5"],["o15","+1,5 but","+1,5"],["o25","+2,5 buts","+2,5"],["o35","+3,5 buts","+3,5"],
- ["hw","Victoire à domicile","Victoire dom."],["dr","Match nul","Nul"],["aw","Victoire à l\u2019extérieur","Victoire ext."]];
-const CKPI_UNDER=[["avg","Buts par match","Moyenne"],["ngp","NG, au moins une équipe ne marque pas","NG"],
- ["u05","−0,5 but, soit le taux de 0‑0","−0,5"],["u15","−1,5 but","−1,5"],["u25","−2,5 buts","−2,5"],["u35","−3,5 buts","−3,5"],
- ["hw","Victoire à domicile","Victoire dom."],["dr","Match nul","Nul"],["aw","Victoire à l\u2019extérieur","Victoire ext."]];
+const CKPI_OVER=[["avg","Goals per match","Average"],["ggp","BTTS, both teams to score","BTTS"],
+ ["o05","+0.5 goals","+0.5"],["o15","+1.5 goals","+1.5"],["o25","+2.5 goals","+2.5"],["o35","+3.5 goals","+3.5"],
+ ["hw","Home win","Home win"],["dr","Draw","Draw"],["aw","Away win","Away win"]];
+const CKPI_UNDER=[["avg","Goals per match","Average"],["ngp","No BTTS, at least one team fails to score","No BTTS"],
+ ["u05","−0.5 goals, i.e. the 0‑0 rate","−0.5"],["u15","−1.5 goals","−1.5"],["u25","−2.5 goals","−2.5"],["u35","−3.5 goals","−3.5"],
+ ["hw","Home win","Home win"],["dr","Draw","Draw"],["aw","Away win","Away win"]];
 const ckpi=()=>cmpSide==="over"?CKPI_OVER:CKPI_UNDER;
 let ALL=null;
 const LIVE={},LIVENAME={};
@@ -962,11 +963,11 @@ function allSeasons(){
   return ALL;}
 function compare(){
   const L=allSeasons(),cur=lgSel.value,CKPI=ckpi(),un=cmpSide==="under";
-  el("#hGG").textContent=un?"NG":"GG";
-  ["05","15","25","35"].forEach(k=>el("#h"+k).textContent=(un?"−":"+")+k[0]+",5");
+  el("#hGG").textContent=un?"No BTTS":"BTTS";
+  ["05","15","25","35"].forEach(k=>el("#h"+k).textContent=(un?"−":"+")+k[0]+".5");
   el("#cmphint").textContent=un
-    ? "Les deux faces d'un seuil sont complémentaires : le championnat le plus haut en −2,5 est aussi le plus bas en +2,5."
-    : "Basculez pour lire les mêmes seuils par en dessous.";
+    ? "The two sides of a line are complementary: the league highest on −2.5 is also the lowest on +2.5."
+    : "Switch to read the same lines from below.";
   const fmt=(k,v)=>k==="avg"?fr(v,2):fr(v)+" %";
   el("#cmp").innerHTML=CKPI.map(([k,lab,shortLab])=>{
     const vals=L.map(x=>({...x,v:x.S[k]}));
@@ -982,7 +983,7 @@ function compare(){
       const pos=((x.v-lo)/span)*100;
       const cls=x.code===cur?"on":(x.v===lo?"lo":(x.v===hi?"hi":""));
       return `<button class="dot ${cls}" style="left:${pos}%" data-go="${x.code}"
-        title="${x.name} — ${fmt(k,x.v)} (${x.S.n} matchs)" aria-label="${x.name} ${fmt(k,x.v)}"></button>`;}).join("");
+        title="${x.name} — ${fmt(k,x.v)} (${x.S.n} matches)" aria-label="${x.name} ${fmt(k,x.v)}"></button>`;}).join("");
     return `<div class="crow"><div class="ckpi">${lab}</div>
       <div class="ctrack"><div class="ln"></div>${dots}</div>
       <div class="ccur">${curX?`<b>${curX.name}</b> · ${fmt(k,curX.v)}`:"—"}</div>
@@ -1009,12 +1010,12 @@ function compare(){
     const gg=un?me.S.ngp:me.S.ggp;
     const u=me.S.u25, late=me.MIN?fr(me.MIN.latePct):"—";
     sum.innerHTML=`<div class="kcell" style="margin-bottom:8px"><span>${me.name}</span>
-      <b style="font-size:18px">${me.S.n} matchs · ${fr(me.S.avg,2)} buts/match</b></div>
+      <b style="font-size:18px">${me.S.n} matches · ${fr(me.S.avg,2)} goals/match</b></div>
       <div class="kgrid">
-        <div class="kcell"><span>${un?"NG %":"GG %"}</span><b>${fr(gg)}</b></div>
-        <div class="kcell"><span>−2,5 %</span><b>${fr(u)}</b></div>
-        <div class="kcell"><span>Moyenne</span><b>${fr(me.S.avg,2)}</b></div>
-        <div class="kcell"><span>Buts 70ᵉ+</span><b>${late}</b></div>
+        <div class="kcell"><span>${un?"No BTTS %":"BTTS %"}</span><b>${fr(gg)}</b></div>
+        <div class="kcell"><span>−2.5 %</span><b>${fr(u)}</b></div>
+        <div class="kcell"><span>Average</span><b>${fr(me.S.avg,2)}</b></div>
+        <div class="kcell"><span>Goals 70′+</span><b>${late}</b></div>
       </div>`;}
   syncTableToggles();}
 function setBottomTab(tab){
@@ -1054,14 +1055,14 @@ function render(name,total){
   const last=M.reduce((a,m)=>m.date>a?m.date:a,M[0].date);
   const note=(SNAP[lgSel.value]||{}).seasonNote;
   const part=R.filter(r=>!r.full);
-  el("#cover").textContent=`${M.length} matchs joués sur ${total} — ${R.length} ${(LABELS?"tour":"journée")+(R.length>1?"s":"")}. Dernière rencontre le ${new Date(last+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})}.`+(part.length?(()=>{const p1=part.length===1,e=LABELS?"":"e",s=p1?"":"s";
-    const head=LABELS?(p1?"Le tour":"Les tours"):(p1?"La journée":"Les journées");
+  el("#cover").textContent=`${M.length} matches played of ${total} — ${R.length} ${(LABELS?"round":"matchday")+(R.length>1?"s":"")}. Last match on ${new Date(last+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}.`+(part.length?(()=>{const p1=part.length===1;
+    const head=LABELS?(p1?"Round":"Rounds"):(p1?"Matchday":"Matchdays");
     const names=part.map(r=>LABELS?r.lab:r.md).join(", ");
-    return ` ${head} ${names} ${p1?"n'est":"ne sont"} pas terminé${e}${s} : marqué${e}${s} d'un point dans le tableau.`;})():"")+(note?" "+note:"");
+    return ` ${head} ${names} ${p1?"is":"are"} not finished yet — marked with a dot in the table.`;})():"")+(note?" "+note:"");
   tiles(); chart(); verdict(); weeks(); pick(R[R.length-1].md,false);
   group(m=>JOURS[(new Date(m.date+"T12:00:00").getDay()+6)%7],"#dow",JOURS);
-  el("#slotnote").textContent=`Heure connue pour ${M.filter(m=>m.time).length} des ${M.length} matchs joués.`;
-  group(slotOf,"#slot",["avant 17h","17h–18h59","19h–20h44","20h45 et plus"]);
+  el("#slotnote").textContent=`Kick-off time known for ${M.filter(m=>m.time).length} of ${M.length} matches played.`;
+  group(slotOf,"#slot",["Before 5pm","5pm–6:59pm","7pm–8:44pm","8:45pm+"]);
   teams(); minutes(); compare(); fades(); syncTableToggles(); all("section").forEach(s=>io.observe(s));}
 function fromSnap(code){const s=SNAP[code]; if(!s)return null;
   return {name:s.name,total:s.total,prev:s.prev,
@@ -1082,65 +1083,65 @@ function load(){
     const cached=LIVE[lgSel.value];
     if(cached&&cached.length){show(LIVENAME[lgSel.value]||lgSel.value,cached.length,cached,null,"ESPN");return;}
     el("#main").hidden=true;el("#state").hidden=false;
-    el("#state").innerHTML=((SNAP[lgSel.value]||{}).emptyNote?"<b>Aucun match terminé pour l\u2019instant.</b> "+SNAP[lgSel.value].emptyNote+" ":"<b>Pas de copie embarquée pour cette compétition.</b> ")+"Interrogation d\u2019ESPN…";
+    el("#state").innerHTML=((SNAP[lgSel.value]||{}).emptyNote?"<b>No completed matches yet.</b> "+SNAP[lgSel.value].emptyNote+" ":"<b>No embedded copy for this competition.</b> ")+"Querying ESPN…";
     refresh(); return;}
-  show(snap.name,snap.total,snap.ms,snap.prev,"copie ESPN du "+new Date(SNAP._date+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"short"}));
+  show(snap.name,snap.total,snap.ms,snap.prev,"ESPN copy from "+new Date(SNAP._date+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"}));
   autoRefresh(lgSel.value);}
 let autoDone={};
 async function autoRefresh(code){
   if(autoDone[code])return;          // une seule tentative par championnat et par session
   autoDone[code]=true;
-  el("#msg").textContent="Recherche de résultats plus récents…";
+  el("#msg").textContent="Looking for newer results…";
   try{
     const {name,ms,live}=await fetchEspn(code);
     LIVEMATCHS=live||[]; enDirect();
-    if(!ms.length)throw new Error("rien");
+    if(!ms.length)throw new Error("empty");
     if(code!==lgSel.value)return;    // l'utilisateur a changé de compétition entre-temps
     const base=fromSnap(code);
     const d=base?diffReport(base.ms,ms):null;
     const newMins=ms.some(m=>m.mins&&m.mins.length)&&!M.some(m=>m.mins&&m.mins.length);
     if(d&&!d.added&&!d.changed.length&&!newMins){
-      el("#msg").textContent="À jour : ESPN ne renvoie rien de plus que la copie embarquée.";
+      el("#msg").textContent="Up to date: ESPN returns nothing beyond the embedded copy.";
       return;}
     const cfg=SNAP[code]||{};
-    show(name,cfg.total||ms.length,ms,cfg.prev||null,"ESPN en direct, "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}));
+    show(name,cfg.total||ms.length,ms,cfg.prev||null,"ESPN live, "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}));
     const bits=[];
-    if(d&&d.added)bits.push(`${d.added} match${d.added>1?"s":""} ajouté${d.added>1?"s":""}`);
-    if(d&&d.changed.length)bits.push(`${d.changed.length} score${d.changed.length>1?"s":""} corrigé${d.changed.length>1?"s":""} : `+d.changed.slice(0,3).join(", "));
-    if(newMins)bits.push("minutes de but récupérées");
-    el("#msg").textContent="Mis à jour depuis ESPN"+(bits.length?" — "+bits.join(" · "):"")+`. ${ms.length} matchs terminés.`;
+    if(d&&d.added)bits.push(`${d.added} match${d.added>1?"es":""} added`);
+    if(d&&d.changed.length)bits.push(`${d.changed.length} score${d.changed.length>1?"s":""} corrected: `+d.changed.slice(0,3).join(", "));
+    if(newMins)bits.push("goal minutes retrieved");
+    el("#msg").textContent="Updated from ESPN"+(bits.length?" — "+bits.join(" · "):"")+`. ${ms.length} completed matches.`;
   }catch(e){
-    el("#msg").textContent="Pas d\u2019accès réseau : affichage de la copie ESPN du "+new Date(SNAP._date+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long"})+". Ouvrez le fichier dans un navigateur et ESPN prendra le relais.";
+    el("#msg").textContent="No network access: showing the ESPN copy from "+new Date(SNAP._date+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long"})+". Open the file in a browser and ESPN will take over.";
   }
 }
 async function refresh(){
   autoDone[lgSel.value]=true;
   const code=lgSel.value,btn=el("#rf"),cfg=SNAP[code]||{};
-  btn.disabled=true;btn.textContent="…";el("#msg").textContent="Interrogation d\u2019ESPN…";
+  btn.disabled=true;btn.textContent="…";el("#msg").textContent="Querying ESPN…";
   try{
     const {name,ms,live}=await fetchEspn(code);
     LIVEMATCHS=live||[]; enDirect();
-    if(!ms.length) throw new Error("aucun match terminé renvoyé");
+    if(!ms.length) throw new Error("no completed matches returned");
     const base=fromSnap(code); const d=base?diffReport(base.ms,ms):null;
     let pv=cfg.prev||null;
-    show(name,cfg.total||ms.length,ms,pv,"ESPN en direct, "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}));
-    const bits=[`${ms.length} matchs terminés`];
-    if(!d)bits.push("source ESPN en direct, pas de copie embarquée à comparer");
+    show(name,cfg.total||ms.length,ms,pv,"ESPN live, "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}));
+    const bits=[`${ms.length} completed matches`];
+    if(!d)bits.push("live ESPN source, no embedded copy to compare");
     else{
-      if(d.added)bits.push(`${d.added} de plus que la copie embarquée`);
-      if(d.changed.length)bits.push(`${d.changed.length} score${d.changed.length>1?"s":""} corrigé${d.changed.length>1?"s":""} : `+d.changed.slice(0,4).join(", "));
-      if(!d.added&&!d.changed.length)bits.push("aucune différence avec la copie embarquée");}
+      if(d.added)bits.push(`${d.added} more than the embedded copy`);
+      if(d.changed.length)bits.push(`${d.changed.length} score${d.changed.length>1?"s":""} corrected: `+d.changed.slice(0,4).join(", "));
+      if(!d.added&&!d.changed.length)bits.push("no difference from the embedded copy");}
     el("#msg").textContent=bits.join(" · ");
   }catch(e){
     if(!fromSnap(code)||!fromSnap(code).ms.length){
       el("#main").hidden=true;el("#state").hidden=false;
       const note=(SNAP[code]||{}).emptyNote;
       el("#state").innerHTML=note
-        ? `<b>Aucun match terminé pour l\u2019instant.</b> ${note} Revenez après le coup d\u2019envoi et la page se remplira toute seule.`
-        : `<b>Résultats indisponibles</b> (${e.message}). Cette compétition n\u2019a pas de copie embarquée : elle a besoin d\u2019un accès réseau. Ouvrez le fichier dans votre navigateur.`;
+        ? `<b>No completed matches yet.</b> ${note} Come back after kick-off and the page will fill itself.`
+        : `<b>Results unavailable</b> (${e.message}). This competition has no embedded copy — it needs network access. Open the file in your browser.`;
       return;}
-    el("#msg").textContent=`Mise à jour impossible (${e.message}). L\u2019affichage reste sur la copie embarquée — c\u2019est normal si la page tourne dans un cadre qui bloque le réseau ; ouvrez le fichier directement dans un navigateur.`;
-  }finally{btn.disabled=false;btn.textContent="Mettre à jour";}
+    el("#msg").textContent=`Update failed (${e.message}). Display stays on the embedded copy — normal if the page runs in a frame that blocks the network; open the file directly in a browser.`;
+  }finally{btn.disabled=false;btn.textContent="Refresh";}
 }
 
 /* ---------- wiring ---------- */
@@ -1167,3 +1168,4 @@ sortable("#wk",0,"ascending"); sortable("#dow",0,"ascending");
 sortable("#slot",0,"ascending"); sortable("#tm",2,"descending"); sortable("#cp",3,"descending");
 load();
 </script>
+</html>

@@ -1,6 +1,7 @@
+<html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Marchés de buts — suivi multi-championnats</title>
+<title>Goal markets — multi-league tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -277,33 +278,33 @@ html{scroll-behavior:smooth}
 <header class="top">
   <div class="in">
     <div class="r1">
-      <span class="brand">Marchés de buts</span>
-      <select id="lg" aria-label="Championnat"></select>
-      <button class="btn" id="rf">Mettre à jour</button>
-      <button class="btn icon" id="th" aria-label="Basculer le thème clair ou sombre" title="Thème clair / sombre">◐</button>
+      <span class="brand">Goal markets</span>
+      <select id="lg" aria-label="Competition"></select>
+      <button class="btn" id="rf">Refresh</button>
+      <button class="btn icon" id="th" aria-label="Toggle light or dark theme" title="Light / dark theme">◐</button>
       <span class="stamp" id="stamp"></span>
     </div>
     <div class="navwrap" id="navwrap"><nav id="nav">
-      <a href="#s-live" data-s="s-live" id="navlive" hidden>● En direct</a>
-      <a href="#s-rep" data-s="s-rep">Repères</a>
-      <a href="#s-jrn" data-s="s-jrn">Journées</a>
-      <a href="#s-tab" data-s="s-tab">Tableau</a>
-      <a href="#s-tps" data-s="s-tps">Horaires</a>
+      <a href="#s-live" data-s="s-live" id="navlive" hidden>● Live</a>
+      <a href="#s-rep" data-s="s-rep">Markers</a>
+      <a href="#s-jrn" data-s="s-jrn">Matchdays</a>
+      <a href="#s-tab" data-s="s-tab">Table</a>
+      <a href="#s-tps" data-s="s-tps">Kick-offs</a>
       <a href="#s-clb" data-s="s-clb">Clubs</a>
       <a href="#s-min" data-s="s-min">Minutes</a>
-      <a href="#s-cmp" data-s="s-cmp">Championnats</a>
+      <a href="#s-cmp" data-s="s-cmp">Leagues</a>
     </nav></div>
   </div>
 </header>
 <p id="msg"></p>
 
 <div class="wrap">
-<div id="state" class="state">Chargement…</div>
+<div id="state" class="state">Loading…</div>
 
 <div id="main" hidden>
 
 <section id="s-live" hidden>
-  <h2>En direct</h2>
+  <h2>Live</h2>
   <p class="sub" id="livenote"></p>
   <div id="livelist"></div>
 </section>
@@ -311,143 +312,143 @@ html{scroll-behavior:smooth}
 <section id="s-rep">
   <h2 id="ttl"></h2>
   <p class="sub" id="cover"></p>
-  <p class="lbl">Repères de la saison — touchez une valeur pour la tracer journée par journée</p>
+  <p class="lbl">Season markers — tap a value to plot it matchday by matchday</p>
   <div id="rep"></div>
 </section>
 
 <section id="s-jrn">
-  <h2>Par journée</h2>
-  <p class="sub">La bande grise est l'intervalle où une journée tombe 19 fois sur 20 si rien ne change. Elle s'élargit quand la journée compte peu de matchs. Tant que les barres restent dedans, il n'y a pas de tendance à lire.</p>
+  <h2>By matchday</h2>
+  <p class="sub">The grey band is the range where a matchday lands 19 times out of 20 if nothing has changed. It widens when the matchday has few games. While the bars stay inside it, there is no trend to read.</p>
   <div class="metstrip" id="metstrip" hidden></div>
   <div class="chartbox desk-chart" id="chart"></div>
-  <div class="jbars" id="jbars" aria-label="Valeurs par journée"></div>
+  <div class="jbars" id="jbars" aria-label="Values by matchday"></div>
   <div class="chartleg" id="chartleg" hidden>
-    <span><i class="bar"></i>Valeur par journée</span>
-    <span><i class="band"></i>Bande de hasard</span>
-    <span><i class="mean"></i>Moyenne de saison</span>
+    <span><i class="bar"></i>Value by matchday</span>
+    <span><i class="band"></i>Chance band</span>
+    <span><i class="mean"></i>Season average</span>
   </div>
   <div class="opts" id="opts">
-    <button class="opt" data-o="band" aria-pressed="true">Bande de hasard</button>
-    <button class="opt" data-o="roll" aria-pressed="false">Moyenne mobile 5</button>
+    <button class="opt" data-o="band" aria-pressed="true">Chance band</button>
+    <button class="opt" data-o="roll" aria-pressed="false">5-matchday moving average</button>
   </div>
   <div class="verdict" id="verdict"></div>
 </section>
 
 <section id="s-tab">
-  <h2>Toutes les journées</h2>
-  <p class="sub">Choisissez les colonnes utiles, triez par un en-tête, touchez une ligne pour ouvrir les matchs.</p>
+  <h2>All matchdays</h2>
+  <p class="sub">Pick useful columns, sort by a header, tap a row to open the matches.</p>
   <div class="opts scrollx" id="cols">
-    <button class="opt" data-c="ess" aria-pressed="true">Essentiel</button>
+    <button class="opt" data-c="ess" aria-pressed="true">Essentials</button>
     <button class="opt" data-c="ou" aria-pressed="false">Over / Under</button>
-    <button class="opt" data-c="res" aria-pressed="false">GG &amp; résultats</button>
-    <button class="opt" data-c="all" aria-pressed="false">Tout</button>
+    <button class="opt" data-c="res" aria-pressed="false">BTTS &amp; results</button>
+    <button class="opt" data-c="all" aria-pressed="false">All</button>
   </div>
   <div class="wksum" id="wksum"></div>
   <div class="opts" id="wktog" style="display:none">
-    <button class="opt" id="wkdetail" aria-pressed="false">Voir le détail du tableau</button>
+    <button class="opt" id="wkdetail" aria-pressed="false">Show table detail</button>
   </div>
   <div class="tbox desk-only" id="wkbox"><div class="tscroll">
     <table id="wk"><thead><tr>
-      <th class="l sticky">J</th><th class="l">Date</th><th>M</th><th>Buts</th><th>Moy</th>
-      <th>GG</th><th>NG</th><th>+0,5</th><th>−0,5</th><th>+1,5</th><th>−1,5</th><th>+2,5</th><th>−2,5</th>
-      <th>+3,5</th><th>−3,5</th><th>1</th><th>N</th><th>2</th><th>0‑0</th>
+      <th class="l sticky">MD</th><th class="l">Date</th><th>M</th><th>Goals</th><th>Avg</th>
+      <th>BTTS</th><th>No</th><th>+0.5</th><th>−0.5</th><th>+1.5</th><th>−1.5</th><th>+2.5</th><th>−2.5</th>
+      <th>+3.5</th><th>−3.5</th><th>1</th><th>X</th><th>2</th><th>0‑0</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
   <div class="panel" id="panel"></div>
 </section>
 
 <section id="s-tps">
-  <h2>Par jour de match</h2>
-  <p class="sub">Chaque ligne regroupe tous les matchs joués ce jour-là dans la compétition affichée.</p>
+  <h2>By match day</h2>
+  <p class="sub">Each row groups every match played on that weekday in the competition shown.</p>
   <div class="tbox"><div class="tscroll">
     <table id="dow"><thead><tr>
-      <th class="l sticky">Jour</th><th>Matchs</th><th>Moy</th><th>GG</th><th>+1,5</th><th>+2,5</th><th>+3,5</th><th>0‑0</th><th>Dom.</th>
+      <th class="l sticky">Day</th><th>Matches</th><th>Avg</th><th>BTTS</th><th>+1.5</th><th>+2.5</th><th>+3.5</th><th>0‑0</th><th>Home</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
 
-  <h2 style="margin-top:28px">Par heure de coup d'envoi</h2>
+  <h2 style="margin-top:28px">By kick-off time</h2>
   <p class="sub" id="slotnote"></p>
   <div class="tbox"><div class="tscroll">
     <table id="slot"><thead><tr>
-      <th class="l sticky">Créneau</th><th>Matchs</th><th>Moy</th><th>GG</th><th>+1,5</th><th>+2,5</th><th>+3,5</th><th>0‑0</th><th>Dom.</th>
+      <th class="l sticky">Slot</th><th>Matches</th><th>Avg</th><th>BTTS</th><th>+1.5</th><th>+2.5</th><th>+3.5</th><th>0‑0</th><th>Home</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
 </section>
 
 <section id="s-clb">
-  <h2>Par club</h2>
+  <h2>By club</h2>
   <div class="opts" id="tmview">
-    <button class="opt" data-v="cur" aria-pressed="true">Saison en cours</button>
+    <button class="opt" data-v="cur" aria-pressed="true">Current season</button>
     <button class="opt" data-v="prev" aria-pressed="false">2025/26</button>
-    <button class="opt" data-v="diff" aria-pressed="false">Écart</button>
+    <button class="opt" data-v="diff" aria-pressed="false">Diff</button>
   </div>
   <p class="sub" id="tmnote" style="margin-top:10px"></p>
-  <input class="search" id="q" type="search" placeholder="Filtrer un club…" aria-label="Filtrer un club">
+  <input class="search" id="q" type="search" placeholder="Filter a club…" aria-label="Filter a club">
   <div class="tbox"><div class="tscroll">
     <table id="tm"><thead><tr>
-      <th class="l sticky">Club</th><th>J</th><th>Pts</th><th>BP</th><th>BC</th><th>Moy</th><th>GG</th><th>+1,5</th><th>+2,5</th><th>+3,5</th><th>Clean sheet</th>
+      <th class="l sticky">Club</th><th>P</th><th>Pts</th><th>GF</th><th>GA</th><th>Avg</th><th>BTTS</th><th>+1.5</th><th>+2.5</th><th>+3.5</th><th>Clean sheet</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
   <p class="hint" id="qhint"></p>
 </section>
 
 <section id="s-min">
-  <h2>Minutes de but</h2>
+  <h2>Goal minutes</h2>
   <p class="sub" id="minnote"></p>
   <div id="minbars"></div>
 </section>
 
 <section id="s-cmp">
-  <h2>Qui est le plus extrême</h2>
-  <p class="sub">Chaque ligne place les 8 compétitions entre leur minimum et leur maximum. Le point ambre est la compétition affichée ; touchez un point pour basculer dessus.</p>
+  <h2>Who is the most extreme</h2>
+  <p class="sub">Each row places the 8 competitions between their minimum and maximum. The amber dot is the competition shown; tap a dot to switch to it.</p>
   <div class="opts" id="cmpside">
-    <button class="opt" data-s="over" aria-pressed="true">Au-dessus du seuil</button>
-    <button class="opt" data-s="under" aria-pressed="false">En dessous du seuil</button>
+    <button class="opt" data-s="over" aria-pressed="true">Above the line</button>
+    <button class="opt" data-s="under" aria-pressed="false">Below the line</button>
   </div>
   <p class="hint" id="cmphint"></p>
   <div id="cmp"></div>
 
-  <h2 style="margin-top:30px">Toutes les compétitions</h2>
-  <p class="sub">Le maximum de chaque colonne est en ambre, le minimum en bleu. Triez par un en-tête.</p>
+  <h2 style="margin-top:30px">All competitions</h2>
+  <p class="sub">The maximum of each column is amber, the minimum blue. Sort by a header.</p>
   <div class="cpsum" id="cpsum"></div>
   <div class="opts" id="cptog" style="display:none">
-    <button class="opt" id="cpdetail" aria-pressed="false">Voir le détail du tableau</button>
+    <button class="opt" id="cpdetail" aria-pressed="false">Show table detail</button>
   </div>
   <div class="tbox desk-only" id="cpbox"><div class="tscroll">
     <table id="cp"><thead><tr>
-      <th class="l sticky">Compétition</th><th>Matchs</th><th>Moy</th><th id="hGG">GG</th>
-      <th id="h05">+0,5</th><th id="h15">+1,5</th><th id="h25">+2,5</th><th id="h35">+3,5</th><th>1</th><th>N</th><th>2</th><th>Buts 70ᵉ+</th>
+      <th class="l sticky">Competition</th><th>Matches</th><th>Avg</th><th id="hGG">BTTS</th>
+      <th id="h05">+0.5</th><th id="h15">+1.5</th><th id="h25">+2.5</th><th id="h35">+3.5</th><th>1</th><th>X</th><th>2</th><th>Goals 70′+</th>
     </tr></thead><tbody></tbody></table>
   </div></div>
-  <p class="hint">Attention aux effectifs : certaines compétitions n'ont que deux ou trois tours joués, donc leurs extrêmes bougeront beaucoup. La colonne « Matchs » donne le poids de chaque ligne.</p>
+  <p class="hint">Watch the sample sizes: some competitions have only two or three rounds played, so their extremes will swing a lot. The “Matches” column shows the weight of each row.</p>
 </section>
 
 <p class="note">
-Données : API ESPN, récupérée une fois par jour par un workflow GitHub Actions et embarquée dans ce fichier. Une copie des matchs joués est embarquée dans ce fichier pour qu'il fonctionne sans réseau ; « Mettre à jour » retélécharge la source, ce qui suppose un navigateur autorisé à sortir sur Internet. Le dépôt est tenu par des bénévoles, donc une journée peut arriver avec un jour ou deux de retard — la date de la dernière rencontre enregistrée est indiquée sous le titre.
-Seuls les matchs joués entrent dans les calculs. « GG » = les deux équipes marquent. « 1 / N / 2 » = victoire à domicile, nul, victoire à l'extérieur. Toutes les heures de coup d'envoi sont converties en heure de Paris, y compris pour l'Angleterre et le Portugal.
+Data: ESPN API, fetched once a day by a GitHub Actions workflow and embedded in this file. A copy of completed matches is embedded so the page works offline; “Refresh” re-downloads the source, which needs a browser allowed to reach the internet. The repo is run by volunteers, so a matchday can arrive a day or two late — the date of the last recorded match is shown under the title.
+Only completed matches enter the calculations. “BTTS” = both teams to score. “1 / X / 2” = home win, draw, away win. All kick-off times are converted to Paris time, including England and Portugal.
 </p>
 </div>
 </div>
 
-<nav class="bnav" id="bnav" aria-label="Navigation principale">
-  <a href="#s-live" data-tab="live" id="btnlive" hidden><span class="ico" aria-hidden="true">●</span>En direct</a>
+<nav class="bnav" id="bnav" aria-label="Main navigation">
+  <a href="#s-live" data-tab="live" id="btnlive" hidden><span class="ico" aria-hidden="true">●</span>Live</a>
   <a href="#s-rep" data-tab="stats" aria-current="true"><span class="ico" aria-hidden="true">≡</span>Stats</a>
-  <a href="#s-cmp" data-tab="cmp"><span class="ico" aria-hidden="true">⇄</span>Comparer</a>
+  <a href="#s-cmp" data-tab="cmp"><span class="ico" aria-hidden="true">⇄</span>Compare</a>
 </nav>
-<button class="totop" id="totop">Haut de page</button>
+<button class="totop" id="totop">Back to top</button>
 
 <script>
-const SNAP={"_date":"2026-09-22","_source":"ESPN","_genere":"2026-09-22T21:57:33+02:00","fr.1":{"name":"French Ligue 1","total":306,"m":[[1,"2026-08-21","20:45","Marseille","Strasbourg",4,0,[46,68,89,90]],[1,"2026-08-22","17:15","Lens","AJ Auxerre",5,2,[12,49,54,61,66,69,88]],[1,"2026-08-22","20:45","Le Mans","Brest",2,2,[31,45,55,62]],[1,"2026-08-22","20:45","Nice","Lorient",0,0,[]],[1,"2026-08-22","20:45","Toulouse","Lyon",0,2,[68,85]],[1,"2026-08-22","20:45","Troyes","Paris FC",0,0,[]],[1,"2026-08-23","15:00","Angers","Lille",0,2,[11,31]],[1,"2026-08-23","17:15","Le Havre AC","AS Monaco",0,1,[14]],[1,"2026-08-23","20:45","Stade Rennais","Paris Saint-Germain",2,2,[9,38,71,82]],[2,"2026-08-28","21:00","Lille","Paris Saint-Germain",2,2,[21,84,90,90]],[2,"2026-08-29","17:15","Strasbourg","Lens",2,1,[38,48,85]],[2,"2026-08-29","20:45","AJ Auxerre","Angers",1,3,[5,35,70,78]],[2,"2026-08-29","20:45","Brest","Toulouse",2,2,[9,18,62,90]],[2,"2026-08-29","20:45","Lorient","Troyes",1,2,[29,38,51]],[2,"2026-08-29","20:45","Lyon","Le Havre AC",1,1,[74,87]],[2,"2026-08-30","15:00","Paris FC","Nice",3,0,[21,51,89]],[2,"2026-08-30","17:15","Stade Rennais","Le Mans",3,2,[5,26,30,54,90]],[2,"2026-08-30","20:45","AS Monaco","Marseille",2,0,[13,53]],[3,"2026-09-03","20:45","Toulouse","Lille",0,1,[73]],[3,"2026-09-04","19:00","Lyon","AJ Auxerre",3,1,[28,31,42,53]],[3,"2026-09-04","21:05","Paris Saint-Germain","AS Monaco",1,2,[31,58,72]],[3,"2026-09-05","17:15","Lens","Lorient",0,1,[54]],[3,"2026-09-05","20:45","Le Havre AC","Brest",1,2,[12,51,79]],[3,"2026-09-05","20:45","Nice","Le Mans",1,1,[13,44]],[3,"2026-09-06","15:00","Troyes","Strasbourg",2,6,[9,40,42,57,85,88,90,90]],[3,"2026-09-06","17:15","Angers","Stade Rennais",1,2,[9,17,35]],[3,"2026-09-06","20:45","Marseille","Paris FC",2,3,[1,8,19,53,86]],[4,"2026-09-11","20:45","Stade Rennais","Marseille",1,0,[52]],[4,"2026-09-12","17:15","Strasbourg","AS Monaco",1,1,[52,71]],[4,"2026-09-12","20:45","AJ Auxerre","Nice",1,0,[74]],[4,"2026-09-12","20:45","Le Havre AC","Angers",0,0,[]],[4,"2026-09-12","20:45","Lorient","Toulouse",2,2,[37,39,48,68]],[4,"2026-09-12","20:45","Paris FC","Lyon",0,0,[]],[4,"2026-09-13","15:00","Lille","Troyes",2,0,[18,90]],[4,"2026-09-13","17:15","Le Mans","Lens",2,2,[32,44,45,51]],[4,"2026-09-13","20:45","Brest","Paris Saint-Germain",0,1,[5]],[5,"2026-09-18","20:45","AS Monaco","Lens",2,1,[32,57,84]],[5,"2026-09-19","17:15","Paris FC","Strasbourg",2,1,[18,57,88]],[5,"2026-09-19","20:45","Angers","Troyes",2,0,[42,57]],[5,"2026-09-19","20:45","Le Mans","Lorient",2,1,[3,57,78]],[5,"2026-09-19","20:45","Lyon","Stade Rennais",4,0,[7,30,48,76]],[5,"2026-09-19","20:45","Toulouse","Le Havre AC",3,2,[49,51,71,79,88]],[5,"2026-09-20","15:00","AJ Auxerre","Brest",2,1,[23,46,83]],[5,"2026-09-20","17:15","Nice","Lille",2,1,[22,67,79]],[5,"2026-09-20","20:45","Marseille","Paris Saint-Germain",1,2,[66,72,74]]],"prev":null,"prevTeams":{}},"en.1":{"name":"English Premier League","total":380,"m":[[1,"2026-08-21","21:00","Arsenal","Coventry City",3,0,[15,23,49]],[1,"2026-08-22","13:30","Hull City","Manchester United",2,0,[17,38]],[1,"2026-08-22","16:00","Everton","Crystal Palace",2,0,[42,53]],[1,"2026-08-22","16:00","Ipswich Town","Sunderland",2,1,[24,39,90]],[1,"2026-08-22","16:00","Nottingham Forest","Leeds United",0,1,[88]],[1,"2026-08-22","18:30","Brentford","Tottenham Hotspur",3,0,[12,33,49]],[1,"2026-08-23","15:00","Brighton & Hove Albion","Aston Villa",4,0,[8,18,30,31]],[1,"2026-08-23","15:00","Manchester City","AFC Bournemouth",2,1,[26,84,90]],[1,"2026-08-23","17:30","Newcastle United","Liverpool",2,2,[5,55,57,90]],[1,"2026-08-24","21:00","Fulham","Chelsea",2,3,[1,23,41,49,54]],[2,"2026-08-28","21:00","Crystal Palace","Manchester City",1,4,[17,54,56,59,84]],[2,"2026-08-29","13:30","Liverpool","Nottingham Forest",2,2,[24,60,70,82]],[2,"2026-08-29","16:00","AFC Bournemouth","Everton",1,1,[41,90]],[2,"2026-08-29","16:00","Coventry City","Hull City",0,1,[82]],[2,"2026-08-29","18:30","Tottenham Hotspur","Newcastle United",0,2,[62,72]],[2,"2026-08-30","15:00","Chelsea","Brighton & Hove Albion",4,3,[4,14,32,35,63,74,90]],[2,"2026-08-30","15:00","Leeds United","Brentford",1,1,[41,79]],[2,"2026-08-30","15:00","Sunderland","Fulham",1,0,[75]],[2,"2026-08-30","17:30","Manchester United","Ipswich Town",5,2,[29,40,56,61,68,82,90]],[2,"2026-08-31","21:00","Aston Villa","Arsenal",0,1,[59]],[3,"2026-09-04","21:00","Ipswich Town","Liverpool",0,2,[6,9]],[3,"2026-09-05","13:30","Newcastle United","AFC Bournemouth",2,2,[9,35,37,88]],[3,"2026-09-05","16:00","Brentford","Sunderland",1,1,[57,82]],[3,"2026-09-05","16:00","Brighton & Hove Albion","Leeds United",1,1,[15,71]],[3,"2026-09-05","16:00","Fulham","Crystal Palace",2,3,[11,35,42,54,77]],[3,"2026-09-05","16:00","Manchester City","Coventry City",1,0,[26]],[3,"2026-09-05","16:00","Nottingham Forest","Tottenham Hotspur",0,0,[]],[3,"2026-09-05","18:30","Hull City","Aston Villa",0,0,[]],[3,"2026-09-06","15:00","Everton","Manchester United",2,2,[46,83,88,90]],[3,"2026-09-06","17:30","Arsenal","Chelsea",2,1,[2,25,50]],[4,"2026-09-12","16:00","AFC Bournemouth","Brentford",2,2,[34,38,52,56]],[4,"2026-09-12","16:00","Aston Villa","Nottingham Forest",1,2,[46,74,88]],[4,"2026-09-12","16:00","Chelsea","Hull City",2,2,[7,28,34,66]],[4,"2026-09-12","16:00","Crystal Palace","Ipswich Town",2,3,[14,23,45,75,90]],[4,"2026-09-12","16:00","Liverpool","Fulham",0,0,[]],[4,"2026-09-12","18:30","Tottenham Hotspur","Everton",0,0,[]],[4,"2026-09-12","21:00","Sunderland","Arsenal",0,2,[58,90]],[4,"2026-09-13","15:00","Coventry City","Brighton & Hove Albion",0,5,[35,51,70,83,90]],[4,"2026-09-13","17:30","Manchester United","Manchester City",0,1,[60]],[4,"2026-09-14","21:00","Leeds United","Newcastle United",4,1,[32,34,45,59,90]],[5,"2026-09-18","21:00","Brentford","Chelsea",3,0,[61,83,90]],[5,"2026-09-19","13:30","Tottenham Hotspur","Aston Villa",2,3,[45,67,79,86,90]],[5,"2026-09-19","16:00","Brighton & Hove Albion","Arsenal",3,0,[31,45,57]],[5,"2026-09-19","16:00","Everton","Ipswich Town",1,0,[11]],[5,"2026-09-19","16:00","Newcastle United","Hull City",2,1,[3,7,67]],[5,"2026-09-19","18:30","Nottingham Forest","Coventry City",0,1,[55]],[5,"2026-09-20","15:00","AFC Bournemouth","Liverpool",0,1,[57]],[5,"2026-09-20","15:00","Leeds United","Crystal Palace",0,0,[]],[5,"2026-09-20","15:00","Manchester City","Sunderland",5,3,[9,12,29,33,43,57,59,81]],[5,"2026-09-20","17:30","Fulham","Manchester United",1,1,[63,89]]],"prev":null,"prevTeams":{}},"es.1":{"name":"Spanish LALIGA","total":380,"m":[[1,"2026-08-15","19:30","Alavés","Getafe",3,0,[73,90,90]],[1,"2026-08-15","21:30","Sevilla","Rayo Vallecano",2,1,[4,52,90]],[1,"2026-08-16","17:00","Racing Santander","Villarreal",2,2,[21,34,45,45]],[1,"2026-08-16","19:00","Espanyol","Levante",3,0,[5,40,80]],[1,"2026-08-17","21:00","Deportivo","Elche",1,1,[21,76]],[1,"2026-08-19","21:00","Atlético Madrid","Málaga",2,0,[70,85]],[2,"2026-08-20","21:00","Rayo Vallecano","Alavés",1,1,[48,84]],[1,"2026-08-21","21:00","Real Betis","Real Sociedad",1,0,[63]],[2,"2026-08-22","17:00","Athletic Club","Sevilla",1,3,[15,50,57,70]],[1,"2026-08-22","19:30","Valencia","Celta Vigo",0,0,[]],[2,"2026-08-22","21:30","Espanyol","Real Madrid",1,2,[9,30,90]],[2,"2026-08-23","17:00","Atlético Madrid","Villarreal",2,2,[59,66,78,85]],[2,"2026-08-23","19:30","Getafe","Racing Santander",1,0,[81]],[2,"2026-08-23","21:30","Elche","Barcelona",0,5,[14,45,67,71,79]],[2,"2026-08-24","19:30","Osasuna","Levante",0,0,[]],[2,"2026-08-24","21:30","Málaga","Deportivo",1,1,[21,34]],[2,"2026-08-25","21:00","Valencia","Real Betis",0,1,[83]],[3,"2026-08-26","21:00","Real Madrid","Real Sociedad",4,1,[40,44,60,68,80]],[3,"2026-08-27","20:30","Celta Vigo","Osasuna",1,2,[14,54,64]],[3,"2026-08-27","21:00","Barcelona","Athletic Club",2,0,[37,82]],[3,"2026-08-28","19:00","Racing Santander","Elche",3,2,[15,21,36,78,79]],[3,"2026-08-28","21:30","Alavés","Villarreal",1,0,[31]],[3,"2026-08-29","17:00","Levante","Real Betis",5,2,[24,34,45,45,56,70,90]],[4,"2026-08-29","19:00","Real Sociedad","Espanyol",2,1,[4,45,61]],[3,"2026-08-29","21:30","Sevilla","Atlético Madrid",1,3,[4,26,33,66]],[4,"2026-08-30","17:00","Real Madrid","Málaga",4,0,[19,26,30,90]],[3,"2026-08-30","19:30","Deportivo","Valencia",3,1,[13,17,26,59]],[4,"2026-08-30","21:30","Celta Vigo","Athletic Club",0,2,[20,22]],[4,"2026-08-31","19:30","Osasuna","Getafe",1,0,[45]],[4,"2026-08-31","21:30","Barcelona","Rayo Vallecano",5,2,[12,19,21,51,59,71,90]],[5,"2026-09-03","21:00","Real Sociedad","Celta Vigo",0,0,[]],[5,"2026-09-04","21:00","Real Betis","Real Madrid",1,0,[81]],[5,"2026-09-05","16:15","Athletic Club","Atlético Madrid",3,0,[46,48,90]],[5,"2026-09-05","18:30","Rayo Vallecano","Racing Santander",3,2,[4,17,28,43,47]],[4,"2026-09-05","21:00","Villarreal","Deportivo",2,3,[19,43,76,79,88]],[5,"2026-09-06","16:15","Valencia","Barcelona",0,5,[6,22,50,79,84]],[5,"2026-09-06","18:30","Alavés","Osasuna",5,2,[27,36,46,51,64,68,90]],[5,"2026-09-06","18:30","Málaga","Levante",0,0,[]],[5,"2026-09-06","21:00","Espanyol","Sevilla",1,1,[85,90]],[6,"2026-09-07","19:00","Getafe","Celta Vigo",1,1,[21,57]],[6,"2026-09-07","21:30","Elche","Real Sociedad",2,3,[11,31,67,74,90]],[6,"2026-09-11","21:00","Sevilla","Valencia",1,0,[81]],[6,"2026-09-12","14:00","Racing Santander","Alavés",2,1,[18,38,53]],[6,"2026-09-12","16:15","Osasuna","Espanyol",0,2,[3,17]],[7,"2026-09-12","18:30","Athletic Club","Elche",1,1,[50,79]],[6,"2026-09-12","21:00","Real Madrid","Rayo Vallecano",4,1,[14,17,35,51,90]],[7,"2026-09-13","14:00","Celta Vigo","Málaga",1,1,[41,83]],[6,"2026-09-13","16:15","Levante","Barcelona",2,4,[5,19,48,79,88,90]],[7,"2026-09-13","18:30","Getafe","Deportivo",1,1,[66,78]],[7,"2026-09-13","21:00","Real Sociedad","Atlético Madrid",0,3,[84,90,90]],[6,"2026-09-14","21:00","Villarreal","Real Betis",1,2,[29,39,43]],[7,"2026-09-15","19:00","Rayo Vallecano","Espanyol",2,1,[3,26,54]],[7,"2026-09-15","20:00","Alavés","Valencia",0,1,[78]],[8,"2026-09-15","21:30","Elche","Real Madrid",2,3,[25,33,71,83,90]],[8,"2026-09-16","19:00","Atlético Madrid","Osasuna",4,0,[24,54,63,82]],[8,"2026-09-16","19:00","Deportivo","Sevilla",0,1,[52]],[7,"2026-09-16","21:30","Barcelona","Racing Santander",7,2,[8,25,30,36,42,65,67,79,89]],[8,"2026-09-17","19:00","Real Betis","Getafe",1,0,[45]],[8,"2026-09-17","21:30","Málaga","Villarreal",1,3,[12,40,45,86]],[9,"2026-09-18","21:00","Espanyol","Elche",1,3,[26,29,72,78]],[9,"2026-09-19","14:00","Osasuna","Rayo Vallecano",1,1,[16,50]],[8,"2026-09-19","16:15","Athletic Club","Alavés",0,0,[]],[8,"2026-09-19","18:30","Celta Vigo","Racing Santander",5,0,[32,43,69,78,90]],[9,"2026-09-19","21:00","Sevilla","Barcelona",1,3,[19,22,52,69]],[9,"2026-09-20","14:00","Getafe","Málaga",1,0,[85]],[9,"2026-09-20","16:15","Atlético Madrid","Real Madrid",2,1,[53,59,89]],[9,"2026-09-20","18:30","Deportivo","Real Betis",1,1,[43,87]],[9,"2026-09-20","18:30","Villarreal","Levante",3,1,[41,42,54,86]],[8,"2026-09-20","21:00","Valencia","Real Sociedad",2,3,[26,57,75,84,90]]],"prev":null,"prevTeams":{}},"de.1":{"name":"German Bundesliga","total":306,"m":[[1,"2026-08-28","20:30","Bayern Munich","VfB Stuttgart",5,1,[21,52,55,57,82,90]],[1,"2026-08-29","15:30","1. FC Union Berlin","Eintracht Frankfurt",3,3,[3,10,11,67,79,90]],[1,"2026-08-29","15:30","FC Cologne","TSG Hoffenheim",3,2,[27,51,67,72,82]],[1,"2026-08-29","15:30","Mainz","SC Paderborn 07",0,0,[]],[1,"2026-08-29","15:30","RB Leipzig","Borussia Mönchengladbach",3,0,[25,49,66]],[1,"2026-08-29","15:30","SV Elversberg","Bayer Leverkusen",3,2,[8,9,46,77,90]],[1,"2026-08-29","18:30","Borussia Dortmund","Hamburg SV",2,0,[9,45]],[1,"2026-08-30","15:30","SC Freiburg","Werder Bremen",4,1,[29,45,48,55,76]],[1,"2026-08-30","17:30","FC Augsburg","Schalke 04",3,0,[18,79,90]],[2,"2026-09-04","20:30","VfB Stuttgart","FC Cologne",4,1,[39,60,75,81,90]],[2,"2026-09-05","15:30","Bayer Leverkusen","1. FC Union Berlin",4,0,[1,28,48,66]],[2,"2026-09-05","15:30","Borussia Mönchengladbach","SV Elversberg",3,4,[11,29,44,56,66,80,90]],[2,"2026-09-05","15:30","SC Paderborn 07","SC Freiburg",0,1,[26]],[2,"2026-09-05","15:30","TSG Hoffenheim","Borussia Dortmund",2,3,[45,54,61,66,86]],[2,"2026-09-05","15:30","Werder Bremen","RB Leipzig",3,1,[4,68,80,90]],[2,"2026-09-05","18:30","Schalke 04","Bayern Munich",0,0,[]],[2,"2026-09-06","15:30","Hamburg SV","Mainz",0,5,[19,41,48,83,90]],[2,"2026-09-06","17:30","Eintracht Frankfurt","FC Augsburg",1,4,[6,46,47,65,89]],[3,"2026-09-11","20:30","1. FC Union Berlin","Schalke 04",1,3,[25,46,90,90]],[3,"2026-09-12","15:30","Borussia Dortmund","SC Paderborn 07",3,0,[5,80,89]],[3,"2026-09-12","15:30","FC Augsburg","Bayer Leverkusen",2,2,[18,50,55,89]],[3,"2026-09-12","15:30","Mainz","Eintracht Frankfurt",1,3,[9,45,60,89]],[3,"2026-09-12","15:30","SC Freiburg","Borussia Mönchengladbach",5,0,[23,29,77,79,86]],[3,"2026-09-12","15:30","TSG Hoffenheim","VfB Stuttgart",2,1,[13,48,67]],[3,"2026-09-12","18:30","FC Cologne","Werder Bremen",1,1,[11,69]],[3,"2026-09-13","15:30","RB Leipzig","Hamburg SV",5,0,[17,28,72,74,77]],[3,"2026-09-13","17:30","SV Elversberg","Bayern Munich",1,2,[26,61,72]],[4,"2026-09-18","20:30","Bayern Munich","1. FC Union Berlin",7,0,[18,39,43,54,70,73,76]],[4,"2026-09-19","15:30","Borussia Mönchengladbach","Mainz",3,4,[11,18,45,59,78,89,90]],[4,"2026-09-19","15:30","Eintracht Frankfurt","SC Freiburg",2,2,[10,34,36,48]],[4,"2026-09-19","15:30","Hamburg SV","FC Cologne",2,1,[44,49,90]],[4,"2026-09-19","15:30","Werder Bremen","FC Augsburg",3,2,[18,58,66,86,90]],[4,"2026-09-19","18:30","VfB Stuttgart","Borussia Dortmund",0,1,[70]],[4,"2026-09-20","15:30","Bayer Leverkusen","RB Leipzig",2,0,[44,57]],[4,"2026-09-20","17:30","Schalke 04","SV Elversberg",0,0,[]],[4,"2026-09-20","19:30","SC Paderborn 07","TSG Hoffenheim",3,1,[29,42,50,69]]],"prev":null,"prevTeams":{}},"it.1":{"name":"Italian Serie A","total":380,"m":[[1,"2026-08-22","18:30","Internazionale","Monza",4,1,[6,29,48,55,63]],[1,"2026-08-22","18:30","Udinese","Como",1,1,[29,54]],[1,"2026-08-22","20:45","Genoa","Napoli",0,2,[82,87]],[1,"2026-08-22","20:45","Parma","Cagliari",0,1,[79]],[1,"2026-08-23","18:30","Frosinone","Juventus",0,1,[22]],[1,"2026-08-23","18:30","Venezia","Lecce",0,2,[46,80]],[1,"2026-08-23","20:45","Atalanta","Sassuolo",2,1,[6,55,65]],[1,"2026-08-23","20:45","Torino","AC Milan",1,2,[64,66,90]],[1,"2026-08-24","18:30","Bologna","Lazio",0,1,[59]],[1,"2026-08-24","20:45","AS Roma","Fiorentina",4,0,[27,52,60,86]],[2,"2026-08-28","20:45","AC Milan","Venezia",2,0,[69,89]],[2,"2026-08-29","18:30","Fiorentina","Frosinone",0,3,[26,38,68]],[2,"2026-08-29","18:30","Monza","Udinese",2,3,[32,37,45,45,63]],[2,"2026-08-29","18:30","Sassuolo","Torino",2,1,[32,45,78]],[2,"2026-08-29","20:45","Juventus","Parma",2,0,[62,88]],[2,"2026-08-30","18:30","Napoli","Como",1,2,[17,30,34]],[2,"2026-08-30","20:45","Cagliari","Internazionale",0,1,[9]],[2,"2026-08-30","20:45","Lazio","Genoa",1,0,[25]],[2,"2026-08-31","18:30","Lecce","AS Roma",0,4,[4,23,25,65]],[2,"2026-08-31","20:45","Atalanta","Bologna",1,0,[90]],[3,"2026-09-04","20:45","Genoa","Como",1,4,[19,25,30,40,78]],[3,"2026-09-05","15:00","Fiorentina","Torino",1,2,[47,74,82]],[3,"2026-09-05","18:00","Internazionale","Napoli",3,2,[50,53,56,82,90]],[3,"2026-09-05","20:45","AS Roma","Atalanta",2,1,[47,89,90]],[3,"2026-09-06","15:00","Frosinone","Venezia",3,2,[21,39,66,74,83]],[3,"2026-09-06","15:00","Parma","Monza",1,1,[38,60]],[3,"2026-09-06","18:00","Bologna","Sassuolo",2,2,[19,50,56,90]],[3,"2026-09-06","20:45","Juventus","AC Milan",1,1,[68,90]],[3,"2026-09-07","18:30","Cagliari","Lecce",1,0,[29]],[3,"2026-09-07","20:45","Udinese","Lazio",1,2,[49,75,88]],[4,"2026-09-11","20:45","Venezia","Fiorentina",2,4,[22,29,30,66,84,86]],[4,"2026-09-12","15:00","Genoa","Frosinone",1,1,[14,50]],[4,"2026-09-12","18:00","Lazio","AC Milan",2,2,[10,39,65,67]],[4,"2026-09-12","20:45","Atalanta","Cagliari",1,2,[19,41,61]],[4,"2026-09-13","15:00","Lecce","Monza",3,2,[3,10,20,21,89]],[4,"2026-09-13","18:00","Napoli","Bologna",1,0,[66]],[4,"2026-09-13","20:45","Sassuolo","Juventus",3,2,[65,82,89,90,90]],[4,"2026-09-14","18:30","Como","Parma",2,1,[23,83,90]],[4,"2026-09-14","18:30","Torino","AS Roma",0,2,[40,90]],[4,"2026-09-14","20:45","Internazionale","Udinese",5,3,[9,16,26,35,57,67,79,90]],[5,"2026-09-18","20:45","Monza","Sassuolo",2,1,[51,63,88]],[5,"2026-09-19","15:00","Bologna","Torino",1,1,[14,77]],[5,"2026-09-19","15:00","Udinese","Cagliari",0,1,[54]],[5,"2026-09-19","18:00","AS Roma","Internazionale",2,2,[6,37,46,79]],[5,"2026-09-19","20:45","Venezia","Lazio",0,2,[51,60]],[5,"2026-09-20","12:30","Fiorentina","Napoli",1,1,[23,51]],[5,"2026-09-20","15:00","Frosinone","Como",2,0,[14,45]],[5,"2026-09-20","15:00","Parma","Genoa",2,1,[38,70,80]],[5,"2026-09-20","18:00","Juventus","Atalanta",2,0,[28,77]],[5,"2026-09-20","20:45","AC Milan","Lecce",3,0,[14,61,73]]],"prev":null,"prevTeams":{}},"pt.1":{"name":"Portuguese Primeira Liga","total":306,"m":[[1,"2026-08-07","21:15","Estoril","FC Famalicao",1,1,[32,72]],[1,"2026-08-08","16:30","Maritimo","Casa Pia",1,0,[61]],[1,"2026-08-08","19:00","Vitória de Guimaraes","Arouca",0,1,[53]],[1,"2026-08-08","21:30","Estrela","Sporting CP",2,2,[46,59,72,84]],[1,"2026-08-09","19:00","FC Porto","Alverca",2,0,[9,44]],[1,"2026-08-09","21:30","Benfica","Académico de Viseu",2,2,[10,55,58,67]],[1,"2026-08-09","21:30","Gil Vicente","Rio Ave",1,0,[87]],[1,"2026-08-09","21:30","Moreirense","Braga",2,2,[7,8,66,90]],[1,"2026-08-10","21:15","Santa Clara","C.D. Nacional",2,2,[19,21,36,45]],[2,"2026-08-14","21:15","Sporting CP","Vitória de Guimaraes",3,2,[9,22,41,66,68]],[2,"2026-08-15","16:30","Alverca","Estrela",2,2,[51,58,62,69]],[2,"2026-08-15","19:00","Académico de Viseu","Santa Clara",0,1,[14]],[2,"2026-08-15","21:30","Rio Ave","FC Porto",0,2,[11,82]],[2,"2026-08-16","16:30","C.D. Nacional","Estoril",2,0,[68,77]],[2,"2026-08-16","19:00","Arouca","Moreirense",4,0,[23,30,45,90]],[2,"2026-08-16","21:30","FC Famalicao","Maritimo",1,2,[8,21,90]],[2,"2026-08-17","21:15","Casa Pia","Benfica",0,7,[3,14,47,49,54,58,61]],[3,"2026-08-22","16:30","Maritimo","Académico de Viseu",2,2,[25,45,70,88]],[3,"2026-08-22","19:00","Estoril","Rio Ave",0,2,[15,72]],[3,"2026-08-22","21:30","Sporting CP","Alverca",3,1,[2,55,60,88]],[3,"2026-08-23","16:30","Vitória de Guimaraes","C.D. Nacional",1,0,[4]],[3,"2026-08-23","19:00","Santa Clara","FC Famalicao",1,0,[22]],[3,"2026-08-23","21:30","FC Porto","Arouca",2,0,[67,86]],[3,"2026-08-24","21:15","Gil Vicente","Casa Pia",2,0,[20,45]],[4,"2026-08-28","21:15","Rio Ave","Sporting CP",0,4,[5,19,26,37]],[4,"2026-08-29","16:30","Alverca","Santa Clara",1,1,[69,87]],[4,"2026-08-29","16:30","Arouca","Maritimo",2,1,[27,44,55]],[4,"2026-08-29","19:00","Académico de Viseu","FC Porto",0,3,[5,20,38]],[4,"2026-08-30","16:30","C.D. Nacional","Estrela",2,3,[3,45,62,66,83]],[4,"2026-08-30","19:00","Casa Pia","Moreirense",0,1,[24]],[4,"2026-08-30","21:30","FC Famalicao","Gil Vicente",0,0,[]],[4,"2026-08-31","21:15","Benfica","Estoril",2,1,[40,51,82]],[4,"2026-08-31","21:15","Braga","Vitória de Guimaraes",1,0,[79]],[5,"2026-09-04","21:15","FC Porto","Moreirense",2,1,[20,37,58]],[5,"2026-09-05","16:30","Estrela","FC Famalicao",2,2,[2,57,69,80]],[5,"2026-09-05","19:00","Alverca","Braga",1,2,[27,50,57]],[5,"2026-09-05","19:00","Maritimo","Benfica",0,3,[7,71,82]],[5,"2026-09-05","21:30","Sporting CP","C.D. Nacional",2,0,[32,49]],[5,"2026-09-06","16:30","Santa Clara","Rio Ave",4,0,[3,47,52,90]],[5,"2026-09-06","19:00","Vitória de Guimaraes","Casa Pia",0,0,[]],[5,"2026-09-06","21:30","Gil Vicente","Académico de Viseu",0,1,[4]],[5,"2026-09-07","21:15","Estoril","Arouca",0,0,[]],[6,"2026-09-09","21:45","Moreirense","Benfica",0,4,[45,55,59,72]],[6,"2026-09-10","21:15","Estrela","Braga",2,1,[5,45,56]],[6,"2026-09-12","16:30","C.D. Nacional","Alverca",1,3,[34,36,42,81]],[6,"2026-09-12","19:00","Casa Pia","FC Porto",1,4,[43,45,60,66,90]],[6,"2026-09-12","21:30","Académico de Viseu","Vitória de Guimaraes",2,1,[53,67,90]],[6,"2026-09-13","19:00","Arouca","Santa Clara",1,2,[22,36,46]],[7,"2026-09-13","19:00","Benfica","Gil Vicente",3,1,[7,29,87,90]],[6,"2026-09-13","21:30","FC Famalicao","Sporting CP",1,1,[81,90]],[7,"2026-09-14","19:45","Rio Ave","Estrela",3,3,[21,45,53,56,61,78]],[7,"2026-09-14","21:15","Moreirense","Maritimo",3,1,[17,28,79,86]],[7,"2026-09-14","21:45","Braga","Estoril",1,0,[83]],[7,"2026-09-19","16:30","C.D. Nacional","FC Famalicao",0,4,[7,13,40,67]],[8,"2026-09-19","16:30","Gil Vicente","Maritimo",1,1,[7,90]],[8,"2026-09-19","19:00","Alverca","Rio Ave",1,0,[3]],[7,"2026-09-19","21:30","Sporting CP","Arouca",2,2,[3,17,81,87]],[8,"2026-09-20","16:30","Estrela","Académico de Viseu",0,2,[10,24]],[8,"2026-09-20","16:30","Vitória de Guimaraes","Moreirense",1,1,[52,90]],[8,"2026-09-20","19:00","Estoril","Casa Pia",1,2,[70,72,89]],[8,"2026-09-20","19:00","Santa Clara","Braga",0,0,[]],[8,"2026-09-20","21:30","FC Porto","Benfica",3,1,[31,51,54,60]]],"prev":null,"prevTeams":{}},"nl.1":{"name":"Dutch Eredivisie","total":306,"m":[[1,"2026-08-07","20:00","SC Cambuur","Excelsior",0,4,[17,31,42,69]],[1,"2026-08-08","16:30","NEC Nijmegen","Telstar",1,2,[1,24,82]],[1,"2026-08-08","18:45","Go Ahead Eagles","Willem II",4,1,[13,30,61,63,69]],[1,"2026-08-08","20:00","PSV Eindhoven","Fortuna Sittard",2,2,[42,55,74,90]],[1,"2026-08-08","21:00","AZ Alkmaar","ADO Den Haag",2,0,[61,68]],[1,"2026-08-09","12:15","Sparta Rotterdam","Feyenoord Rotterdam",0,1,[35]],[1,"2026-08-09","14:30","FC Groningen","FC Utrecht",2,1,[8,48,79]],[1,"2026-08-09","14:30","PEC Zwolle","Ajax Amsterdam",0,2,[76,90]],[1,"2026-08-09","16:45","Heerenveen","FC Twente",1,0,[52]],[2,"2026-08-14","20:00","Telstar","Sparta Rotterdam",1,3,[6,53,90,90]],[2,"2026-08-15","16:30","Willem II","NEC Nijmegen",1,4,[45,54,64,67,77]],[2,"2026-08-15","18:45","FC Utrecht","AZ Alkmaar",1,4,[45,47,49,62,84]],[2,"2026-08-15","20:00","Excelsior","PSV Eindhoven",1,2,[5,54,56]],[2,"2026-08-15","21:00","Fortuna Sittard","SC Cambuur",3,1,[6,15,22,90]],[2,"2026-08-16","12:15","ADO Den Haag","FC Groningen",1,4,[15,30,45,55,81]],[2,"2026-08-16","14:30","FC Twente","PEC Zwolle",3,1,[21,38,59,69]],[2,"2026-08-16","14:30","Feyenoord Rotterdam","Go Ahead Eagles",2,2,[32,38,63,80]],[2,"2026-08-16","16:45","Ajax Amsterdam","Heerenveen",2,2,[7,33,45,82]],[3,"2026-08-22","16:30","Fortuna Sittard","AZ Alkmaar",0,2,[58,90]],[3,"2026-08-22","18:45","Sparta Rotterdam","FC Utrecht",3,3,[16,45,46,67,76,90]],[3,"2026-08-22","21:00","Heerenveen","PEC Zwolle",0,2,[50,61]],[3,"2026-08-23","12:15","Go Ahead Eagles","ADO Den Haag",3,1,[38,64,78,90]],[3,"2026-08-23","14:30","PSV Eindhoven","FC Groningen",5,1,[9,11,35,45,53,56]],[3,"2026-08-23","16:45","SC Cambuur","Feyenoord Rotterdam",2,5,[17,26,42,45,70,80,83]],[4,"2026-08-28","20:00","FC Groningen","Fortuna Sittard",2,3,[12,19,28,72,87]],[4,"2026-08-29","16:30","Excelsior","Sparta Rotterdam",2,1,[24,48,90]],[4,"2026-08-29","18:45","AZ Alkmaar","Go Ahead Eagles",5,2,[7,22,35,49,68,86,90]],[4,"2026-08-29","21:00","PEC Zwolle","NEC Nijmegen",1,3,[5,23,45,83]],[4,"2026-08-30","12:15","FC Utrecht","PSV Eindhoven",1,6,[6,11,45,76,86,88,90]],[4,"2026-08-30","14:30","Feyenoord Rotterdam","ADO Den Haag",2,2,[12,53,62,72]],[4,"2026-08-30","14:30","Willem II","Heerenveen",2,2,[61,64,77,82]],[3,"2026-08-30","16:45","Telstar","Ajax Amsterdam",0,4,[37,56,60,78]],[4,"2026-08-30","20:00","SC Cambuur","FC Twente",1,4,[22,26,47,82,88]],[5,"2026-09-04","20:00","Sparta Rotterdam","PEC Zwolle",2,2,[21,24,69,80]],[5,"2026-09-05","16:30","NEC Nijmegen","Feyenoord Rotterdam",1,3,[52,55,61,64]],[5,"2026-09-05","20:00","Ajax Amsterdam","PSV Eindhoven",1,3,[5,23,45,90]],[5,"2026-09-05","21:00","Willem II","Excelsior",0,3,[8,34,85]],[5,"2026-09-06","12:15","FC Groningen","FC Twente",2,2,[6,18,29,40]],[5,"2026-09-06","14:30","Heerenveen","AZ Alkmaar",2,3,[7,21,30,69,83]],[5,"2026-09-06","14:30","Telstar","SC Cambuur",2,2,[53,60,63,90]],[5,"2026-09-06","16:45","ADO Den Haag","Fortuna Sittard",2,3,[29,34,59,62,90]],[5,"2026-09-08","14:00","FC Utrecht","Go Ahead Eagles",3,3,[18,49,58,63,77,90]],[6,"2026-09-08","18:45","NEC Nijmegen","Excelsior",2,2,[10,43,73,90]],[6,"2026-09-09","18:45","FC Twente","Telstar",1,0,[65]],[6,"2026-09-11","20:00","AZ Alkmaar","Willem II",1,1,[32,81]],[7,"2026-09-12","16:30","FC Twente","ADO Den Haag",2,0,[61,74]],[6,"2026-09-12","18:45","Go Ahead Eagles","FC Groningen",1,1,[32,82]],[6,"2026-09-12","20:00","Fortuna Sittard","Ajax Amsterdam",1,5,[35,52,62,73,79,90]],[7,"2026-09-12","21:00","SC Cambuur","NEC Nijmegen",3,0,[21,54,90]],[7,"2026-09-13","12:15","Excelsior","FC Utrecht",1,2,[36,77,90]],[7,"2026-09-13","14:30","Heerenveen","Telstar",0,0,[]],[6,"2026-09-13","16:45","PEC Zwolle","Feyenoord Rotterdam",0,7,[18,23,40,49,63,69,77]],[6,"2026-09-13","20:00","PSV Eindhoven","Sparta Rotterdam",4,1,[15,23,39,74,88]],[7,"2026-09-15","20:00","Ajax Amsterdam","Willem II",5,1,[41,45,69,74,76,87]],[7,"2026-09-18","20:00","FC Groningen","PEC Zwolle",3,0,[20,43,68]],[8,"2026-09-19","16:30","ADO Den Haag","SC Cambuur",1,1,[44,74]],[8,"2026-09-19","18:45","Sparta Rotterdam","Heerenveen",0,4,[28,43,56,75]],[8,"2026-09-19","20:00","Ajax Amsterdam","Excelsior",2,2,[32,45,62,64]],[8,"2026-09-19","21:00","Willem II","Fortuna Sittard",0,1,[79]],[8,"2026-09-20","12:15","Feyenoord Rotterdam","FC Utrecht",5,0,[6,9,33,53,64]],[8,"2026-09-20","14:30","AZ Alkmaar","Telstar",1,0,[19]],[8,"2026-09-20","14:30","FC Twente","PSV Eindhoven",3,2,[14,26,29,79,83]],[8,"2026-09-20","16:45","NEC Nijmegen","Go Ahead Eagles",1,1,[2,10]]],"prev":null,"prevTeams":{}},"tr.1":{"name":"Turkish Super Lig","total":306,"m":[[1,"2026-08-14","20:30","Galatasaray","Çorum FK",2,2,[53,59,61,90]],[1,"2026-08-15","18:00","Kasimpasa","Trabzonspor",1,1,[43,55]],[1,"2026-08-15","18:00","Konyaspor","Caykur Rizespor",0,1,[90]],[1,"2026-08-15","20:30","Gaziantep FK","Alanyaspor",1,1,[20,61]],[1,"2026-08-15","20:30","Genclerbirligi","Fenerbahce",2,1,[13,37,56]],[1,"2026-08-16","18:00","Istanbul Basaksehir","Kocaelispor",2,0,[14,72]],[1,"2026-08-16","20:30","Amed SFK","Erzurum BB",3,0,[53,62,70]],[1,"2026-08-16","20:30","Besiktas","Eyupspor",1,0,[25]],[1,"2026-08-17","20:30","Samsunspor","Goztepe",3,3,[3,30,43,46,65,90]],[2,"2026-08-21","20:30","Erzurum BB","Galatasaray",0,4,[12,20,45,79]],[2,"2026-08-22","18:00","Caykur Rizespor","Samsunspor",0,2,[34,63]],[2,"2026-08-22","18:00","Çorum FK","Kasimpasa",0,1,[6]],[2,"2026-08-22","20:30","Fenerbahce","Konyaspor",4,2,[7,10,20,33,49,90]],[2,"2026-08-23","18:00","Eyupspor","Gaziantep FK",0,1,[60]],[2,"2026-08-23","18:00","Trabzonspor","Istanbul Basaksehir",2,1,[8,19,48]],[2,"2026-08-23","20:30","Alanyaspor","Besiktas",1,0,[73]],[2,"2026-08-23","20:30","Goztepe","Genclerbirligi",0,1,[51]],[2,"2026-08-24","20:30","Kocaelispor","Amed SFK",2,0,[16,87]],[3,"2026-08-28","20:30","Genclerbirligi","Erzurum BB",1,1,[55,66]],[3,"2026-08-29","18:00","Konyaspor","Kocaelispor",1,2,[39,72,86]],[3,"2026-08-29","20:30","Galatasaray","Goztepe",3,2,[16,33,55,63,65]],[3,"2026-08-29","20:30","Gaziantep FK","Caykur Rizespor",1,2,[12,35,90]],[3,"2026-08-30","18:00","Eyupspor","Alanyaspor",2,1,[1,39,90]],[3,"2026-08-30","20:30","Istanbul Basaksehir","Kasimpasa",1,1,[18,81]],[3,"2026-08-30","20:30","Samsunspor","Fenerbahce",0,2,[3,49]],[3,"2026-08-31","20:30","Amed SFK","Trabzonspor",2,1,[11,45,90]],[3,"2026-08-31","20:30","Besiktas","Çorum FK",6,2,[9,43,52,59,66,73,77,83]],[4,"2026-09-04","19:00","Istanbul Basaksehir","Galatasaray",2,3,[16,66,71,76,90]],[4,"2026-09-05","16:00","Erzurum BB","Konyaspor",1,0,[17]],[4,"2026-09-05","19:00","Fenerbahce","Besiktas",1,2,[26,38,73]],[4,"2026-09-06","16:00","Çorum FK","Eyupspor",3,0,[6,27,88]],[4,"2026-09-06","16:00","Kasimpasa","Amed SFK",2,2,[20,52,59,83]],[4,"2026-09-06","19:00","Kocaelispor","Samsunspor",1,0,[26]],[4,"2026-09-06","19:00","Trabzonspor","Genclerbirligi",5,0,[5,14,22,59,78]],[4,"2026-09-07","19:00","Caykur Rizespor","Alanyaspor",0,1,[70]],[4,"2026-09-07","19:00","Goztepe","Gaziantep FK",2,4,[5,10,34,45,51,90]],[5,"2026-09-11","19:00","Besiktas","Erzurum BB",3,0,[21,27,81]],[5,"2026-09-12","16:00","Eyupspor","Caykur Rizespor",0,2,[21,90]],[5,"2026-09-12","16:00","Samsunspor","Çorum FK",1,5,[1,5,10,15,69,71]],[5,"2026-09-12","19:00","Alanyaspor","Goztepe",2,2,[28,63,73,75]],[5,"2026-09-12","19:00","Konyaspor","Trabzonspor",1,0,[2]],[5,"2026-09-13","16:00","Genclerbirligi","Kasimpasa",1,2,[23,79,90]],[5,"2026-09-13","19:00","Amed SFK","Istanbul Basaksehir",5,0,[45,52,56,75,84]],[5,"2026-09-13","19:00","Galatasaray","Kocaelispor",1,0,[71]],[5,"2026-09-14","19:00","Gaziantep FK","Fenerbahce",0,0,[]],[6,"2026-09-18","19:00","Kasimpasa","Konyaspor",0,0,[]],[6,"2026-09-19","16:00","Çorum FK","Alanyaspor",1,2,[67,76,78]],[6,"2026-09-19","16:00","Kocaelispor","Gaziantep FK",2,0,[56,76]],[6,"2026-09-19","19:00","Istanbul Basaksehir","Genclerbirligi",4,0,[9,33,53,65]],[6,"2026-09-19","19:00","Trabzonspor","Galatasaray",4,0,[4,39,44,80]],[6,"2026-09-20","16:00","Erzurum BB","Samsunspor",1,0,[45]],[6,"2026-09-20","16:00","Fenerbahce","Eyupspor",8,0,[4,7,21,38,45,47,55,80]],[6,"2026-09-20","19:00","Amed SFK","Besiktas",3,2,[13,22,55,59,90]],[6,"2026-09-20","19:00","Goztepe","Caykur Rizespor",2,2,[2,70,80,90]]],"prev":null,"prevTeams":{}},"cl":{"name":"UEFA Champions League","total":189,"m":[[1,"2026-09-08","18:45","AEK Athens","LASK Linz",1,0,[21]],[1,"2026-09-08","18:45","Club Brugge","Aston Villa",2,3,[11,19,22,43,61]],[1,"2026-09-08","21:00","Borussia Dortmund","Villarreal",3,2,[53,66,80,85,90]],[1,"2026-09-08","21:00","FC Porto","Manchester City",0,2,[47,90]],[1,"2026-09-08","21:00","Lille","Real Betis",2,3,[12,33,36,49,53]],[1,"2026-09-08","21:00","Real Madrid","Internazionale",2,1,[14,23,77]],[1,"2026-09-09","18:45","Barcelona","Feyenoord Rotterdam",5,1,[3,22,57,77,82,85]],[1,"2026-09-09","18:45","VfB Stuttgart","Viking FK",3,1,[20,22,26,32]],[1,"2026-09-09","21:00","Liverpool","Atlético Madrid",2,1,[17,40,50]],[1,"2026-09-09","21:00","Napoli","Arsenal",0,1,[75]],[1,"2026-09-09","21:00","Paris Saint-Germain","Slovan Bratislava",6,1,[17,23,31,47,57,58,87]],[1,"2026-09-09","21:00","Sporting CP","Galatasaray",3,1,[5,27,57,63]],[1,"2026-09-10","18:45","Fenerbahce","AS Roma",1,1,[39,48]],[1,"2026-09-10","18:45","PSV Eindhoven","Shakhtar Donetsk",1,1,[45,48]],[1,"2026-09-10","21:00","Bayern Munich","Bodo/Glimt",5,0,[47,61,77,83,90]],[1,"2026-09-10","21:00","Como","RB Leipzig",4,1,[15,38,54,58,90]],[1,"2026-09-10","21:00","Manchester United","Sabah FK",4,0,[27,42,45,68]],[1,"2026-09-10","21:00","Slavia Prague","Lens",2,3,[51,73,88,90,90]]],"labels":["Ligue J1","Ligue J2","Ligue J3","Ligue J4","Ligue J5","Ligue J6","Ligue J7","Ligue J8","Barrages 1","Barrages 2","8es","Quarts","Demies","Finale"],"prev":null,"prevTeams":{}},"el":{"name":"UEFA Europa League","total":189,"m":[[1,"2026-09-16","18:45","ARARAT-ARMENIA","Sparta Prague",1,4,[20,22,53,55,71]],[1,"2026-09-16","18:45","Omonia Nicosia","Celta Vigo",1,0,[88]],[1,"2026-09-16","21:00","AC Milan","Benfica",0,2,[16,53]],[1,"2026-09-16","21:00","Anderlecht","Lyon",1,2,[8,22,61]],[1,"2026-09-16","21:00","Bayer Leverkusen","NK Celje",2,0,[15,74]],[1,"2026-09-16","21:00","Hapoel Be'er","Dinamo Zagreb",0,0,[]],[1,"2026-09-16","21:00","Olympiacos","Jagiellonia Bialystok",2,1,[20,43,84]],[1,"2026-09-16","21:00","SK Sturm Graz","Stade Rennais",0,0,[]],[1,"2026-09-16","21:00","Sunderland","AZ Alkmaar",1,0,[66]],[1,"2026-09-17","18:45","Levski Sofia","RB Salzburg",0,1,[39]],[1,"2026-09-17","18:45","OFI CRETE","TSG Hoffenheim",2,0,[30,84]],[1,"2026-09-17","21:00","Besiktas","Marseille",4,1,[15,29,56,59,81]],[1,"2026-09-17","21:00","Celtic","Ferencvaros",1,3,[20,44,45,47]],[1,"2026-09-17","21:00","Crystal Palace","Lech Poznan",4,0,[10,27,34,89]],[1,"2026-09-17","21:00","Juventus","NEC Nijmegen",5,0,[9,24,35,75,82]],[1,"2026-09-17","21:00","Lillestrom","Torreense",1,2,[23,49,79]],[1,"2026-09-17","21:00","Real Sociedad","AFC Bournemouth",1,2,[11,20,57]],[1,"2026-09-17","21:00","Viktoria Plzen","Union St.-Gilloise",0,3,[17,43,59]]],"labels":["Ligue J1","Ligue J2","Ligue J3","Ligue J4","Ligue J5","Ligue J6","Ligue J7","Ligue J8","Barrages 1","Barrages 2","8es","Quarts","Demies","Finale"],"prev":null,"prevTeams":{}}};
-const LEAGUES=[["fr.1","France · Ligue 1","Ligue 1"],["en.1","Angleterre · Premier League","Premier League"],
- ["es.1","Espagne · Liga","Liga"],["de.1","Allemagne · Bundesliga","Bundesliga"],
- ["it.1","Italie · Serie A","Serie A"],["pt.1","Portugal · Primeira Liga","Primeira Liga"],
- ["nl.1","Pays-Bas · Eredivisie","Eredivisie"],["tr.1","Turquie · Süper Lig","Süper Lig"],
- ["cl","Europe · Ligue des champions","Ligue des champions"],["el","Europe · Ligue Europa","Ligue Europa"]];
+const SNAP={"_date":"2026-09-22","_source":"ESPN","_genere":"2026-09-22T21:57:33+02:00","fr.1":{"name":"French Ligue 1","total":306,"m":[[1,"2026-08-21","20:45","Marseille","Strasbourg",4,0,[46,68,89,90]],[1,"2026-08-22","17:15","Lens","AJ Auxerre",5,2,[12,49,54,61,66,69,88]],[1,"2026-08-22","20:45","Le Mans","Brest",2,2,[31,45,55,62]],[1,"2026-08-22","20:45","Nice","Lorient",0,0,[]],[1,"2026-08-22","20:45","Toulouse","Lyon",0,2,[68,85]],[1,"2026-08-22","20:45","Troyes","Paris FC",0,0,[]],[1,"2026-08-23","15:00","Angers","Lille",0,2,[11,31]],[1,"2026-08-23","17:15","Le Havre AC","AS Monaco",0,1,[14]],[1,"2026-08-23","20:45","Stade Rennais","Paris Saint-Germain",2,2,[9,38,71,82]],[2,"2026-08-28","21:00","Lille","Paris Saint-Germain",2,2,[21,84,90,90]],[2,"2026-08-29","17:15","Strasbourg","Lens",2,1,[38,48,85]],[2,"2026-08-29","20:45","AJ Auxerre","Angers",1,3,[5,35,70,78]],[2,"2026-08-29","20:45","Brest","Toulouse",2,2,[9,18,62,90]],[2,"2026-08-29","20:45","Lorient","Troyes",1,2,[29,38,51]],[2,"2026-08-29","20:45","Lyon","Le Havre AC",1,1,[74,87]],[2,"2026-08-30","15:00","Paris FC","Nice",3,0,[21,51,89]],[2,"2026-08-30","17:15","Stade Rennais","Le Mans",3,2,[5,26,30,54,90]],[2,"2026-08-30","20:45","AS Monaco","Marseille",2,0,[13,53]],[3,"2026-09-03","20:45","Toulouse","Lille",0,1,[73]],[3,"2026-09-04","19:00","Lyon","AJ Auxerre",3,1,[28,31,42,53]],[3,"2026-09-04","21:05","Paris Saint-Germain","AS Monaco",1,2,[31,58,72]],[3,"2026-09-05","17:15","Lens","Lorient",0,1,[54]],[3,"2026-09-05","20:45","Le Havre AC","Brest",1,2,[12,51,79]],[3,"2026-09-05","20:45","Nice","Le Mans",1,1,[13,44]],[3,"2026-09-06","15:00","Troyes","Strasbourg",2,6,[9,40,42,57,85,88,90,90]],[3,"2026-09-06","17:15","Angers","Stade Rennais",1,2,[9,17,35]],[3,"2026-09-06","20:45","Marseille","Paris FC",2,3,[1,8,19,53,86]],[4,"2026-09-11","20:45","Stade Rennais","Marseille",1,0,[52]],[4,"2026-09-12","17:15","Strasbourg","AS Monaco",1,1,[52,71]],[4,"2026-09-12","20:45","AJ Auxerre","Nice",1,0,[74]],[4,"2026-09-12","20:45","Le Havre AC","Angers",0,0,[]],[4,"2026-09-12","20:45","Lorient","Toulouse",2,2,[37,39,48,68]],[4,"2026-09-12","20:45","Paris FC","Lyon",0,0,[]],[4,"2026-09-13","15:00","Lille","Troyes",2,0,[18,90]],[4,"2026-09-13","17:15","Le Mans","Lens",2,2,[32,44,45,51]],[4,"2026-09-13","20:45","Brest","Paris Saint-Germain",0,1,[5]],[5,"2026-09-18","20:45","AS Monaco","Lens",2,1,[32,57,84]],[5,"2026-09-19","17:15","Paris FC","Strasbourg",2,1,[18,57,88]],[5,"2026-09-19","20:45","Angers","Troyes",2,0,[42,57]],[5,"2026-09-19","20:45","Le Mans","Lorient",2,1,[3,57,78]],[5,"2026-09-19","20:45","Lyon","Stade Rennais",4,0,[7,30,48,76]],[5,"2026-09-19","20:45","Toulouse","Le Havre AC",3,2,[49,51,71,79,88]],[5,"2026-09-20","15:00","AJ Auxerre","Brest",2,1,[23,46,83]],[5,"2026-09-20","17:15","Nice","Lille",2,1,[22,67,79]],[5,"2026-09-20","20:45","Marseille","Paris Saint-Germain",1,2,[66,72,74]]],"prev":null,"prevTeams":{}},"en.1":{"name":"English Premier League","total":380,"m":[[1,"2026-08-21","21:00","Arsenal","Coventry City",3,0,[15,23,49]],[1,"2026-08-22","13:30","Hull City","Manchester United",2,0,[17,38]],[1,"2026-08-22","16:00","Everton","Crystal Palace",2,0,[42,53]],[1,"2026-08-22","16:00","Ipswich Town","Sunderland",2,1,[24,39,90]],[1,"2026-08-22","16:00","Nottingham Forest","Leeds United",0,1,[88]],[1,"2026-08-22","18:30","Brentford","Tottenham Hotspur",3,0,[12,33,49]],[1,"2026-08-23","15:00","Brighton & Hove Albion","Aston Villa",4,0,[8,18,30,31]],[1,"2026-08-23","15:00","Manchester City","AFC Bournemouth",2,1,[26,84,90]],[1,"2026-08-23","17:30","Newcastle United","Liverpool",2,2,[5,55,57,90]],[1,"2026-08-24","21:00","Fulham","Chelsea",2,3,[1,23,41,49,54]],[2,"2026-08-28","21:00","Crystal Palace","Manchester City",1,4,[17,54,56,59,84]],[2,"2026-08-29","13:30","Liverpool","Nottingham Forest",2,2,[24,60,70,82]],[2,"2026-08-29","16:00","AFC Bournemouth","Everton",1,1,[41,90]],[2,"2026-08-29","16:00","Coventry City","Hull City",0,1,[82]],[2,"2026-08-29","18:30","Tottenham Hotspur","Newcastle United",0,2,[62,72]],[2,"2026-08-30","15:00","Chelsea","Brighton & Hove Albion",4,3,[4,14,32,35,63,74,90]],[2,"2026-08-30","15:00","Leeds United","Brentford",1,1,[41,79]],[2,"2026-08-30","15:00","Sunderland","Fulham",1,0,[75]],[2,"2026-08-30","17:30","Manchester United","Ipswich Town",5,2,[29,40,56,61,68,82,90]],[2,"2026-08-31","21:00","Aston Villa","Arsenal",0,1,[59]],[3,"2026-09-04","21:00","Ipswich Town","Liverpool",0,2,[6,9]],[3,"2026-09-05","13:30","Newcastle United","AFC Bournemouth",2,2,[9,35,37,88]],[3,"2026-09-05","16:00","Brentford","Sunderland",1,1,[57,82]],[3,"2026-09-05","16:00","Brighton & Hove Albion","Leeds United",1,1,[15,71]],[3,"2026-09-05","16:00","Fulham","Crystal Palace",2,3,[11,35,42,54,77]],[3,"2026-09-05","16:00","Manchester City","Coventry City",1,0,[26]],[3,"2026-09-05","16:00","Nottingham Forest","Tottenham Hotspur",0,0,[]],[3,"2026-09-05","18:30","Hull City","Aston Villa",0,0,[]],[3,"2026-09-06","15:00","Everton","Manchester United",2,2,[46,83,88,90]],[3,"2026-09-06","17:30","Arsenal","Chelsea",2,1,[2,25,50]],[4,"2026-09-12","16:00","AFC Bournemouth","Brentford",2,2,[34,38,52,56]],[4,"2026-09-12","16:00","Aston Villa","Nottingham Forest",1,2,[46,74,88]],[4,"2026-09-12","16:00","Chelsea","Hull City",2,2,[7,28,34,66]],[4,"2026-09-12","16:00","Crystal Palace","Ipswich Town",2,3,[14,23,45,75,90]],[4,"2026-09-12","16:00","Liverpool","Fulham",0,0,[]],[4,"2026-09-12","18:30","Tottenham Hotspur","Everton",0,0,[]],[4,"2026-09-12","21:00","Sunderland","Arsenal",0,2,[58,90]],[4,"2026-09-13","15:00","Coventry City","Brighton & Hove Albion",0,5,[35,51,70,83,90]],[4,"2026-09-13","17:30","Manchester United","Manchester City",0,1,[60]],[4,"2026-09-14","21:00","Leeds United","Newcastle United",4,1,[32,34,45,59,90]],[5,"2026-09-18","21:00","Brentford","Chelsea",3,0,[61,83,90]],[5,"2026-09-19","13:30","Tottenham Hotspur","Aston Villa",2,3,[45,67,79,86,90]],[5,"2026-09-19","16:00","Brighton & Hove Albion","Arsenal",3,0,[31,45,57]],[5,"2026-09-19","16:00","Everton","Ipswich Town",1,0,[11]],[5,"2026-09-19","16:00","Newcastle United","Hull City",2,1,[3,7,67]],[5,"2026-09-19","18:30","Nottingham Forest","Coventry City",0,1,[55]],[5,"2026-09-20","15:00","AFC Bournemouth","Liverpool",0,1,[57]],[5,"2026-09-20","15:00","Leeds United","Crystal Palace",0,0,[]],[5,"2026-09-20","15:00","Manchester City","Sunderland",5,3,[9,12,29,33,43,57,59,81]],[5,"2026-09-20","17:30","Fulham","Manchester United",1,1,[63,89]]],"prev":null,"prevTeams":{}},"es.1":{"name":"Spanish LALIGA","total":380,"m":[[1,"2026-08-15","19:30","Alavés","Getafe",3,0,[73,90,90]],[1,"2026-08-15","21:30","Sevilla","Rayo Vallecano",2,1,[4,52,90]],[1,"2026-08-16","17:00","Racing Santander","Villarreal",2,2,[21,34,45,45]],[1,"2026-08-16","19:00","Espanyol","Levante",3,0,[5,40,80]],[1,"2026-08-17","21:00","Deportivo","Elche",1,1,[21,76]],[1,"2026-08-19","21:00","Atlético Madrid","Málaga",2,0,[70,85]],[2,"2026-08-20","21:00","Rayo Vallecano","Alavés",1,1,[48,84]],[1,"2026-08-21","21:00","Real Betis","Real Sociedad",1,0,[63]],[2,"2026-08-22","17:00","Athletic Club","Sevilla",1,3,[15,50,57,70]],[1,"2026-08-22","19:30","Valencia","Celta Vigo",0,0,[]],[2,"2026-08-22","21:30","Espanyol","Real Madrid",1,2,[9,30,90]],[2,"2026-08-23","17:00","Atlético Madrid","Villarreal",2,2,[59,66,78,85]],[2,"2026-08-23","19:30","Getafe","Racing Santander",1,0,[81]],[2,"2026-08-23","21:30","Elche","Barcelona",0,5,[14,45,67,71,79]],[2,"2026-08-24","19:30","Osasuna","Levante",0,0,[]],[2,"2026-08-24","21:30","Málaga","Deportivo",1,1,[21,34]],[2,"2026-08-25","21:00","Valencia","Real Betis",0,1,[83]],[3,"2026-08-26","21:00","Real Madrid","Real Sociedad",4,1,[40,44,60,68,80]],[3,"2026-08-27","20:30","Celta Vigo","Osasuna",1,2,[14,54,64]],[3,"2026-08-27","21:00","Barcelona","Athletic Club",2,0,[37,82]],[3,"2026-08-28","19:00","Racing Santander","Elche",3,2,[15,21,36,78,79]],[3,"2026-08-28","21:30","Alavés","Villarreal",1,0,[31]],[3,"2026-08-29","17:00","Levante","Real Betis",5,2,[24,34,45,45,56,70,90]],[4,"2026-08-29","19:00","Real Sociedad","Espanyol",2,1,[4,45,61]],[3,"2026-08-29","21:30","Sevilla","Atlético Madrid",1,3,[4,26,33,66]],[4,"2026-08-30","17:00","Real Madrid","Málaga",4,0,[19,26,30,90]],[3,"2026-08-30","19:30","Deportivo","Valencia",3,1,[13,17,26,59]],[4,"2026-08-30","21:30","Celta Vigo","Athletic Club",0,2,[20,22]],[4,"2026-08-31","19:30","Osasuna","Getafe",1,0,[45]],[4,"2026-08-31","21:30","Barcelona","Rayo Vallecano",5,2,[12,19,21,51,59,71,90]],[5,"2026-09-03","21:00","Real Sociedad","Celta Vigo",0,0,[]],[5,"2026-09-04","21:00","Real Betis","Real Madrid",1,0,[81]],[5,"2026-09-05","16:15","Athletic Club","Atlético Madrid",3,0,[46,48,90]],[5,"2026-09-05","18:30","Rayo Vallecano","Racing Santander",3,2,[4,17,28,43,47]],[4,"2026-09-05","21:00","Villarreal","Deportivo",2,3,[19,43,76,79,88]],[5,"2026-09-06","16:15","Valencia","Barcelona",0,5,[6,22,50,79,84]],[5,"2026-09-06","18:30","Alavés","Osasuna",5,2,[27,36,46,51,64,68,90]],[5,"2026-09-06","18:30","Málaga","Levante",0,0,[]],[5,"2026-09-06","21:00","Espanyol","Sevilla",1,1,[85,90]],[6,"2026-09-07","19:00","Getafe","Celta Vigo",1,1,[21,57]],[6,"2026-09-07","21:30","Elche","Real Sociedad",2,3,[11,31,67,74,90]],[6,"2026-09-11","21:00","Sevilla","Valencia",1,0,[81]],[6,"2026-09-12","14:00","Racing Santander","Alavés",2,1,[18,38,53]],[6,"2026-09-12","16:15","Osasuna","Espanyol",0,2,[3,17]],[7,"2026-09-12","18:30","Athletic Club","Elche",1,1,[50,79]],[6,"2026-09-12","21:00","Real Madrid","Rayo Vallecano",4,1,[14,17,35,51,90]],[7,"2026-09-13","14:00","Celta Vigo","Málaga",1,1,[41,83]],[6,"2026-09-13","16:15","Levante","Barcelona",2,4,[5,19,48,79,88,90]],[7,"2026-09-13","18:30","Getafe","Deportivo",1,1,[66,78]],[7,"2026-09-13","21:00","Real Sociedad","Atlético Madrid",0,3,[84,90,90]],[6,"2026-09-14","21:00","Villarreal","Real Betis",1,2,[29,39,43]],[7,"2026-09-15","19:00","Rayo Vallecano","Espanyol",2,1,[3,26,54]],[7,"2026-09-15","20:00","Alavés","Valencia",0,1,[78]],[8,"2026-09-15","21:30","Elche","Real Madrid",2,3,[25,33,71,83,90]],[8,"2026-09-16","19:00","Atlético Madrid","Osasuna",4,0,[24,54,63,82]],[8,"2026-09-16","19:00","Deportivo","Sevilla",0,1,[52]],[7,"2026-09-16","21:30","Barcelona","Racing Santander",7,2,[8,25,30,36,42,65,67,79,89]],[8,"2026-09-17","19:00","Real Betis","Getafe",1,0,[45]],[8,"2026-09-17","21:30","Málaga","Villarreal",1,3,[12,40,45,86]],[9,"2026-09-18","21:00","Espanyol","Elche",1,3,[26,29,72,78]],[9,"2026-09-19","14:00","Osasuna","Rayo Vallecano",1,1,[16,50]],[8,"2026-09-19","16:15","Athletic Club","Alavés",0,0,[]],[8,"2026-09-19","18:30","Celta Vigo","Racing Santander",5,0,[32,43,69,78,90]],[9,"2026-09-19","21:00","Sevilla","Barcelona",1,3,[19,22,52,69]],[9,"2026-09-20","14:00","Getafe","Málaga",1,0,[85]],[9,"2026-09-20","16:15","Atlético Madrid","Real Madrid",2,1,[53,59,89]],[9,"2026-09-20","18:30","Deportivo","Real Betis",1,1,[43,87]],[9,"2026-09-20","18:30","Villarreal","Levante",3,1,[41,42,54,86]],[8,"2026-09-20","21:00","Valencia","Real Sociedad",2,3,[26,57,75,84,90]]],"prev":null,"prevTeams":{}},"de.1":{"name":"German Bundesliga","total":306,"m":[[1,"2026-08-28","20:30","Bayern Munich","VfB Stuttgart",5,1,[21,52,55,57,82,90]],[1,"2026-08-29","15:30","1. FC Union Berlin","Eintracht Frankfurt",3,3,[3,10,11,67,79,90]],[1,"2026-08-29","15:30","FC Cologne","TSG Hoffenheim",3,2,[27,51,67,72,82]],[1,"2026-08-29","15:30","Mainz","SC Paderborn 07",0,0,[]],[1,"2026-08-29","15:30","RB Leipzig","Borussia Mönchengladbach",3,0,[25,49,66]],[1,"2026-08-29","15:30","SV Elversberg","Bayer Leverkusen",3,2,[8,9,46,77,90]],[1,"2026-08-29","18:30","Borussia Dortmund","Hamburg SV",2,0,[9,45]],[1,"2026-08-30","15:30","SC Freiburg","Werder Bremen",4,1,[29,45,48,55,76]],[1,"2026-08-30","17:30","FC Augsburg","Schalke 04",3,0,[18,79,90]],[2,"2026-09-04","20:30","VfB Stuttgart","FC Cologne",4,1,[39,60,75,81,90]],[2,"2026-09-05","15:30","Bayer Leverkusen","1. FC Union Berlin",4,0,[1,28,48,66]],[2,"2026-09-05","15:30","Borussia Mönchengladbach","SV Elversberg",3,4,[11,29,44,56,66,80,90]],[2,"2026-09-05","15:30","SC Paderborn 07","SC Freiburg",0,1,[26]],[2,"2026-09-05","15:30","TSG Hoffenheim","Borussia Dortmund",2,3,[45,54,61,66,86]],[2,"2026-09-05","15:30","Werder Bremen","RB Leipzig",3,1,[4,68,80,90]],[2,"2026-09-05","18:30","Schalke 04","Bayern Munich",0,0,[]],[2,"2026-09-06","15:30","Hamburg SV","Mainz",0,5,[19,41,48,83,90]],[2,"2026-09-06","17:30","Eintracht Frankfurt","FC Augsburg",1,4,[6,46,47,65,89]],[3,"2026-09-11","20:30","1. FC Union Berlin","Schalke 04",1,3,[25,46,90,90]],[3,"2026-09-12","15:30","Borussia Dortmund","SC Paderborn 07",3,0,[5,80,89]],[3,"2026-09-12","15:30","FC Augsburg","Bayer Leverkusen",2,2,[18,50,55,89]],[3,"2026-09-12","15:30","Mainz","Eintracht Frankfurt",1,3,[9,45,60,89]],[3,"2026-09-12","15:30","SC Freiburg","Borussia Mönchengladbach",5,0,[23,29,77,79,86]],[3,"2026-09-12","15:30","TSG Hoffenheim","VfB Stuttgart",2,1,[13,48,67]],[3,"2026-09-12","18:30","FC Cologne","Werder Bremen",1,1,[11,69]],[3,"2026-09-13","15:30","RB Leipzig","Hamburg SV",5,0,[17,28,72,74,77]],[3,"2026-09-13","17:30","SV Elversberg","Bayern Munich",1,2,[26,61,72]],[4,"2026-09-18","20:30","Bayern Munich","1. FC Union Berlin",7,0,[18,39,43,54,70,73,76]],[4,"2026-09-19","15:30","Borussia Mönchengladbach","Mainz",3,4,[11,18,45,59,78,89,90]],[4,"2026-09-19","15:30","Eintracht Frankfurt","SC Freiburg",2,2,[10,34,36,48]],[4,"2026-09-19","15:30","Hamburg SV","FC Cologne",2,1,[44,49,90]],[4,"2026-09-19","15:30","Werder Bremen","FC Augsburg",3,2,[18,58,66,86,90]],[4,"2026-09-19","18:30","VfB Stuttgart","Borussia Dortmund",0,1,[70]],[4,"2026-09-20","15:30","Bayer Leverkusen","RB Leipzig",2,0,[44,57]],[4,"2026-09-20","17:30","Schalke 04","SV Elversberg",0,0,[]],[4,"2026-09-20","19:30","SC Paderborn 07","TSG Hoffenheim",3,1,[29,42,50,69]]],"prev":null,"prevTeams":{}},"it.1":{"name":"Italian Serie A","total":380,"m":[[1,"2026-08-22","18:30","Internazionale","Monza",4,1,[6,29,48,55,63]],[1,"2026-08-22","18:30","Udinese","Como",1,1,[29,54]],[1,"2026-08-22","20:45","Genoa","Napoli",0,2,[82,87]],[1,"2026-08-22","20:45","Parma","Cagliari",0,1,[79]],[1,"2026-08-23","18:30","Frosinone","Juventus",0,1,[22]],[1,"2026-08-23","18:30","Venezia","Lecce",0,2,[46,80]],[1,"2026-08-23","20:45","Atalanta","Sassuolo",2,1,[6,55,65]],[1,"2026-08-23","20:45","Torino","AC Milan",1,2,[64,66,90]],[1,"2026-08-24","18:30","Bologna","Lazio",0,1,[59]],[1,"2026-08-24","20:45","AS Roma","Fiorentina",4,0,[27,52,60,86]],[2,"2026-08-28","20:45","AC Milan","Venezia",2,0,[69,89]],[2,"2026-08-29","18:30","Fiorentina","Frosinone",0,3,[26,38,68]],[2,"2026-08-29","18:30","Monza","Udinese",2,3,[32,37,45,45,63]],[2,"2026-08-29","18:30","Sassuolo","Torino",2,1,[32,45,78]],[2,"2026-08-29","20:45","Juventus","Parma",2,0,[62,88]],[2,"2026-08-30","18:30","Napoli","Como",1,2,[17,30,34]],[2,"2026-08-30","20:45","Cagliari","Internazionale",0,1,[9]],[2,"2026-08-30","20:45","Lazio","Genoa",1,0,[25]],[2,"2026-08-31","18:30","Lecce","AS Roma",0,4,[4,23,25,65]],[2,"2026-08-31","20:45","Atalanta","Bologna",1,0,[90]],[3,"2026-09-04","20:45","Genoa","Como",1,4,[19,25,30,40,78]],[3,"2026-09-05","15:00","Fiorentina","Torino",1,2,[47,74,82]],[3,"2026-09-05","18:00","Internazionale","Napoli",3,2,[50,53,56,82,90]],[3,"2026-09-05","20:45","AS Roma","Atalanta",2,1,[47,89,90]],[3,"2026-09-06","15:00","Frosinone","Venezia",3,2,[21,39,66,74,83]],[3,"2026-09-06","15:00","Parma","Monza",1,1,[38,60]],[3,"2026-09-06","18:00","Bologna","Sassuolo",2,2,[19,50,56,90]],[3,"2026-09-06","20:45","Juventus","AC Milan",1,1,[68,90]],[3,"2026-09-07","18:30","Cagliari","Lecce",1,0,[29]],[3,"2026-09-07","20:45","Udinese","Lazio",1,2,[49,75,88]],[4,"2026-09-11","20:45","Venezia","Fiorentina",2,4,[22,29,30,66,84,86]],[4,"2026-09-12","15:00","Genoa","Frosinone",1,1,[14,50]],[4,"2026-09-12","18:00","Lazio","AC Milan",2,2,[10,39,65,67]],[4,"2026-09-12","20:45","Atalanta","Cagliari",1,2,[19,41,61]],[4,"2026-09-13","15:00","Lecce","Monza",3,2,[3,10,20,21,89]],[4,"2026-09-13","18:00","Napoli","Bologna",1,0,[66]],[4,"2026-09-13","20:45","Sassuolo","Juventus",3,2,[65,82,89,90,90]],[4,"2026-09-14","18:30","Como","Parma",2,1,[23,83,90]],[4,"2026-09-14","18:30","Torino","AS Roma",0,2,[40,90]],[4,"2026-09-14","20:45","Internazionale","Udinese",5,3,[9,16,26,35,57,67,79,90]],[5,"2026-09-18","20:45","Monza","Sassuolo",2,1,[51,63,88]],[5,"2026-09-19","15:00","Bologna","Torino",1,1,[14,77]],[5,"2026-09-19","15:00","Udinese","Cagliari",0,1,[54]],[5,"2026-09-19","18:00","AS Roma","Internazionale",2,2,[6,37,46,79]],[5,"2026-09-19","20:45","Venezia","Lazio",0,2,[51,60]],[5,"2026-09-20","12:30","Fiorentina","Napoli",1,1,[23,51]],[5,"2026-09-20","15:00","Frosinone","Como",2,0,[14,45]],[5,"2026-09-20","15:00","Parma","Genoa",2,1,[38,70,80]],[5,"2026-09-20","18:00","Juventus","Atalanta",2,0,[28,77]],[5,"2026-09-20","20:45","AC Milan","Lecce",3,0,[14,61,73]]],"prev":null,"prevTeams":{}},"pt.1":{"name":"Portuguese Primeira Liga","total":306,"m":[[1,"2026-08-07","21:15","Estoril","FC Famalicao",1,1,[32,72]],[1,"2026-08-08","16:30","Maritimo","Casa Pia",1,0,[61]],[1,"2026-08-08","19:00","Vitória de Guimaraes","Arouca",0,1,[53]],[1,"2026-08-08","21:30","Estrela","Sporting CP",2,2,[46,59,72,84]],[1,"2026-08-09","19:00","FC Porto","Alverca",2,0,[9,44]],[1,"2026-08-09","21:30","Benfica","Académico de Viseu",2,2,[10,55,58,67]],[1,"2026-08-09","21:30","Gil Vicente","Rio Ave",1,0,[87]],[1,"2026-08-09","21:30","Moreirense","Braga",2,2,[7,8,66,90]],[1,"2026-08-10","21:15","Santa Clara","C.D. Nacional",2,2,[19,21,36,45]],[2,"2026-08-14","21:15","Sporting CP","Vitória de Guimaraes",3,2,[9,22,41,66,68]],[2,"2026-08-15","16:30","Alverca","Estrela",2,2,[51,58,62,69]],[2,"2026-08-15","19:00","Académico de Viseu","Santa Clara",0,1,[14]],[2,"2026-08-15","21:30","Rio Ave","FC Porto",0,2,[11,82]],[2,"2026-08-16","16:30","C.D. Nacional","Estoril",2,0,[68,77]],[2,"2026-08-16","19:00","Arouca","Moreirense",4,0,[23,30,45,90]],[2,"2026-08-16","21:30","FC Famalicao","Maritimo",1,2,[8,21,90]],[2,"2026-08-17","21:15","Casa Pia","Benfica",0,7,[3,14,47,49,54,58,61]],[3,"2026-08-22","16:30","Maritimo","Académico de Viseu",2,2,[25,45,70,88]],[3,"2026-08-22","19:00","Estoril","Rio Ave",0,2,[15,72]],[3,"2026-08-22","21:30","Sporting CP","Alverca",3,1,[2,55,60,88]],[3,"2026-08-23","16:30","Vitória de Guimaraes","C.D. Nacional",1,0,[4]],[3,"2026-08-23","19:00","Santa Clara","FC Famalicao",1,0,[22]],[3,"2026-08-23","21:30","FC Porto","Arouca",2,0,[67,86]],[3,"2026-08-24","21:15","Gil Vicente","Casa Pia",2,0,[20,45]],[4,"2026-08-28","21:15","Rio Ave","Sporting CP",0,4,[5,19,26,37]],[4,"2026-08-29","16:30","Alverca","Santa Clara",1,1,[69,87]],[4,"2026-08-29","16:30","Arouca","Maritimo",2,1,[27,44,55]],[4,"2026-08-29","19:00","Académico de Viseu","FC Porto",0,3,[5,20,38]],[4,"2026-08-30","16:30","C.D. Nacional","Estrela",2,3,[3,45,62,66,83]],[4,"2026-08-30","19:00","Casa Pia","Moreirense",0,1,[24]],[4,"2026-08-30","21:30","FC Famalicao","Gil Vicente",0,0,[]],[4,"2026-08-31","21:15","Benfica","Estoril",2,1,[40,51,82]],[4,"2026-08-31","21:15","Braga","Vitória de Guimaraes",1,0,[79]],[5,"2026-09-04","21:15","FC Porto","Moreirense",2,1,[20,37,58]],[5,"2026-09-05","16:30","Estrela","FC Famalicao",2,2,[2,57,69,80]],[5,"2026-09-05","19:00","Alverca","Braga",1,2,[27,50,57]],[5,"2026-09-05","19:00","Maritimo","Benfica",0,3,[7,71,82]],[5,"2026-09-05","21:30","Sporting CP","C.D. Nacional",2,0,[32,49]],[5,"2026-09-06","16:30","Santa Clara","Rio Ave",4,0,[3,47,52,90]],[5,"2026-09-06","19:00","Vitória de Guimaraes","Casa Pia",0,0,[]],[5,"2026-09-06","21:30","Gil Vicente","Académico de Viseu",0,1,[4]],[5,"2026-09-07","21:15","Estoril","Arouca",0,0,[]],[6,"2026-09-09","21:45","Moreirense","Benfica",0,4,[45,55,59,72]],[6,"2026-09-10","21:15","Estrela","Braga",2,1,[5,45,56]],[6,"2026-09-12","16:30","C.D. Nacional","Alverca",1,3,[34,36,42,81]],[6,"2026-09-12","19:00","Casa Pia","FC Porto",1,4,[43,45,60,66,90]],[6,"2026-09-12","21:30","Académico de Viseu","Vitória de Guimaraes",2,1,[53,67,90]],[6,"2026-09-13","19:00","Arouca","Santa Clara",1,2,[22,36,46]],[7,"2026-09-13","19:00","Benfica","Gil Vicente",3,1,[7,29,87,90]],[6,"2026-09-13","21:30","FC Famalicao","Sporting CP",1,1,[81,90]],[7,"2026-09-14","19:45","Rio Ave","Estrela",3,3,[21,45,53,56,61,78]],[7,"2026-09-14","21:15","Moreirense","Maritimo",3,1,[17,28,79,86]],[7,"2026-09-14","21:45","Braga","Estoril",1,0,[83]],[7,"2026-09-19","16:30","C.D. Nacional","FC Famalicao",0,4,[7,13,40,67]],[8,"2026-09-19","16:30","Gil Vicente","Maritimo",1,1,[7,90]],[8,"2026-09-19","19:00","Alverca","Rio Ave",1,0,[3]],[7,"2026-09-19","21:30","Sporting CP","Arouca",2,2,[3,17,81,87]],[8,"2026-09-20","16:30","Estrela","Académico de Viseu",0,2,[10,24]],[8,"2026-09-20","16:30","Vitória de Guimaraes","Moreirense",1,1,[52,90]],[8,"2026-09-20","19:00","Estoril","Casa Pia",1,2,[70,72,89]],[8,"2026-09-20","19:00","Santa Clara","Braga",0,0,[]],[8,"2026-09-20","21:30","FC Porto","Benfica",3,1,[31,51,54,60]]],"prev":null,"prevTeams":{}},"nl.1":{"name":"Dutch Eredivisie","total":306,"m":[[1,"2026-08-07","20:00","SC Cambuur","Excelsior",0,4,[17,31,42,69]],[1,"2026-08-08","16:30","NEC Nijmegen","Telstar",1,2,[1,24,82]],[1,"2026-08-08","18:45","Go Ahead Eagles","Willem II",4,1,[13,30,61,63,69]],[1,"2026-08-08","20:00","PSV Eindhoven","Fortuna Sittard",2,2,[42,55,74,90]],[1,"2026-08-08","21:00","AZ Alkmaar","ADO Den Haag",2,0,[61,68]],[1,"2026-08-09","12:15","Sparta Rotterdam","Feyenoord Rotterdam",0,1,[35]],[1,"2026-08-09","14:30","FC Groningen","FC Utrecht",2,1,[8,48,79]],[1,"2026-08-09","14:30","PEC Zwolle","Ajax Amsterdam",0,2,[76,90]],[1,"2026-08-09","16:45","Heerenveen","FC Twente",1,0,[52]],[2,"2026-08-14","20:00","Telstar","Sparta Rotterdam",1,3,[6,53,90,90]],[2,"2026-08-15","16:30","Willem II","NEC Nijmegen",1,4,[45,54,64,67,77]],[2,"2026-08-15","18:45","FC Utrecht","AZ Alkmaar",1,4,[45,47,49,62,84]],[2,"2026-08-15","20:00","Excelsior","PSV Eindhoven",1,2,[5,54,56]],[2,"2026-08-15","21:00","Fortuna Sittard","SC Cambuur",3,1,[6,15,22,90]],[2,"2026-08-16","12:15","ADO Den Haag","FC Groningen",1,4,[15,30,45,55,81]],[2,"2026-08-16","14:30","FC Twente","PEC Zwolle",3,1,[21,38,59,69]],[2,"2026-08-16","14:30","Feyenoord Rotterdam","Go Ahead Eagles",2,2,[32,38,63,80]],[2,"2026-08-16","16:45","Ajax Amsterdam","Heerenveen",2,2,[7,33,45,82]],[3,"2026-08-22","16:30","Fortuna Sittard","AZ Alkmaar",0,2,[58,90]],[3,"2026-08-22","18:45","Sparta Rotterdam","FC Utrecht",3,3,[16,45,46,67,76,90]],[3,"2026-08-22","21:00","Heerenveen","PEC Zwolle",0,2,[50,61]],[3,"2026-08-23","12:15","Go Ahead Eagles","ADO Den Haag",3,1,[38,64,78,90]],[3,"2026-08-23","14:30","PSV Eindhoven","FC Groningen",5,1,[9,11,35,45,53,56]],[3,"2026-08-23","16:45","SC Cambuur","Feyenoord Rotterdam",2,5,[17,26,42,45,70,80,83]],[4,"2026-08-28","20:00","FC Groningen","Fortuna Sittard",2,3,[12,19,28,72,87]],[4,"2026-08-29","16:30","Excelsior","Sparta Rotterdam",2,1,[24,48,90]],[4,"2026-08-29","18:45","AZ Alkmaar","Go Ahead Eagles",5,2,[7,22,35,49,68,86,90]],[4,"2026-08-29","21:00","PEC Zwolle","NEC Nijmegen",1,3,[5,23,45,83]],[4,"2026-08-30","12:15","FC Utrecht","PSV Eindhoven",1,6,[6,11,45,76,86,88,90]],[4,"2026-08-30","14:30","Feyenoord Rotterdam","ADO Den Haag",2,2,[12,53,62,72]],[4,"2026-08-30","14:30","Willem II","Heerenveen",2,2,[61,64,77,82]],[3,"2026-08-30","16:45","Telstar","Ajax Amsterdam",0,4,[37,56,60,78]],[4,"2026-08-30","20:00","SC Cambuur","FC Twente",1,4,[22,26,47,82,88]],[5,"2026-09-04","20:00","Sparta Rotterdam","PEC Zwolle",2,2,[21,24,69,80]],[5,"2026-09-05","16:30","NEC Nijmegen","Feyenoord Rotterdam",1,3,[52,55,61,64]],[5,"2026-09-05","20:00","Ajax Amsterdam","PSV Eindhoven",1,3,[5,23,45,90]],[5,"2026-09-05","21:00","Willem II","Excelsior",0,3,[8,34,85]],[5,"2026-09-06","12:15","FC Groningen","FC Twente",2,2,[6,18,29,40]],[5,"2026-09-06","14:30","Heerenveen","AZ Alkmaar",2,3,[7,21,30,69,83]],[5,"2026-09-06","14:30","Telstar","SC Cambuur",2,2,[53,60,63,90]],[5,"2026-09-06","16:45","ADO Den Haag","Fortuna Sittard",2,3,[29,34,59,62,90]],[5,"2026-09-08","14:00","FC Utrecht","Go Ahead Eagles",3,3,[18,49,58,63,77,90]],[6,"2026-09-08","18:45","NEC Nijmegen","Excelsior",2,2,[10,43,73,90]],[6,"2026-09-09","18:45","FC Twente","Telstar",1,0,[65]],[6,"2026-09-11","20:00","AZ Alkmaar","Willem II",1,1,[32,81]],[7,"2026-09-12","16:30","FC Twente","ADO Den Haag",2,0,[61,74]],[6,"2026-09-12","18:45","Go Ahead Eagles","FC Groningen",1,1,[32,82]],[6,"2026-09-12","20:00","Fortuna Sittard","Ajax Amsterdam",1,5,[35,52,62,73,79,90]],[7,"2026-09-12","21:00","SC Cambuur","NEC Nijmegen",3,0,[21,54,90]],[7,"2026-09-13","12:15","Excelsior","FC Utrecht",1,2,[36,77,90]],[7,"2026-09-13","14:30","Heerenveen","Telstar",0,0,[]],[6,"2026-09-13","16:45","PEC Zwolle","Feyenoord Rotterdam",0,7,[18,23,40,49,63,69,77]],[6,"2026-09-13","20:00","PSV Eindhoven","Sparta Rotterdam",4,1,[15,23,39,74,88]],[7,"2026-09-15","20:00","Ajax Amsterdam","Willem II",5,1,[41,45,69,74,76,87]],[7,"2026-09-18","20:00","FC Groningen","PEC Zwolle",3,0,[20,43,68]],[8,"2026-09-19","16:30","ADO Den Haag","SC Cambuur",1,1,[44,74]],[8,"2026-09-19","18:45","Sparta Rotterdam","Heerenveen",0,4,[28,43,56,75]],[8,"2026-09-19","20:00","Ajax Amsterdam","Excelsior",2,2,[32,45,62,64]],[8,"2026-09-19","21:00","Willem II","Fortuna Sittard",0,1,[79]],[8,"2026-09-20","12:15","Feyenoord Rotterdam","FC Utrecht",5,0,[6,9,33,53,64]],[8,"2026-09-20","14:30","AZ Alkmaar","Telstar",1,0,[19]],[8,"2026-09-20","14:30","FC Twente","PSV Eindhoven",3,2,[14,26,29,79,83]],[8,"2026-09-20","16:45","NEC Nijmegen","Go Ahead Eagles",1,1,[2,10]]],"prev":null,"prevTeams":{}},"tr.1":{"name":"Turkish Super Lig","total":306,"m":[[1,"2026-08-14","20:30","Galatasaray","Çorum FK",2,2,[53,59,61,90]],[1,"2026-08-15","18:00","Kasimpasa","Trabzonspor",1,1,[43,55]],[1,"2026-08-15","18:00","Konyaspor","Caykur Rizespor",0,1,[90]],[1,"2026-08-15","20:30","Gaziantep FK","Alanyaspor",1,1,[20,61]],[1,"2026-08-15","20:30","Genclerbirligi","Fenerbahce",2,1,[13,37,56]],[1,"2026-08-16","18:00","Istanbul Basaksehir","Kocaelispor",2,0,[14,72]],[1,"2026-08-16","20:30","Amed SFK","Erzurum BB",3,0,[53,62,70]],[1,"2026-08-16","20:30","Besiktas","Eyupspor",1,0,[25]],[1,"2026-08-17","20:30","Samsunspor","Goztepe",3,3,[3,30,43,46,65,90]],[2,"2026-08-21","20:30","Erzurum BB","Galatasaray",0,4,[12,20,45,79]],[2,"2026-08-22","18:00","Caykur Rizespor","Samsunspor",0,2,[34,63]],[2,"2026-08-22","18:00","Çorum FK","Kasimpasa",0,1,[6]],[2,"2026-08-22","20:30","Fenerbahce","Konyaspor",4,2,[7,10,20,33,49,90]],[2,"2026-08-23","18:00","Eyupspor","Gaziantep FK",0,1,[60]],[2,"2026-08-23","18:00","Trabzonspor","Istanbul Basaksehir",2,1,[8,19,48]],[2,"2026-08-23","20:30","Alanyaspor","Besiktas",1,0,[73]],[2,"2026-08-23","20:30","Goztepe","Genclerbirligi",0,1,[51]],[2,"2026-08-24","20:30","Kocaelispor","Amed SFK",2,0,[16,87]],[3,"2026-08-28","20:30","Genclerbirligi","Erzurum BB",1,1,[55,66]],[3,"2026-08-29","18:00","Konyaspor","Kocaelispor",1,2,[39,72,86]],[3,"2026-08-29","20:30","Galatasaray","Goztepe",3,2,[16,33,55,63,65]],[3,"2026-08-29","20:30","Gaziantep FK","Caykur Rizespor",1,2,[12,35,90]],[3,"2026-08-30","18:00","Eyupspor","Alanyaspor",2,1,[1,39,90]],[3,"2026-08-30","20:30","Istanbul Basaksehir","Kasimpasa",1,1,[18,81]],[3,"2026-08-30","20:30","Samsunspor","Fenerbahce",0,2,[3,49]],[3,"2026-08-31","20:30","Amed SFK","Trabzonspor",2,1,[11,45,90]],[3,"2026-08-31","20:30","Besiktas","Çorum FK",6,2,[9,43,52,59,66,73,77,83]],[4,"2026-09-04","19:00","Istanbul Basaksehir","Galatasaray",2,3,[16,66,71,76,90]],[4,"2026-09-05","16:00","Erzurum BB","Konyaspor",1,0,[17]],[4,"2026-09-05","19:00","Fenerbahce","Besiktas",1,2,[26,38,73]],[4,"2026-09-06","16:00","Çorum FK","Eyupspor",3,0,[6,27,88]],[4,"2026-09-06","16:00","Kasimpasa","Amed SFK",2,2,[20,52,59,83]],[4,"2026-09-06","19:00","Kocaelispor","Samsunspor",1,0,[26]],[4,"2026-09-06","19:00","Trabzonspor","Genclerbirligi",5,0,[5,14,22,59,78]],[4,"2026-09-07","19:00","Caykur Rizespor","Alanyaspor",0,1,[70]],[4,"2026-09-07","19:00","Goztepe","Gaziantep FK",2,4,[5,10,34,45,51,90]],[5,"2026-09-11","19:00","Besiktas","Erzurum BB",3,0,[21,27,81]],[5,"2026-09-12","16:00","Eyupspor","Caykur Rizespor",0,2,[21,90]],[5,"2026-09-12","16:00","Samsunspor","Çorum FK",1,5,[1,5,10,15,69,71]],[5,"2026-09-12","19:00","Alanyaspor","Goztepe",2,2,[28,63,73,75]],[5,"2026-09-12","19:00","Konyaspor","Trabzonspor",1,0,[2]],[5,"2026-09-13","16:00","Genclerbirligi","Kasimpasa",1,2,[23,79,90]],[5,"2026-09-13","19:00","Amed SFK","Istanbul Basaksehir",5,0,[45,52,56,75,84]],[5,"2026-09-13","19:00","Galatasaray","Kocaelispor",1,0,[71]],[5,"2026-09-14","19:00","Gaziantep FK","Fenerbahce",0,0,[]],[6,"2026-09-18","19:00","Kasimpasa","Konyaspor",0,0,[]],[6,"2026-09-19","16:00","Çorum FK","Alanyaspor",1,2,[67,76,78]],[6,"2026-09-19","16:00","Kocaelispor","Gaziantep FK",2,0,[56,76]],[6,"2026-09-19","19:00","Istanbul Basaksehir","Genclerbirligi",4,0,[9,33,53,65]],[6,"2026-09-19","19:00","Trabzonspor","Galatasaray",4,0,[4,39,44,80]],[6,"2026-09-20","16:00","Erzurum BB","Samsunspor",1,0,[45]],[6,"2026-09-20","16:00","Fenerbahce","Eyupspor",8,0,[4,7,21,38,45,47,55,80]],[6,"2026-09-20","19:00","Amed SFK","Besiktas",3,2,[13,22,55,59,90]],[6,"2026-09-20","19:00","Goztepe","Caykur Rizespor",2,2,[2,70,80,90]]],"prev":null,"prevTeams":{}},"cl":{"name":"UEFA Champions League","total":189,"m":[[1,"2026-09-08","18:45","AEK Athens","LASK Linz",1,0,[21]],[1,"2026-09-08","18:45","Club Brugge","Aston Villa",2,3,[11,19,22,43,61]],[1,"2026-09-08","21:00","Borussia Dortmund","Villarreal",3,2,[53,66,80,85,90]],[1,"2026-09-08","21:00","FC Porto","Manchester City",0,2,[47,90]],[1,"2026-09-08","21:00","Lille","Real Betis",2,3,[12,33,36,49,53]],[1,"2026-09-08","21:00","Real Madrid","Internazionale",2,1,[14,23,77]],[1,"2026-09-09","18:45","Barcelona","Feyenoord Rotterdam",5,1,[3,22,57,77,82,85]],[1,"2026-09-09","18:45","VfB Stuttgart","Viking FK",3,1,[20,22,26,32]],[1,"2026-09-09","21:00","Liverpool","Atlético Madrid",2,1,[17,40,50]],[1,"2026-09-09","21:00","Napoli","Arsenal",0,1,[75]],[1,"2026-09-09","21:00","Paris Saint-Germain","Slovan Bratislava",6,1,[17,23,31,47,57,58,87]],[1,"2026-09-09","21:00","Sporting CP","Galatasaray",3,1,[5,27,57,63]],[1,"2026-09-10","18:45","Fenerbahce","AS Roma",1,1,[39,48]],[1,"2026-09-10","18:45","PSV Eindhoven","Shakhtar Donetsk",1,1,[45,48]],[1,"2026-09-10","21:00","Bayern Munich","Bodo/Glimt",5,0,[47,61,77,83,90]],[1,"2026-09-10","21:00","Como","RB Leipzig",4,1,[15,38,54,58,90]],[1,"2026-09-10","21:00","Manchester United","Sabah FK",4,0,[27,42,45,68]],[1,"2026-09-10","21:00","Slavia Prague","Lens",2,3,[51,73,88,90,90]]],"labels":["League MD1","League MD2","League MD3","League MD4","League MD5","League MD6","League MD7","League MD8","Play-offs 1","Play-offs 2","Round of 16","Quarter-finals","Semi-finals","Final"],"prev":null,"prevTeams":{}},"el":{"name":"UEFA Europa League","total":189,"m":[[1,"2026-09-16","18:45","ARARAT-ARMENIA","Sparta Prague",1,4,[20,22,53,55,71]],[1,"2026-09-16","18:45","Omonia Nicosia","Celta Vigo",1,0,[88]],[1,"2026-09-16","21:00","AC Milan","Benfica",0,2,[16,53]],[1,"2026-09-16","21:00","Anderlecht","Lyon",1,2,[8,22,61]],[1,"2026-09-16","21:00","Bayer Leverkusen","NK Celje",2,0,[15,74]],[1,"2026-09-16","21:00","Hapoel Be'er","Dinamo Zagreb",0,0,[]],[1,"2026-09-16","21:00","Olympiacos","Jagiellonia Bialystok",2,1,[20,43,84]],[1,"2026-09-16","21:00","SK Sturm Graz","Stade Rennais",0,0,[]],[1,"2026-09-16","21:00","Sunderland","AZ Alkmaar",1,0,[66]],[1,"2026-09-17","18:45","Levski Sofia","RB Salzburg",0,1,[39]],[1,"2026-09-17","18:45","OFI CRETE","TSG Hoffenheim",2,0,[30,84]],[1,"2026-09-17","21:00","Besiktas","Marseille",4,1,[15,29,56,59,81]],[1,"2026-09-17","21:00","Celtic","Ferencvaros",1,3,[20,44,45,47]],[1,"2026-09-17","21:00","Crystal Palace","Lech Poznan",4,0,[10,27,34,89]],[1,"2026-09-17","21:00","Juventus","NEC Nijmegen",5,0,[9,24,35,75,82]],[1,"2026-09-17","21:00","Lillestrom","Torreense",1,2,[23,49,79]],[1,"2026-09-17","21:00","Real Sociedad","AFC Bournemouth",1,2,[11,20,57]],[1,"2026-09-17","21:00","Viktoria Plzen","Union St.-Gilloise",0,3,[17,43,59]]],"labels":["League MD1","League MD2","League MD3","League MD4","League MD5","League MD6","League MD7","League MD8","Play-offs 1","Play-offs 2","Round of 16","Quarter-finals","Semi-finals","Final"],"prev":null,"prevTeams":{}}};
+const LEAGUES=[["fr.1","France · Ligue 1","Ligue 1"],["en.1","England · Premier League","Premier League"],
+ ["es.1","Spain · La Liga","La Liga"],["de.1","Germany · Bundesliga","Bundesliga"],
+ ["it.1","Italy · Serie A","Serie A"],["pt.1","Portugal · Primeira Liga","Primeira Liga"],
+ ["nl.1","Netherlands · Eredivisie","Eredivisie"],["tr.1","Turkey · Süper Lig","Süper Lig"],
+ ["cl","Europe · Champions League","Champions League"],["el","Europe · Europa League","Europa League"]];
 const SEASONS=["2026-27","2025-26"];
-const JOURS=["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"];
+const JOURS=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 const el=s=>document.querySelector(s);
 const all=s=>[...document.querySelectorAll(s)];
-const fr=(n,d=1)=>(n===null||n===undefined||isNaN(n))?"—":Number(n).toFixed(d).replace(".",",");
+const fr=(n,d=1)=>(n===null||n===undefined||isNaN(n))?"—":Number(n).toFixed(d);
 const pct=(a,b)=>b?100*a/b:null;
 const see=(n,o)=>{try{n&&n.scrollIntoView(o)}catch(e){}};
 
@@ -461,7 +462,7 @@ const lgSel=el("#lg");
 let M=[],R=[],S=null,prev=null,metric="o25",showBand=true,showRoll=false,teamView="cur";
 let LABELS=null,PREVLAB="25/26";
 let LIVEMATCHS=[],pollId=null,liveLine=2.5,wkOpen=false,cpOpen=false;
-const rlab=md=>LABELS?(LABELS[md-1]||("J"+md)):("J"+md);
+const rlab=md=>LABELS?(LABELS[md-1]||("MD"+md)):("MD"+md);
 const UNDER_LINES=[1.5,2.5,3.5];
 function underKey(line){return "u"+String(line).replace(".","")}
 function parseMinute(m){
@@ -475,7 +476,7 @@ function grabUrls(season,code){const p=`${season}/${code}.json`;
           `https://raw.githubusercontent.com/openfootball/football.json/master/${p}`];}
 async function grab(season,code){let err;
   for(const u of grabUrls(season,code)){
-    try{const r=await fetch(u,{cache:"no-store"}); if(r.ok)return await r.json(); err="statut "+r.status;}
+    try{const r=await fetch(u,{cache:"no-store"}); if(r.ok)return await r.json(); err="status "+r.status;}
     catch(e){err=e.message;}}
   throw new Error(String(err));}
 function parse(j){const out=[];
@@ -513,7 +514,7 @@ const SEASON_START="20260701";
 function ymd(d){return d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0");}
 const PARIS={timeZone:"Europe/Paris",hour12:false};
 const dFmt=new Intl.DateTimeFormat("fr-CA",{...PARIS,year:"numeric",month:"2-digit",day:"2-digit"});
-const tFmt=new Intl.DateTimeFormat("fr-FR",{...PARIS,hour:"2-digit",minute:"2-digit"});
+const tFmt=new Intl.DateTimeFormat("en-GB",{...PARIS,hour:"2-digit",minute:"2-digit"});
 function toParis(iso){const d=new Date(iso);
   if(isNaN(d.getTime()))return null;
   return {date:dFmt.format(d),time:tFmt.format(d).replace(/\s*h\s*/,":")};}
@@ -522,11 +523,11 @@ function norm(n){return n.toLowerCase()
   .replace(/\b(fc|afc|cf|sc|ac|as|rc|sv|bv|vfl|vfb|tsg|sk|bsc|cd|ud|rcd|sd|ssc|us|ss|uc|gd|sl|cs|sco|osc|ogc|aj|ea|club|de|del|the|1899|1901|1904|1907|1909|1913|1963|1907|05|07|29|65)\b/g," ")
   .replace(/[^a-z0-9]+/g," ").trim();}
 async function fetchEspn(code){
-  const slug=ESPN[code]; if(!slug) throw new Error("compétition non couverte");
+  const slug=ESPN[code]; if(!slug) throw new Error("competition not covered");
   const end=new Date(Date.now()+864e5);
   const url=`https://site.api.espn.com/apis/site/v2/sports/soccer/${slug}/scoreboard?dates=${SEASON_START}-${ymd(end)}&limit=1000`;
   const r=await fetch(url,{cache:"no-store"});
-  if(!r.ok) throw new Error("statut "+r.status);
+  if(!r.ok) throw new Error("status "+r.status);
   const j=await r.json();
   const out=[],live=[];
   for(const ev of j.events||[]){
@@ -588,11 +589,11 @@ function sortTable(t,col,dir){
     if(v===undefined||v==="")return null; const n=Number(v); return isNaN(n)?v:n;};
   rows.sort((a,b)=>{const x=val(a),y=val(b);
     if(x===null&&y===null)return 0; if(x===null)return 1; if(y===null)return -1;
-    const c=(typeof x==="number"&&typeof y==="number")?x-y:String(x).localeCompare(String(y),"fr");
+    const c=(typeof x==="number"&&typeof y==="number")?x-y:String(x).localeCompare(String(y),"en");
     return dir==="ascending"?c:-c;});
   rows.forEach(r=>body.appendChild(r));}
 function sortable(sel,defCol,defDir){const t=el(sel);t._def=[defCol,defDir];
-  [...t.tHead.rows[0].cells].forEach((th,i)=>{th.tabIndex=0;th.setAttribute("role","button");th.title="Trier";});
+  [...t.tHead.rows[0].cells].forEach((th,i)=>{th.tabIndex=0;th.setAttribute("role","button");th.title="Sort";});
   t.tHead.addEventListener("click",e=>{const th=e.target.closest("th");if(th)sortTable(t,th.cellIndex);});
   t.tHead.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;
     const th=e.target.closest("th");if(th){e.preventDefault();sortTable(t,th.cellIndex);}});}
@@ -601,21 +602,21 @@ function resort(sel){const t=el(sel),ths=[...t.tHead.rows[0].cells];
   if(i>=0)sortTable(t,i,ths[i].getAttribute("aria-sort")); else sortTable(t,t._def[0],t._def[1]);}
 
 /* ---------- kpi ---------- */
-const METRICS=[["ggp","GG"],["ngp","NG"],["o05","+0,5"],["u05","−0,5"],["o15","+1,5"],["u15","−1,5"],
- ["o25","+2,5"],["u25","−2,5"],["o35","+3,5"],["u35","−3,5"],["hw","Victoire à domicile"],["dr","Match nul"],
- ["aw","Victoire à l\u2019extérieur"],["avg","Buts par match"]];
+const METRICS=[["ggp","BTTS"],["ngp","No BTTS"],["o05","+0.5"],["u05","−0.5"],["o15","+1.5"],["u15","−1.5"],
+ ["o25","+2.5"],["u25","−2.5"],["o35","+3.5"],["u35","−3.5"],["hw","Home win"],["dr","Draw"],
+ ["aw","Away win"],["avg","Goals per match"]];
 const colour=k=>k==="avg"?"var(--amber)":/^o\d/.test(k)?"var(--amber)":/^u\d/.test(k)?"var(--blue)":
   k==="ggp"?"var(--mint)":k==="ngp"?"var(--dim)":k==="hw"?"var(--rose)":k==="dr"?"var(--dim)":"var(--blue)";
 const PAIRS=[
-  ["0,5 but",  "o05","+0,5","u05","−0,5","Le côté « −0,5 » est exactement le taux de 0‑0."],
-  ["1,5 but",  "o15","+1,5","u15","−1,5",""],
-  ["2,5 buts", "o25","+2,5","u25","−2,5",""],
-  ["3,5 buts", "o35","+3,5","u35","−3,5",""]];
+  ["0.5 goals",  "o05","+0.5","u05","−0.5","The −0.5 side is exactly the 0‑0 rate."],
+  ["1.5 goals",  "o15","+1.5","u15","−1.5",""],
+  ["2.5 goals", "o25","+2.5","u25","−2.5",""],
+  ["3.5 goals", "o35","+3.5","u35","−3.5",""]];
 function delta(k){ if(!prev||prev[k]===null||prev[k]===undefined||isNaN(prev[k]))return "";
-  const d=S[k]-prev[k]; return (d>=0?"+":"−")+fr(Math.abs(d),k==="avg"?2:1)+(k==="avg"?"":" pt")+" vs "+PREVLAB; }
-const CPAIR={o05:["u05","−0,5"],u05:["o05","+0,5"],o15:["u15","−1,5"],u15:["o15","+1,5"],
- o25:["u25","−2,5"],u25:["o25","+2,5"],o35:["u35","−3,5"],u35:["o35","+3,5"],
- ggp:["ngp","NG"],ngp:["ggp","GG"]};
+  const d=S[k]-prev[k]; return (d>=0?"+":"−")+fr(Math.abs(d),k==="avg"?2:1)+(k==="avg"?"":" pp")+" vs "+PREVLAB; }
+const CPAIR={o05:["u05","−0.5"],u05:["o05","+0.5"],o15:["u15","−1.5"],u15:["o15","+1.5"],
+ o25:["u25","−2.5"],u25:["o25","+2.5"],o35:["u35","−3.5"],u35:["o35","+3.5"],
+ ggp:["ngp","No BTTS"],ngp:["ggp","BTTS"]};
 function endBtn(k,lab,right){
   return `<button class="end${right?" r":""}" data-k="${k}" aria-pressed="${k===metric}">
     ${lab}<b style="color:${colour(k)}">${fr(S[k])} %</b><em>${delta(k)}</em></button>`;}
@@ -627,24 +628,24 @@ function pairRow(lab,ka,la,kb,lb,note){
 function tiles(){
   const d=delta("avg");
   let s=`<div class="grp">
-    <div class="grpH"><h3>Volume de buts</h3><span>part des matchs au-dessus et en dessous du seuil</span></div>
+    <div class="grpH"><h3>Goal volume</h3><span>share of matches above and below the line</span></div>
     <button class="hero" data-k="avg" aria-pressed="${metric==="avg"}">
       <span class="n">${fr(S.avg,2)}</span>
-      <span class="t">buts par match<em>${S.goals} buts en ${S.n} matchs${d?" · "+d:""}</em></span></button>
+      <span class="t">goals per match<em>${S.goals} goals in ${S.n} matches${d?" · "+d:""}</em></span></button>
     ${PAIRS.map(p=>pairRow(...p)).join("")}
   </div>
   <div class="grp">
-    <div class="grpH"><h3>Les deux équipes marquent</h3><span>GG et NG sont complémentaires</span></div>
-    ${pairRow("Sur l\u2019ensemble des matchs","ggp","GG","ngp","NG","")}
+    <div class="grpH"><h3>Both teams to score</h3><span>BTTS and No BTTS are complementary</span></div>
+    ${pairRow("Across all matches","ggp","BTTS","ngp","No BTTS","")}
   </div>
   <div class="grp">
-    <div class="grpH"><h3>Issue du match</h3><span>domicile, nul, extérieur</span></div>
-    <div class="pair"><div class="plab">Répartition des 1 / N / 2</div>
+    <div class="grpH"><h3>Match result</h3><span>home, draw, away</span></div>
+    <div class="pair"><div class="plab">1 / X / 2 split</div>
       <div class="pbar"><i style="width:${S.hw}%;background:var(--rose)"></i><i style="width:${S.dr}%;background:var(--dim)"></i><i style="width:${S.aw}%;background:var(--blue)"></i></div>
       <div class="pends">
-        <button class="end" data-k="hw" aria-pressed="${metric==="hw"}">1 domicile<b style="color:var(--rose)">${fr(S.hw)} %</b><em>${delta("hw")}</em></button>
-        <button class="end mid" data-k="dr" aria-pressed="${metric==="dr"}">N nul<b style="color:var(--dim)">${fr(S.dr)} %</b><em>${delta("dr")}</em></button>
-        <button class="end r" data-k="aw" aria-pressed="${metric==="aw"}">2 extérieur<b style="color:var(--blue)">${fr(S.aw)} %</b><em>${delta("aw")}</em></button>
+        <button class="end" data-k="hw" aria-pressed="${metric==="hw"}">1 home<b style="color:var(--rose)">${fr(S.hw)} %</b><em>${delta("hw")}</em></button>
+        <button class="end mid" data-k="dr" aria-pressed="${metric==="dr"}">X draw<b style="color:var(--dim)">${fr(S.dr)} %</b><em>${delta("dr")}</em></button>
+        <button class="end r" data-k="aw" aria-pressed="${metric==="aw"}">2 away<b style="color:var(--blue)">${fr(S.aw)} %</b><em>${delta("aw")}</em></button>
       </div></div>
   </div>`;
   el("#rep").innerHTML=s;}
@@ -658,7 +659,7 @@ function metricStrip(){
   const val=isPct?fr(S[metric])+" %":fr(S[metric],2);
   strip.hidden=false;
   strip.innerHTML=`<span class="chip">${lab} · ${val}</span>
-    <p class="hint">Métrique tracée — touchez une autre valeur dans Repères pour changer</p>`;
+    <p class="hint">Metric plotted — tap another value in Markers to change</p>`;
 }
 function jbarTone(k){
   if(k==="avg"||/^o\d/.test(k))return "";
@@ -675,7 +676,7 @@ function chart(){
   const y=v=>pt+(h-pt-pb)*(1-Math.min(v,maxV)/maxV);
   const cLine=cssv("--line"),cDim=cssv("--dim"),cTxt=cssv("--txt"),cBand=cssv("--band");
   const step=R.length<=14?1:Math.ceil(R.length/10);
-  let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${lab} par journée">`;
+  let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${lab} by matchday">`;
   (isPct?[0,25,50,75,100]:[0,1,2,3,4,5]).forEach(t=>{if(t>maxV)return;
     s+=`<line x1="${pl}" x2="${w-pr}" y1="${y(t)}" y2="${y(t)}" stroke="${cLine}" stroke-width=".8"/>
         <text x="${pl-6}" y="${y(t)+3.5}" fill="${cDim}" font-size="9.5" text-anchor="end">${isPct?t+"%":t}</text>`;});
@@ -684,19 +685,19 @@ function chart(){
       const hi=Math.min(isPct?100:maxV,base+se),lo=Math.max(0,base-se);
       s+=`<rect x="${pl+i*bw}" y="${y(hi)}" width="${bw+0.4}" height="${Math.max(0,y(lo)-y(hi))}" fill="${cBand}" opacity=".16"/>`;});
     s+=`<line x1="${pl}" x2="${w-pr}" y1="${y(base)}" y2="${y(base)}" stroke="${cTxt}" stroke-width="1" stroke-dasharray="5 4"/>
-        <text x="${w-pr}" y="${y(base)-6}" fill="${cTxt}" font-size="10" text-anchor="end">saison ${isPct?fr(base)+" %":fr(base,2)}</text>`;}
+        <text x="${w-pr}" y="${y(base)-6}" fill="${cTxt}" font-size="10" text-anchor="end">season ${isPct?fr(base)+" %":fr(base,2)}</text>`;}
   R.forEach((r,i)=>{const v=r[metric],x=pl+i*bw;
     const barW=Math.max(2.8,bw-1);
     s+=`<rect x="${x+(bw-barW)/2}" y="${y(v)}" width="${barW}" height="${h-pb-y(v)}" fill="${colour(metric)}" opacity=".88" pointer-events="none">
-        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"s":""})</title></rect>`;
+        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"es":""})</title></rect>`;
     s+=`<rect x="${x}" y="${pt}" width="${bw}" height="${h-pt-pb}" fill="transparent" data-md="${r.md}" style="cursor:pointer">
-        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"s":""})</title></rect>`;
+        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"es":""})</title></rect>`;
     if(i%step===0||i===R.length-1)
       s+=`<text x="${x+bw/2}" y="${h-10}" fill="${cDim}" font-size="10" text-anchor="middle" font-family="Barlow Condensed,sans-serif">${r.md}</text>`;});
   if(showRoll&&R.length>=3){const pts=R.map((r,i)=>{const sl=R.slice(Math.max(0,i-4),i+1);
       return [pl+i*bw+bw/2,y(sl.reduce((a,x)=>a+x[metric],0)/sl.length)];});
     s+=`<polyline fill="none" stroke="${cssv("--rose")}" stroke-width="2" stroke-linejoin="round" points="${pts.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")}"/>`;}
-  s+=`<text x="${pl}" y="14" fill="${cTxt}" font-size="12.5" font-family="Barlow Condensed,sans-serif" font-weight="600">${lab} par journée</text></svg>`;
+  s+=`<text x="${pl}" y="14" fill="${cTxt}" font-size="12.5" font-family="Barlow Condensed,sans-serif" font-weight="600">${lab} by matchday</text></svg>`;
   el("#chart").innerHTML=s;
   el("#chart").querySelectorAll("rect[data-md]").forEach(r=>r.addEventListener("click",()=>pick(+r.dataset.md,true)));
   /* Portrait columns — visible under 620px (Stitch mobile chart) */
@@ -717,7 +718,7 @@ function chart(){
       return `<button type="button" class="jcol ${tone}" data-md="${r.md}" aria-label="${r.lab} ${isPct?fr(v)+" %":fr(v,2)}">
         <span class="jv">${isPct?fr(v):fr(v,2)}</span>
         <span class="jtrack">${bandHtml}<i style="height:${pctH}%"></i></span>
-        <span class="jl">${r.lab.replace(/^Journ[ée]e\s+/i,"J")}</span></button>`;}).join("");
+        <span class="jl">${r.lab.replace(/^Matchday\s+/i,"MD")}</span></button>`;}).join("");
     jb.onclick=e=>{const b=e.target.closest("[data-md]"); if(b)pick(+b.dataset.md,true);};
   }
   const leg=el("#chartleg"); if(leg)leg.hidden=false;
@@ -726,10 +727,10 @@ function verdict(){
   const isPct=metric!=="avg",base=S[metric],lab=METRICS.find(m=>m[0]===metric)[1];
   const out=R.filter(r=>Math.abs(r[metric]-base)>band(r.n,isPct,base)).length,exp=R.length*0.05;
   let msg;
-  const u=LABELS?"tour":"journée", up=u+"s";
-  if(R.length<6)msg=`Trop peu de ${R.length>1?up:u} pour conclure : ${R.length} joué${LABELS?"":"e"}${R.length>1?"s":""}. Revenez quand il y en aura une dizaine.`;
-  else if(out<=exp+1)msg=`<b>Rien à lire pour l'instant.</b> ${out} ${out>1?up:u} sort${out>1?"ent":""} de la bande sur ${R.length}, alors que le hasard seul en produit environ ${fr(exp)}. La moyenne de ${isPct?fr(base)+" %":fr(base,2)} reste le meilleur point de départ.`;
-  else msg=`<b>${out} ${up} sortent de la bande</b> sur ${R.length}, contre environ ${fr(exp)} attendus par hasard. Regardez si les écarts vont dans le même sens ou s'ils s'annulent.`;
+  const u=LABELS?"round":"matchday", up=u+"s";
+  if(R.length<6)msg=`Too few ${R.length>1?up:u} to conclude: ${R.length} played. Come back when there are about ten.`;
+  else if(out<=exp+1)msg=`<b>Nothing to read yet.</b> ${out} ${out>1?up:u} sit${out===1?"s":""} outside the band out of ${R.length}, while chance alone produces about ${fr(exp)}. The average of ${isPct?fr(base)+" %":fr(base,2)} remains the best starting point.`;
+  else msg=`<b>${out} ${up} sit outside the band</b> out of ${R.length}, versus about ${fr(exp)} expected by chance. Check whether the gaps go the same way or cancel out.`;
   el("#verdict").innerHTML=`${lab} · ${msg}`;}
 
 /* ---------- weeks table ---------- */
@@ -743,12 +744,12 @@ function applyCols(){const keep=new Set(COLSETS[colset]);
   fades();}
 function weeks(){
   el("#wk tbody").innerHTML=R.map(r=>{
-    const dt=new Date(r.date+"T12:00:00").toLocaleDateString("fr-FR",{day:"2-digit",month:"short"});
+    const dt=new Date(r.date+"T12:00:00").toLocaleDateString("en-GB",{day:"2-digit",month:"short"});
     const c=[[r.n,r.n],[r.goals,r.goals],[r.avg,fr(r.avg,2)],[r.ggp,fr(r.ggp)],[r.ngp,fr(r.ngp)],
       [r.o05,fr(r.o05)],[r.u05,fr(r.u05)],[r.o15,fr(r.o15)],[r.u15,fr(r.u15)],[r.o25,fr(r.o25)],
       [r.u25,fr(r.u25)],[r.o35,fr(r.o35)],[r.u35,fr(r.u35)],[r.hw,fr(r.hw)],[r.dr,fr(r.dr)],
       [r.aw,fr(r.aw)],[r.nil,fr(r.nil)]];
-    return `<tr class="tap" data-md="${r.md}"><td class="l sticky j" data-v="${r.md}">${r.lab}${r.full?"":'<span class="wip" title="tour incomplet">•</span>'}</td><td class="l thin" data-v="${r.date}">${dt}</td>`+
+    return `<tr class="tap" data-md="${r.md}"><td class="l sticky j" data-v="${r.md}">${r.lab}${r.full?"":'<span class="wip" title="incomplete round">•</span>'}</td><td class="l thin" data-v="${r.date}">${dt}</td>`+
       c.map(v=>`<td data-v="${v[0]===null?"":v[0]}">${v[1]}</td>`).join("")+"</tr>";}).join("");
   el("#wk tbody").onclick=e=>{const tr=e.target.closest("tr"); if(tr)pick(+tr.dataset.md,true);};
   resort("#wk"); applyCols(); weekSummary();}
@@ -757,15 +758,15 @@ function weekSummary(){
   if(!box||!R.length){if(box)box.innerHTML="";return;}
   const r=R[R.length-1];
   const late=minuteStats(r.games);
-  box.innerHTML=`<div class="kcell" style="margin-bottom:8px"><span>${LABELS?r.lab:"Journée "+r.md}${r.full?"":" · en cours"}</span>
-    <b style="font-size:18px">${r.n} match${r.n>1?"s":""} · ${fr(r.avg,2)} buts/match</b></div>
+  box.innerHTML=`<div class="kcell" style="margin-bottom:8px"><span>${LABELS?r.lab:"Matchday "+r.md}${r.full?"":" · in progress"}</span>
+    <b style="font-size:18px">${r.n} match${r.n>1?"es":""} · ${fr(r.avg,2)} goals/match</b></div>
     <div class="kgrid">
-      <div class="kcell"><span>Moy. buts</span><b>${fr(r.avg,2)}</b></div>
-      <div class="kcell"><span>GG %</span><b>${fr(r.ggp)}</b></div>
-      <div class="kcell"><span>−2,5 %</span><b>${fr(r.u25)}</b></div>
-      <div class="kcell"><span>Buts 70ᵉ+</span><b>${late?fr(late.latePct):"—"}</b></div>
+      <div class="kcell"><span>Avg goals</span><b>${fr(r.avg,2)}</b></div>
+      <div class="kcell"><span>BTTS %</span><b>${fr(r.ggp)}</b></div>
+      <div class="kcell"><span>−2.5 %</span><b>${fr(r.u25)}</b></div>
+      <div class="kcell"><span>Goals 70′+</span><b>${late?fr(late.latePct):"—"}</b></div>
     </div>
-    <p class="hint">Sur mobile, le tableau 19 colonnes reste derrière « Voir le détail ». Touchez une ligne du détail pour ouvrir les matchs.</p>`;
+    <p class="hint">On mobile, the 19-column table stays behind “Show table detail”. Tap a detail row to open the matches.</p>`;
   if(tog)tog.style.display="";
   syncTableToggles();}
 function syncTableToggles(){
@@ -778,16 +779,16 @@ function syncTableToggles(){
   if(cpbox)cpbox.classList.toggle("collapsed",mobile&&!cpOpen);
   if(wkd)wkd.setAttribute("aria-pressed",String(wkOpen));
   if(cpd)cpd.setAttribute("aria-pressed",String(cpOpen));
-  if(wkd)wkd.textContent=wkOpen?"Masquer le tableau":"Voir le détail du tableau";
-  if(cpd)cpd.textContent=cpOpen?"Masquer le tableau":"Voir le détail du tableau";
+  if(wkd)wkd.textContent=wkOpen?"Hide table":"Show table detail";
+  if(cpd)cpd.textContent=cpOpen?"Hide table":"Show table detail";
 }
 function pick(md,scroll){
   const r=R.find(x=>x.md===md); if(!r)return;
   all("#wk tbody tr").forEach(tr=>tr.classList.toggle("sel",+tr.dataset.md===md));
-  const dt=new Date(r.date+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+  const dt=new Date(r.date+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
   const p=el("#panel");
-  p.innerHTML=`<h3>${LABELS?r.lab:"Journée "+md}</h3>
-    <p class="sub" style="margin:2px 0 0">à partir du ${dt} — ${r.goals} buts en ${r.n} match${r.n>1?"s":""}${r.full?"":` sur ${r.exp}, <b class="wip">encore en cours</b>`} (${fr(r.avg,2)} par match) · GG ${fr(r.ggp)} % · +2,5 ${fr(r.o25)} %</p>
+  p.innerHTML=`<h3>${LABELS?r.lab:"Matchday "+md}</h3>
+    <p class="sub" style="margin:2px 0 0">from ${dt} — ${r.goals} goals in ${r.n} match${r.n>1?"es":""}${r.full?"":` of ${r.exp}, <b class="wip">still in progress</b>`} (${fr(r.avg,2)} per match) · BTTS ${fr(r.ggp)} % · +2.5 ${fr(r.o25)} %</p>
     <div class="games">${r.games.map(m=>`<div class="g ${m.hg>0&&m.ag>0?"gg":"ng"}"><span>${shorten(m.h)}</span><span class="sc">${m.hg}‑${m.ag}</span><span class="aw">${shorten(m.a)}</span></div>`).join("")}</div>`;
   if(scroll){see(p,{block:"nearest"}); p.classList.add("flash"); setTimeout(()=>p.classList.remove("flash"),900);}}
 
@@ -805,7 +806,7 @@ function group(keyFn,tbl,order){
   resort(tbl);}
 function slotOf(m){if(!m.time)return null;
   const t=+m.time.slice(0,2)*60 + +m.time.slice(3,5);
-  if(t<17*60)return "avant 17h"; if(t<19*60)return "17h–18h59"; if(t<20*60+45)return "19h–20h44"; return "20h45 et plus";}
+  if(t<17*60)return "Before 5pm"; if(t<19*60)return "5pm–6:59pm"; if(t<20*60+45)return "7pm–8:44pm"; return "8:45pm+";}
 
 /* ---------- teams ---------- */
 function teams(){
@@ -829,21 +830,21 @@ function teams(){
     return `<td data-v="${v}"${cl}>${txt}</td>`;};
   const body=rows.map(r=>{
     let c=r.cur,delta=false,tag="";
-    if(teamView==="prev"){ if(r.prev)c=r.prev; else {c=nul;tag=' <span class="thin">nouveau</span>';} }
+    if(teamView==="prev"){ if(r.prev)c=r.prev; else {c=nul;tag=' <span class="thin">new</span>';} }
     else if(teamView==="diff"){ delta=true;
       if(r.prev)c=[null,null,null,null,...[4,5,6,7,8,9].map(i=>r.cur[i]-r.prev[i])];
-      else {c=nul;tag=' <span class="thin">nouveau</span>';} }
+      else {c=nul;tag=' <span class="thin">new</span>';} }
     return `<tr><td class="l sticky" data-v="${r.t}">${r.t}${tag}</td>`+c.map((v,i)=>cell(v,i,delta)).join("")+"</tr>";});
   if(teamView!=="cur")for(const k of Object.keys(hist).filter(k=>k!=="__names"&&!seen.has(k))){
     const c=teamView==="prev"?hist[k]:nul, nm=shorten(hist.__names[k]||k);
-    body.push(`<tr style="opacity:.55"><td class="l sticky" data-v="${nm}">${nm} <span class="thin">parti</span></td>`+
+    body.push(`<tr style="opacity:.55"><td class="l sticky" data-v="${nm}">${nm} <span class="thin">left</span></td>`+
       c.map((v,i)=>cell(v,i,false)).join("")+"</tr>");}
   el("#tm tbody").innerHTML=body.join("");
   el("#tmnote").textContent = teamView==="cur"
-    ? "Matchs déjà joués cette saison, les deux équipes confondues dans la rencontre."
+    ? "Matches already played this season, both teams counted in each fixture."
     : teamView==="prev"
-    ? "Bilan complet de 2025/26. Les promus n'ont pas de ligne chiffrée, les relégués restent visibles en grisé."
-    : "Écart en points de pourcentage entre la saison en cours et 2025/26, hausse en ambre et baisse en bleu. Sur si peu de matchs joués, c'est surtout du bruit.";
+    ? "Full 2025/26 record. Promoted sides have no numbers yet; relegated sides stay visible in grey."
+    : "Percentage-point gap between the current season and 2025/26 — up in amber, down in blue. With so few matches played, this is mostly noise.";
   resort("#tm"); filterTeams();}
 function filterTeams(){
   const q=el("#q").value.trim().toLowerCase();
@@ -851,7 +852,7 @@ function filterTeams(){
   all("#tm tbody tr").forEach(tr=>{total++;
     const ok=!q||tr.cells[0].textContent.toLowerCase().includes(q);
     tr.style.display=ok?"":"none"; if(ok)shown++;});
-  el("#qhint").textContent=q?`${shown} club${shown>1?"s":""} sur ${total}.`:"";}
+  el("#qhint").textContent=q?`${shown} club${shown>1?"s":""} of ${total}.`:"";}
 
 
 
@@ -869,16 +870,16 @@ function minuteStats(ms){
 function minutes(){
   const st=minuteStats(M);
   if(!st){
-    el("#minnote").textContent="Les minutes de but ne sont pas dans les données actuellement chargées. Elles arrivent avec le flux ESPN quand il les fournit ; la copie embarquée ne les contient pas.";
+    el("#minnote").textContent="Goal minutes are not in the data currently loaded. They arrive with the ESPN feed when it provides them; the embedded copy does not include them.";
     el("#minbars").innerHTML=""; return;}
   const late=st.latePct, early=100-late;
   const lateN=Math.round(st.goals*late/100), earlyN=st.goals-lateN;
   const r=52, circ=2*Math.PI*r, sw=12;
   const lateLen=circ*late/100, earlyLen=circ-lateLen;
-  const hints=["Ouverture","Installation","Fin 1ʳᵉ MT","Reprise","Amorce live","Pic 70ᵉ+"];
-  el("#minnote").textContent=`Répartition des ${st.goals} buts dont la minute est connue, sur ${st.n} match${st.n>1?"s":""}.`;
+  const hints=["Opening","Settling in","End of 1st half","Restart","Live window","70′+ peak"];
+  el("#minnote").textContent=`Breakdown of ${st.goals} goals with a known minute, across ${st.n} match${st.n>1?"es":""}.`;
   el("#minbars").innerHTML=`<div class="mdonut">
-    <div class="mring" role="img" aria-label="${fr(late)} % des buts dès la 70ᵉ">
+    <div class="mring" role="img" aria-label="${fr(late)} % of goals from the 70th onward">
       <svg viewBox="0 0 140 140">
         <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--surf2)" stroke-width="${sw}"/>
         <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--blue)" stroke-width="${sw}"
@@ -888,18 +889,18 @@ function minutes(){
           stroke-dasharray="${lateLen.toFixed(2)} ${circ.toFixed(2)}" stroke-dashoffset="${(-earlyLen).toFixed(2)}"
           transform="rotate(-90 70 70)" stroke-linecap="butt"/>
       </svg>
-      <div class="hub"><span class="lab">Zone critique</span><b>${fr(late)} %</b><em>70ᵉ+</em></div>
+      <div class="hub"><span class="lab">Critical zone</span><b>${fr(late)} %</b><em>70′+</em></div>
     </div>
     <div class="msum">
-      <div class="cell"><span>Avant la 70ᵉ</span><span class="n">${earlyN} but${earlyN>1?"s":""}</span><b>${fr(early)} %</b></div>
-      <div class="cell late"><span>Dès la 70ᵉ</span><span class="n">${lateN} but${lateN>1?"s":""}</span><b>${fr(late)} %</b></div>
+      <div class="cell"><span>Before the 70th</span><span class="n">${earlyN} goal${earlyN>1?"s":""}</span><b>${fr(early)} %</b></div>
+      <div class="cell late"><span>From the 70th</span><span class="n">${lateN} goal${lateN>1?"s":""}</span><b>${fr(late)} %</b></div>
     </div>
   </div>
   <div class="mlegs">${BUCKETS.map(([a,,lab],i)=>{
     const p=100*st.counts[i]/st.goals, lateB=a>=60;
     return `<div class="mleg${lateB?" latebucket":""}"><span class="mlab">${lab}</span>
       <span class="mhint">${hints[i]}</span><span class="mval">${fr(p)} %</span></div>`;}).join("")}</div>
-  <div class="mlate">À partir de la 70ᵉ minute : <b>${fr(st.latePct)} %</b> des buts, soit ${fr(st.latePerMatch,2)} but par match sur les vingt dernières minutes. Probabilité qu\u2019il en tombe au moins un : <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> si les buts arrivent au hasard.</div>`;
+  <div class="mlate">From the 70th minute: <b>${fr(st.latePct)} %</b> of goals, or ${fr(st.latePerMatch,2)} goals per match in the last twenty minutes. Chance of at least one: <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> if goals arrive at random.</div>`;
 }
 
 
@@ -912,14 +913,14 @@ function enDirect(){
     return;}
   sec.hidden=false; nav.hidden=false; if(bnav)bnav.hidden=false;
   const sea=S||(M.length?season(M):null);
-  el("#livenote").textContent=LIVEMATCHS.length+" rencontre"+(LIVEMATCHS.length>1?"s":"")+" en cours. Score actualisé chaque minute ; ces matchs n\u2019entrent pas dans les statistiques tant qu\u2019ils ne sont pas terminés. Touchez une ligne −N,5 pour la comparer au taux de la saison.";
+  el("#livenote").textContent=LIVEMATCHS.length+" match"+(LIVEMATCHS.length>1?"es":"")+" in progress. Score updates every minute; these matches do not enter the stats until they finish. Tap a −N.5 line to compare it with the season rate.";
   el("#livelist").innerHTML=LIVEMATCHS.map(function(m,i){
     const tot=(+m.hg||0)+(+m.ag||0), min=parseMinute(m), late=min!==null&&min>=70;
-    const clock=m.clock||m.periode||"en cours";
+    const clock=m.clock||m.periode||"live";
     const key=underKey(liveLine);
     const rate=sea&&sea[key]!=null?fr(sea[key]):"—";
     const chips=UNDER_LINES.map(function(line){
-      const lab="−"+String(line).replace(".",",");
+      const lab="−"+String(line);
       return '<button type="button" data-i="'+i+'" data-line="'+line+'" aria-pressed="'+String(line===liveLine)+'">'+lab+'</button>';
     }).join("");
     return '<div class="lv'+(late?" late":"")+'"><div class="row"><span>'+shorten(m.h)+'</span>'
@@ -927,9 +928,9 @@ function enDirect(){
       +'<span class="aw">'+shorten(m.a)+'</span>'
       +'<span class="mn pulse">'+clock+'</span></div>'
       +'<div class="meta"><span>Total <b>'+tot+'</b> but'+(tot>1?"s":"")+'</span>'
-      +(late?'<span>Fenêtre 70ᵉ+</span>':'')
+      +(late?'<span>70′+ window</span>':'')
       +'</div><div class="und">'+chips+'</div>'
-      +'<div class="rate">Saison −'+String(liveLine).replace(".",",")+' : <b>'+rate+' %</b></div></div>';
+      +'<div class="rate">Season −'+String(liveLine)+' : <b>'+rate+' %</b></div></div>';
   }).join("");
   el("#livelist").onclick=function(e){
     const b=e.target.closest("button[data-line]"); if(!b)return;
@@ -942,12 +943,12 @@ function enDirect(){
 
 /* ---------- comparaison des compétitions ---------- */
 let cmpSide="over";
-const CKPI_OVER=[["avg","Buts par match","Moyenne"],["ggp","GG, les deux équipes marquent","GG"],
- ["o05","+0,5 but","+0,5"],["o15","+1,5 but","+1,5"],["o25","+2,5 buts","+2,5"],["o35","+3,5 buts","+3,5"],
- ["hw","Victoire à domicile","Victoire dom."],["dr","Match nul","Nul"],["aw","Victoire à l\u2019extérieur","Victoire ext."]];
-const CKPI_UNDER=[["avg","Buts par match","Moyenne"],["ngp","NG, au moins une équipe ne marque pas","NG"],
- ["u05","−0,5 but, soit le taux de 0‑0","−0,5"],["u15","−1,5 but","−1,5"],["u25","−2,5 buts","−2,5"],["u35","−3,5 buts","−3,5"],
- ["hw","Victoire à domicile","Victoire dom."],["dr","Match nul","Nul"],["aw","Victoire à l\u2019extérieur","Victoire ext."]];
+const CKPI_OVER=[["avg","Goals per match","Average"],["ggp","BTTS, both teams to score","BTTS"],
+ ["o05","+0.5 goals","+0.5"],["o15","+1.5 goals","+1.5"],["o25","+2.5 goals","+2.5"],["o35","+3.5 goals","+3.5"],
+ ["hw","Home win","Home win"],["dr","Draw","Draw"],["aw","Away win","Away win"]];
+const CKPI_UNDER=[["avg","Goals per match","Average"],["ngp","No BTTS, at least one team fails to score","No BTTS"],
+ ["u05","−0.5 goals, i.e. the 0‑0 rate","−0.5"],["u15","−1.5 goals","−1.5"],["u25","−2.5 goals","−2.5"],["u35","−3.5 goals","−3.5"],
+ ["hw","Home win","Home win"],["dr","Draw","Draw"],["aw","Away win","Away win"]];
 const ckpi=()=>cmpSide==="over"?CKPI_OVER:CKPI_UNDER;
 let ALL=null;
 const LIVE={},LIVENAME={};
@@ -962,11 +963,11 @@ function allSeasons(){
   return ALL;}
 function compare(){
   const L=allSeasons(),cur=lgSel.value,CKPI=ckpi(),un=cmpSide==="under";
-  el("#hGG").textContent=un?"NG":"GG";
-  ["05","15","25","35"].forEach(k=>el("#h"+k).textContent=(un?"−":"+")+k[0]+",5");
+  el("#hGG").textContent=un?"No BTTS":"BTTS";
+  ["05","15","25","35"].forEach(k=>el("#h"+k).textContent=(un?"−":"+")+k[0]+".5");
   el("#cmphint").textContent=un
-    ? "Les deux faces d'un seuil sont complémentaires : le championnat le plus haut en −2,5 est aussi le plus bas en +2,5."
-    : "Basculez pour lire les mêmes seuils par en dessous.";
+    ? "The two sides of a line are complementary: the league highest on −2.5 is also the lowest on +2.5."
+    : "Switch to read the same lines from below.";
   const fmt=(k,v)=>k==="avg"?fr(v,2):fr(v)+" %";
   el("#cmp").innerHTML=CKPI.map(([k,lab,shortLab])=>{
     const vals=L.map(x=>({...x,v:x.S[k]}));
@@ -982,7 +983,7 @@ function compare(){
       const pos=((x.v-lo)/span)*100;
       const cls=x.code===cur?"on":(x.v===lo?"lo":(x.v===hi?"hi":""));
       return `<button class="dot ${cls}" style="left:${pos}%" data-go="${x.code}"
-        title="${x.name} — ${fmt(k,x.v)} (${x.S.n} matchs)" aria-label="${x.name} ${fmt(k,x.v)}"></button>`;}).join("");
+        title="${x.name} — ${fmt(k,x.v)} (${x.S.n} matches)" aria-label="${x.name} ${fmt(k,x.v)}"></button>`;}).join("");
     return `<div class="crow"><div class="ckpi">${lab}</div>
       <div class="ctrack"><div class="ln"></div>${dots}</div>
       <div class="ccur">${curX?`<b>${curX.name}</b> · ${fmt(k,curX.v)}`:"—"}</div>
@@ -1009,12 +1010,12 @@ function compare(){
     const gg=un?me.S.ngp:me.S.ggp;
     const u=me.S.u25, late=me.MIN?fr(me.MIN.latePct):"—";
     sum.innerHTML=`<div class="kcell" style="margin-bottom:8px"><span>${me.name}</span>
-      <b style="font-size:18px">${me.S.n} matchs · ${fr(me.S.avg,2)} buts/match</b></div>
+      <b style="font-size:18px">${me.S.n} matches · ${fr(me.S.avg,2)} goals/match</b></div>
       <div class="kgrid">
-        <div class="kcell"><span>${un?"NG %":"GG %"}</span><b>${fr(gg)}</b></div>
-        <div class="kcell"><span>−2,5 %</span><b>${fr(u)}</b></div>
-        <div class="kcell"><span>Moyenne</span><b>${fr(me.S.avg,2)}</b></div>
-        <div class="kcell"><span>Buts 70ᵉ+</span><b>${late}</b></div>
+        <div class="kcell"><span>${un?"No BTTS %":"BTTS %"}</span><b>${fr(gg)}</b></div>
+        <div class="kcell"><span>−2.5 %</span><b>${fr(u)}</b></div>
+        <div class="kcell"><span>Average</span><b>${fr(me.S.avg,2)}</b></div>
+        <div class="kcell"><span>Goals 70′+</span><b>${late}</b></div>
       </div>`;}
   syncTableToggles();}
 function setBottomTab(tab){
@@ -1054,14 +1055,14 @@ function render(name,total){
   const last=M.reduce((a,m)=>m.date>a?m.date:a,M[0].date);
   const note=(SNAP[lgSel.value]||{}).seasonNote;
   const part=R.filter(r=>!r.full);
-  el("#cover").textContent=`${M.length} matchs joués sur ${total} — ${R.length} ${(LABELS?"tour":"journée")+(R.length>1?"s":"")}. Dernière rencontre le ${new Date(last+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})}.`+(part.length?(()=>{const p1=part.length===1,e=LABELS?"":"e",s=p1?"":"s";
-    const head=LABELS?(p1?"Le tour":"Les tours"):(p1?"La journée":"Les journées");
+  el("#cover").textContent=`${M.length} matches played of ${total} — ${R.length} ${(LABELS?"round":"matchday")+(R.length>1?"s":"")}. Last match on ${new Date(last+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}.`+(part.length?(()=>{const p1=part.length===1;
+    const head=LABELS?(p1?"Round":"Rounds"):(p1?"Matchday":"Matchdays");
     const names=part.map(r=>LABELS?r.lab:r.md).join(", ");
-    return ` ${head} ${names} ${p1?"n'est":"ne sont"} pas terminé${e}${s} : marqué${e}${s} d'un point dans le tableau.`;})():"")+(note?" "+note:"");
+    return ` ${head} ${names} ${p1?"is":"are"} not finished yet — marked with a dot in the table.`;})():"")+(note?" "+note:"");
   tiles(); chart(); verdict(); weeks(); pick(R[R.length-1].md,false);
   group(m=>JOURS[(new Date(m.date+"T12:00:00").getDay()+6)%7],"#dow",JOURS);
-  el("#slotnote").textContent=`Heure connue pour ${M.filter(m=>m.time).length} des ${M.length} matchs joués.`;
-  group(slotOf,"#slot",["avant 17h","17h–18h59","19h–20h44","20h45 et plus"]);
+  el("#slotnote").textContent=`Kick-off time known for ${M.filter(m=>m.time).length} of ${M.length} matches played.`;
+  group(slotOf,"#slot",["Before 5pm","5pm–6:59pm","7pm–8:44pm","8:45pm+"]);
   teams(); minutes(); compare(); fades(); syncTableToggles(); all("section").forEach(s=>io.observe(s));}
 function fromSnap(code){const s=SNAP[code]; if(!s)return null;
   return {name:s.name,total:s.total,prev:s.prev,
@@ -1082,65 +1083,65 @@ function load(){
     const cached=LIVE[lgSel.value];
     if(cached&&cached.length){show(LIVENAME[lgSel.value]||lgSel.value,cached.length,cached,null,"ESPN");return;}
     el("#main").hidden=true;el("#state").hidden=false;
-    el("#state").innerHTML=((SNAP[lgSel.value]||{}).emptyNote?"<b>Aucun match terminé pour l\u2019instant.</b> "+SNAP[lgSel.value].emptyNote+" ":"<b>Pas de copie embarquée pour cette compétition.</b> ")+"Interrogation d\u2019ESPN…";
+    el("#state").innerHTML=((SNAP[lgSel.value]||{}).emptyNote?"<b>No completed matches yet.</b> "+SNAP[lgSel.value].emptyNote+" ":"<b>No embedded copy for this competition.</b> ")+"Querying ESPN…";
     refresh(); return;}
-  show(snap.name,snap.total,snap.ms,snap.prev,"copie ESPN du "+new Date(SNAP._date+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"short"}));
+  show(snap.name,snap.total,snap.ms,snap.prev,"ESPN copy from "+new Date(SNAP._date+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"}));
   autoRefresh(lgSel.value);}
 let autoDone={};
 async function autoRefresh(code){
   if(autoDone[code])return;          // une seule tentative par championnat et par session
   autoDone[code]=true;
-  el("#msg").textContent="Recherche de résultats plus récents…";
+  el("#msg").textContent="Looking for newer results…";
   try{
     const {name,ms,live}=await fetchEspn(code);
     LIVEMATCHS=live||[]; enDirect();
-    if(!ms.length)throw new Error("rien");
+    if(!ms.length)throw new Error("empty");
     if(code!==lgSel.value)return;    // l'utilisateur a changé de compétition entre-temps
     const base=fromSnap(code);
     const d=base?diffReport(base.ms,ms):null;
     const newMins=ms.some(m=>m.mins&&m.mins.length)&&!M.some(m=>m.mins&&m.mins.length);
     if(d&&!d.added&&!d.changed.length&&!newMins){
-      el("#msg").textContent="À jour : ESPN ne renvoie rien de plus que la copie embarquée.";
+      el("#msg").textContent="Up to date: ESPN returns nothing beyond the embedded copy.";
       return;}
     const cfg=SNAP[code]||{};
-    show(name,cfg.total||ms.length,ms,cfg.prev||null,"ESPN en direct, "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}));
+    show(name,cfg.total||ms.length,ms,cfg.prev||null,"ESPN live, "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}));
     const bits=[];
-    if(d&&d.added)bits.push(`${d.added} match${d.added>1?"s":""} ajouté${d.added>1?"s":""}`);
-    if(d&&d.changed.length)bits.push(`${d.changed.length} score${d.changed.length>1?"s":""} corrigé${d.changed.length>1?"s":""} : `+d.changed.slice(0,3).join(", "));
-    if(newMins)bits.push("minutes de but récupérées");
-    el("#msg").textContent="Mis à jour depuis ESPN"+(bits.length?" — "+bits.join(" · "):"")+`. ${ms.length} matchs terminés.`;
+    if(d&&d.added)bits.push(`${d.added} match${d.added>1?"es":""} added`);
+    if(d&&d.changed.length)bits.push(`${d.changed.length} score${d.changed.length>1?"s":""} corrected: `+d.changed.slice(0,3).join(", "));
+    if(newMins)bits.push("goal minutes retrieved");
+    el("#msg").textContent="Updated from ESPN"+(bits.length?" — "+bits.join(" · "):"")+`. ${ms.length} completed matches.`;
   }catch(e){
-    el("#msg").textContent="Pas d\u2019accès réseau : affichage de la copie ESPN du "+new Date(SNAP._date+"T12:00:00").toLocaleDateString("fr-FR",{day:"numeric",month:"long"})+". Ouvrez le fichier dans un navigateur et ESPN prendra le relais.";
+    el("#msg").textContent="No network access: showing the ESPN copy from "+new Date(SNAP._date+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long"})+". Open the file in a browser and ESPN will take over.";
   }
 }
 async function refresh(){
   autoDone[lgSel.value]=true;
   const code=lgSel.value,btn=el("#rf"),cfg=SNAP[code]||{};
-  btn.disabled=true;btn.textContent="…";el("#msg").textContent="Interrogation d\u2019ESPN…";
+  btn.disabled=true;btn.textContent="…";el("#msg").textContent="Querying ESPN…";
   try{
     const {name,ms,live}=await fetchEspn(code);
     LIVEMATCHS=live||[]; enDirect();
-    if(!ms.length) throw new Error("aucun match terminé renvoyé");
+    if(!ms.length) throw new Error("no completed matches returned");
     const base=fromSnap(code); const d=base?diffReport(base.ms,ms):null;
     let pv=cfg.prev||null;
-    show(name,cfg.total||ms.length,ms,pv,"ESPN en direct, "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}));
-    const bits=[`${ms.length} matchs terminés`];
-    if(!d)bits.push("source ESPN en direct, pas de copie embarquée à comparer");
+    show(name,cfg.total||ms.length,ms,pv,"ESPN live, "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}));
+    const bits=[`${ms.length} completed matches`];
+    if(!d)bits.push("live ESPN source, no embedded copy to compare");
     else{
-      if(d.added)bits.push(`${d.added} de plus que la copie embarquée`);
-      if(d.changed.length)bits.push(`${d.changed.length} score${d.changed.length>1?"s":""} corrigé${d.changed.length>1?"s":""} : `+d.changed.slice(0,4).join(", "));
-      if(!d.added&&!d.changed.length)bits.push("aucune différence avec la copie embarquée");}
+      if(d.added)bits.push(`${d.added} more than the embedded copy`);
+      if(d.changed.length)bits.push(`${d.changed.length} score${d.changed.length>1?"s":""} corrected: `+d.changed.slice(0,4).join(", "));
+      if(!d.added&&!d.changed.length)bits.push("no difference from the embedded copy");}
     el("#msg").textContent=bits.join(" · ");
   }catch(e){
     if(!fromSnap(code)||!fromSnap(code).ms.length){
       el("#main").hidden=true;el("#state").hidden=false;
       const note=(SNAP[code]||{}).emptyNote;
       el("#state").innerHTML=note
-        ? `<b>Aucun match terminé pour l\u2019instant.</b> ${note} Revenez après le coup d\u2019envoi et la page se remplira toute seule.`
-        : `<b>Résultats indisponibles</b> (${e.message}). Cette compétition n\u2019a pas de copie embarquée : elle a besoin d\u2019un accès réseau. Ouvrez le fichier dans votre navigateur.`;
+        ? `<b>No completed matches yet.</b> ${note} Come back after kick-off and the page will fill itself.`
+        : `<b>Results unavailable</b> (${e.message}). This competition has no embedded copy — it needs network access. Open the file in your browser.`;
       return;}
-    el("#msg").textContent=`Mise à jour impossible (${e.message}). L\u2019affichage reste sur la copie embarquée — c\u2019est normal si la page tourne dans un cadre qui bloque le réseau ; ouvrez le fichier directement dans un navigateur.`;
-  }finally{btn.disabled=false;btn.textContent="Mettre à jour";}
+    el("#msg").textContent=`Update failed (${e.message}). Display stays on the embedded copy — normal if the page runs in a frame that blocks the network; open the file directly in a browser.`;
+  }finally{btn.disabled=false;btn.textContent="Refresh";}
 }
 
 /* ---------- wiring ---------- */
@@ -1167,3 +1168,4 @@ sortable("#wk",0,"ascending"); sortable("#dow",0,"ascending");
 sortable("#slot",0,"ascending"); sortable("#tm",2,"descending"); sortable("#cp",3,"descending");
 load();
 </script>
+</html>

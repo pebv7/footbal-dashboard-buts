@@ -7,8 +7,8 @@ qui sert de secours quand le navigateur n'a pas accès à ESPN.
 import json, pathlib, datetime, re, unicodedata
 
 RACINE = pathlib.Path(__file__).parent
-LABELS_COUPES = ["Ligue J1","Ligue J2","Ligue J3","Ligue J4","Ligue J5","Ligue J6","Ligue J7","Ligue J8",
-                 "Barrages 1","Barrages 2","8es","Quarts","Demies","Finale"]
+LABELS_COUPES = ["League MD1","League MD2","League MD3","League MD4","League MD5","League MD6","League MD7","League MD8",
+                 "Play-offs 1","Play-offs 2","Round of 16","Quarter-finals","Semi-finals","Final"]
 TOTAL = {"fr.1":306,"en.1":380,"es.1":380,"de.1":306,"it.1":380,
          "pt.1":306,"nl.1":306,"tr.1":306,"cl":189,"el":189}
 
