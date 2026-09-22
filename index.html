@@ -90,7 +90,17 @@ section{padding-top:26px;scroll-margin-top:104px}
 
 /* ---- chart ---- */
 .chartbox{margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.chartbox svg{display:block;min-width:480px;width:100%;height:auto}
+.chartbox svg{display:block;width:100%;height:auto;min-width:0}
+.chartleg{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:8px;font-size:12px;color:var(--mut)}
+.chartleg i{display:inline-block;width:14px;height:8px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.chartleg .band{background:var(--band);opacity:.35}
+.chartleg .mean{border-top:2px dashed var(--txt);height:0;width:16px;margin-right:5px;vertical-align:middle}
+.chartleg .bar{background:var(--amber)}
+.metstrip{position:sticky;top:72px;z-index:30;display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  margin:10px 0 0;padding:8px 10px;background:var(--surf);border:1px solid var(--line);border-radius:8px}
+.metstrip .chip{background:var(--surf2);border:1px solid var(--amber);color:var(--amber);border-radius:999px;
+  padding:5px 11px;font:500 12.5px/1 "IBM Plex Sans",sans-serif}
+.metstrip .hint{font-size:12px;color:var(--dim);margin:0}
 .verdict{margin-top:10px;border-left:3px solid var(--line2);padding:9px 0 9px 13px;font-size:13.5px;color:var(--mut)}
 .verdict b{color:var(--txt);font-weight:500}
 
@@ -154,21 +164,26 @@ th.sticky{z-index:3}
 .tdetail{margin-top:10px}
 .tbox.collapsed{display:none}
 .mrow{display:grid;grid-template-columns:62px 1fr 52px;gap:10px;align-items:center;margin-top:9px}
+.mrow.latebucket .mlab{color:var(--amber);font-weight:500}
 .mlab{font-size:12.5px;color:var(--mut)}
 .mtrack{height:14px;background:var(--surf2);border-radius:7px;overflow:hidden}
 .mtrack i{display:block;height:100%;background:var(--amber);border-radius:7px}
+.mrow.latebucket .mtrack i{background:var(--amber);box-shadow:inset 0 0 0 1px var(--amber)}
 .mval{font-family:"Barlow Condensed",sans-serif;font-size:17px;font-weight:600;text-align:right}
-.mlate{margin-top:14px;border-left:3px solid var(--line2);padding:9px 0 9px 13px;font-size:13.5px;color:var(--mut)}
+.mlate{margin-top:14px;border-left:3px solid var(--amber);padding:9px 0 9px 13px;font-size:13.5px;color:var(--mut)}
 .mlate b{color:var(--txt);font-weight:500}
 .crow{border-top:1px solid var(--line);padding:13px 0 11px}
 .crow:first-child{border-top:0}
 .ckpi{font-size:12px;color:var(--dim);margin-bottom:7px}
-.ctrack{position:relative;height:16px;margin:0 7px}
-.ctrack .ln{position:absolute;left:0;right:0;top:7px;height:2px;background:var(--surf2);border-radius:1px}
-.dot{position:absolute;top:2px;width:12px;height:12px;margin-left:-6px;border-radius:50%;
-  background:var(--mut);border:2px solid var(--bg);padding:0;cursor:pointer}
+.ctrack{position:relative;height:44px;margin:0 7px}
+.ctrack .ln{position:absolute;left:0;right:0;top:21px;height:4px;background:var(--surf2);border-radius:2px}
+.dot{position:absolute;top:8px;width:28px;height:28px;margin-left:-14px;border-radius:50%;
+  background:var(--mut);border:3px solid var(--bg);padding:0;cursor:pointer;z-index:1}
 .dot.lo{background:var(--blue)}.dot.hi{background:var(--rose)}
-.dot.on{background:var(--amber);z-index:3;width:14px;height:14px;top:1px;margin-left:-7px}
+.dot.on{background:var(--amber);z-index:3;width:32px;height:32px;top:6px;margin-left:-16px;
+  box-shadow:0 0 0 2px var(--amber)}
+.ccur{margin-top:6px;font-size:12.5px;color:var(--mut);text-align:center}
+.ccur b{color:var(--amber);font-weight:500}
 .cends{display:flex;justify-content:space-between;gap:12px;margin-top:8px;font-size:12.5px;color:var(--mut)}
 .cends .r{text-align:right}
 .cends b{font-family:"Barlow Condensed",sans-serif;font-size:19px;font-weight:600;display:block;line-height:1.05}
@@ -204,6 +219,8 @@ b.wip{font-weight:500}
   .wksum,.cpsum{display:block}
   .tbox.desk-only.collapsed{display:none}
   .tbox.desk-only{margin-top:8px}
+  .metstrip{top:56px}
+  .chartbox svg{min-width:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
@@ -253,7 +270,13 @@ html{scroll-behavior:smooth}
 <section id="s-jrn">
   <h2>Par journée</h2>
   <p class="sub">La bande grise est l'intervalle où une journée tombe 19 fois sur 20 si rien ne change. Elle s'élargit quand la journée compte peu de matchs. Tant que les barres restent dedans, il n'y a pas de tendance à lire.</p>
+  <div class="metstrip" id="metstrip" hidden></div>
   <div class="chartbox" id="chart"></div>
+  <div class="chartleg" id="chartleg" hidden>
+    <span><i class="bar"></i>Valeur par journée</span>
+    <span><i class="band"></i>Bande de hasard</span>
+    <span><i class="mean"></i>Moyenne de saison</span>
+  </div>
   <div class="opts" id="opts">
     <button class="opt" data-o="band" aria-pressed="true">Bande de hasard</button>
     <button class="opt" data-o="roll" aria-pressed="false">Moyenne mobile 5</button>
@@ -579,12 +602,22 @@ function tiles(){
 /* ---------- chart ---------- */
 function cssv(n){return getComputedStyle(root).getPropertyValue(n).trim();}
 function band(n,isPct,base){return isPct?1.96*Math.sqrt((base/100)*(1-base/100)/n)*100:1.96*S.sd/Math.sqrt(n);}
+function metricStrip(){
+  const strip=el("#metstrip"); if(!strip||!S)return;
+  const lab=METRICS.find(m=>m[0]===metric)[1];
+  const isPct=metric!=="avg";
+  const val=isPct?fr(S[metric])+" %":fr(S[metric],2);
+  strip.hidden=false;
+  strip.innerHTML=`<span class="chip">Métrique : ${lab} · ${val}</span>
+    <p class="hint">Reste visible en descendant vers le graphique — changez-la dans Repères</p>`;
+}
 function chart(){
   const isPct=metric!=="avg",base=S[metric],lab=METRICS.find(m=>m[0]===metric)[1];
-  const w=760,h=300,pl=36,pr=10,pt=26,pb=28,bw=(w-pl-pr)/Math.max(R.length,1);
+  const w=760,h=300,pl=36,pr=10,pt=26,pb=32,bw=(w-pl-pr)/Math.max(R.length,1);
   const maxV=isPct?100:Math.max(4,...R.map(r=>r.avg))*1.1;
   const y=v=>pt+(h-pt-pb)*(1-Math.min(v,maxV)/maxV);
   const cLine=cssv("--line"),cDim=cssv("--dim"),cTxt=cssv("--txt"),cBand=cssv("--band");
+  const step=R.length<=14?1:Math.ceil(R.length/10);
   let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${lab} par journée">`;
   (isPct?[0,25,50,75,100]:[0,1,2,3,4,5]).forEach(t=>{if(t>maxV)return;
     s+=`<line x1="${pl}" x2="${w-pr}" y1="${y(t)}" y2="${y(t)}" stroke="${cLine}" stroke-width=".8"/>
@@ -596,16 +629,21 @@ function chart(){
     s+=`<line x1="${pl}" x2="${w-pr}" y1="${y(base)}" y2="${y(base)}" stroke="${cTxt}" stroke-width="1" stroke-dasharray="5 4"/>
         <text x="${w-pr}" y="${y(base)-6}" fill="${cTxt}" font-size="10" text-anchor="end">saison ${isPct?fr(base)+" %":fr(base,2)}</text>`;}
   R.forEach((r,i)=>{const v=r[metric],x=pl+i*bw;
-    s+=`<rect x="${x+1.2}" y="${y(v)}" width="${Math.max(1.6,bw-2.4)}" height="${h-pb-y(v)}" fill="${colour(metric)}" opacity=".88" data-md="${r.md}" style="cursor:pointer">
+    const barW=Math.max(2.8,bw-1);
+    s+=`<rect x="${x+(bw-barW)/2}" y="${y(v)}" width="${barW}" height="${h-pb-y(v)}" fill="${colour(metric)}" opacity=".88" pointer-events="none">
         <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"s":""})</title></rect>`;
-    if(R.length<=12||r.md%Math.ceil(R.length/12)===1||i===R.length-1)
-      s+=`<text x="${x+bw/2}" y="${h-9}" fill="${cDim}" font-size="9" text-anchor="middle" font-family="Barlow Condensed,sans-serif">${r.md}</text>`;});
+    s+=`<rect x="${x}" y="${pt}" width="${bw}" height="${h-pt-pb}" fill="transparent" data-md="${r.md}" style="cursor:pointer">
+        <title>${r.lab} — ${isPct?fr(v)+" %":fr(v,2)} (${r.n} match${r.n>1?"s":""})</title></rect>`;
+    if(i%step===0||i===R.length-1)
+      s+=`<text x="${x+bw/2}" y="${h-10}" fill="${cDim}" font-size="10" text-anchor="middle" font-family="Barlow Condensed,sans-serif">${r.md}</text>`;});
   if(showRoll&&R.length>=3){const pts=R.map((r,i)=>{const sl=R.slice(Math.max(0,i-4),i+1);
       return [pl+i*bw+bw/2,y(sl.reduce((a,x)=>a+x[metric],0)/sl.length)];});
     s+=`<polyline fill="none" stroke="${cssv("--rose")}" stroke-width="2" stroke-linejoin="round" points="${pts.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")}"/>`;}
   s+=`<text x="${pl}" y="14" fill="${cTxt}" font-size="12.5" font-family="Barlow Condensed,sans-serif" font-weight="600">${lab} par journée</text></svg>`;
   el("#chart").innerHTML=s;
-  el("#chart").querySelectorAll("rect[data-md]").forEach(r=>r.addEventListener("click",()=>pick(+r.dataset.md,true)));}
+  el("#chart").querySelectorAll("rect[data-md]").forEach(r=>r.addEventListener("click",()=>pick(+r.dataset.md,true)));
+  const leg=el("#chartleg"); if(leg)leg.hidden=false;
+  metricStrip();}
 function verdict(){
   const isPct=metric!=="avg",base=S[metric],lab=METRICS.find(m=>m[0]===metric)[1];
   const out=R.filter(r=>Math.abs(r[metric]-base)>band(r.n,isPct,base)).length,exp=R.length*0.05;
@@ -757,9 +795,10 @@ function minutes(){
     el("#minbars").innerHTML=""; return;}
   const max=Math.max(...st.counts);
   el("#minnote").textContent=`Répartition des ${st.goals} buts dont la minute est connue, sur ${st.n} match${st.n>1?"s":""}.`;
-  el("#minbars").innerHTML=BUCKETS.map(([,,lab],i)=>{
+  el("#minbars").innerHTML=BUCKETS.map(([a,,lab],i)=>{
     const p=100*st.counts[i]/st.goals;
-    return `<div class="mrow"><span class="mlab">${lab}</span>
+    const late=a>=60;
+    return `<div class="mrow${late?" latebucket":""}"><span class="mlab">${lab}${late?" · live":""}</span>
       <span class="mtrack"><i style="width:${max?100*st.counts[i]/max:0}%"></i></span>
       <span class="mval">${fr(p)} %</span></div>`;}).join("")
     +`<div class="mlate">À partir de la 70ᵉ minute : <b>${fr(st.latePct)} %</b> des buts, soit ${fr(st.latePerMatch,2)} but par match sur les vingt dernières minutes. Probabilité qu\u2019il en tombe au moins un : <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> si les buts arrivent au hasard.</div>`;
@@ -840,6 +879,7 @@ function compare(){
     const pr=CPAIR[k];
     const mir=(v,side)=>{ if(!pr)return "";
       const o=vals.find(x=>x.v===v); return `<span class="mir">${pr[1]} ${fmt(pr[0],o.S[pr[0]])} — ${side}</span>`;};
+    const curX=vals.find(x=>x.code===cur);
     const dots=vals.map(x=>{
       const pos=((x.v-lo)/span)*100;
       const cls=x.code===cur?"on":(x.v===lo?"lo":(x.v===hi?"hi":""));
@@ -847,6 +887,7 @@ function compare(){
         title="${x.name} — ${fmt(k,x.v)} (${x.S.n} matchs)" aria-label="${x.name} ${fmt(k,x.v)}"></button>`;}).join("");
     return `<div class="crow"><div class="ckpi">${lab}</div>
       <div class="ctrack"><div class="ln"></div>${dots}</div>
+      <div class="ccur">${curX?`<b>${curX.name}</b> · ${fmt(k,curX.v)}`:"—"}</div>
       <div class="cends">
         <span><b style="color:var(--blue)">${fmt(k,lo)}</b><span class="lb">${shortLab} — minimum</span>${mir(lo,"maximum")}<span class="nm">${loL}</span></span>
         <span class="r"><b style="color:var(--amber)">${fmt(k,hi)}</b><span class="lb">${shortLab} — maximum</span>${mir(hi,"minimum")}<span class="nm">${hiL}</span></span>
@@ -935,7 +976,7 @@ function show(name,total,ms,pv,origin){
   PREVLAB=pm?pm[2]+"/"+pm[3]:"25/26";
   M=ms;R=rounds(M);S=season(M);prev=pv;
   el("#state").hidden=true; el("#main").hidden=false;
-  render(name,total); el("#stamp").textContent=origin;}
+  render(name,total); el("#stamp").textContent=origin; enDirect();}
 function load(){
   el("#msg").textContent=""; el("#q").value="";
   const snap=fromSnap(lgSel.value);
@@ -1008,7 +1049,8 @@ async function refresh(){
 el("#rep").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(!b)return;
   metric=b.dataset.k;
   all("#rep [data-k]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.k===metric)));
-  chart(); verdict();});
+  chart(); verdict();
+  see(el("#s-jrn"),{block:"nearest"});});
 el("#opts").addEventListener("click",e=>{const b=e.target.closest(".opt");if(!b)return;
   const on=b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed",on);
   if(b.dataset.o==="band")showBand=on; else showRoll=on; chart();});
