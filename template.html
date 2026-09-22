@@ -182,22 +182,24 @@ th.sticky{z-index:3}
 .kcell b{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;line-height:1}
 .tdetail{margin-top:10px}
 .tbox.collapsed{display:none}
-.mdonut{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-start;margin-top:10px;
-  padding:14px;background:var(--surf);border:1px solid var(--line);border-radius:8px}
-.mring{position:relative;width:168px;height:168px;flex:0 0 auto}
+.mdonut{display:flex;flex-wrap:nowrap;gap:14px 16px;align-items:center;margin-top:10px;
+  padding:12px 14px;background:var(--surf);border:1px solid var(--line);border-radius:8px}
+.mring{position:relative;width:152px;height:152px;flex:0 0 auto}
 .mring svg{display:block;width:100%;height:100%}
 .mring .hub{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  pointer-events:none;text-align:center;padding:36px 28px}
-.mring .hub .lab{font:700 9px/1.1 "IBM Plex Sans",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);max-width:5.5em}
-.mring .hub b{font-family:"Barlow Condensed",sans-serif;font-size:26px;font-weight:700;color:var(--amber);line-height:1;margin-top:3px}
-.mring .hub em{font-style:normal;font-size:12px;color:var(--mut);margin-top:2px}
-.msum{flex:0 0 auto;width:min(100%,220px);display:flex;flex-direction:column;gap:8px}
-.msum .cell{padding:8px 10px;background:var(--surf2);border-radius:7px;border-left:3px solid var(--blue)}
+  pointer-events:none;text-align:center;padding:34px 26px;box-sizing:border-box}
+.mring .hub .lab{font:700 9px/1.15 "IBM Plex Sans",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)}
+.mring .hub b{font-family:"Barlow Condensed",sans-serif;font-size:28px;font-weight:700;color:var(--amber);line-height:.95;margin-top:2px}
+.mring .hub em{font-style:normal;font-size:12px;color:var(--mut);margin-top:1px}
+.msum{flex:1 1 auto;min-width:0;max-width:260px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.msum .cell{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;column-gap:10px;row-gap:1px;
+  align-items:baseline;padding:8px 10px;background:var(--surf2);border-radius:7px;border-left:3px solid var(--blue)}
 .msum .cell.late{border-left-color:var(--amber)}
-.msum .cell span{display:block;font-size:11.5px;color:var(--dim);line-height:1.25}
-.msum .cell b{font-family:"Barlow Condensed",sans-serif;font-size:20px;font-weight:600;color:var(--txt);line-height:1.1;margin:2px 0}
+.msum .cell span{font-size:11.5px;color:var(--dim);line-height:1.2}
+.msum .cell b{grid-row:1 / span 2;grid-column:2;align-self:center;
+  font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;color:var(--txt);line-height:1}
 .msum .cell.late b{color:var(--amber)}
-.msum .cell .n{color:var(--mut);font-size:12px}
+.msum .cell .n{grid-column:1;color:var(--mut);font-size:12px}
 .mlegs{margin-top:12px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surf)}
 .mleg{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:8px 10px;align-items:baseline;
   padding:8px 12px;border-top:1px solid var(--line);font-size:13px}
@@ -260,10 +262,11 @@ b.wip{font-weight:500}
   .metstrip{top:56px}
   .chartbox.desk-chart{display:none}
   .jbars{height:220px}
-  .mring{width:148px;height:148px}
-  .mring .hub{padding:30px 24px}
+  .mring{width:132px;height:132px}
+  .mring .hub{padding:28px 22px}
   .mring .hub b{font-size:24px}
-  .msum{width:100%;max-width:none}
+  .msum{max-width:none}
+  .msum .cell b{font-size:20px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
@@ -886,8 +889,8 @@ function minutes(){
       <div class="hub"><span class="lab">Zone critique</span><b>${fr(late)} %</b><em>70ᵉ+</em></div>
     </div>
     <div class="msum">
-      <div class="cell"><span>Avant la 70ᵉ</span><b>${fr(early)} %</b><span class="n">${earlyN} but${earlyN>1?"s":""}</span></div>
-      <div class="cell late"><span>Dès la 70ᵉ</span><b>${fr(late)} %</b><span class="n">${lateN} but${lateN>1?"s":""}</span></div>
+      <div class="cell"><span>Avant la 70ᵉ</span><span class="n">${earlyN} but${earlyN>1?"s":""}</span><b>${fr(early)} %</b></div>
+      <div class="cell late"><span>Dès la 70ᵉ</span><span class="n">${lateN} but${lateN>1?"s":""}</span><b>${fr(late)} %</b></div>
     </div>
   </div>
   <div class="mlegs">${BUCKETS.map(([a,,lab],i)=>{
