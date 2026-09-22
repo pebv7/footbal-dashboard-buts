@@ -682,7 +682,8 @@ function chart(){
   const scale=isPct?100:maxV;
   const jb=el("#jbars");
   if(jb){
-    jb.style.gridTemplateColumns=`repeat(${Math.max(R.length,1)},minmax(0,1fr))`;
+    const cols=Math.max(R.length,1);
+    jb.style.gridTemplateColumns=cols>12?`repeat(${cols},minmax(42px,1fr))`:`repeat(${cols},minmax(0,1fr))`;
     jb.innerHTML=R.map(r=>{
       const v=r[metric], pctH=Math.max(2,100*Math.min(v,scale)/scale);
       const se=showBand?band(r.n,isPct,base):0;
