@@ -182,7 +182,7 @@ th.sticky{z-index:3}
 .kcell b{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;line-height:1}
 .tdetail{margin-top:10px}
 .tbox.collapsed{display:none}
-.mdonut{display:flex;flex-wrap:nowrap;gap:14px 16px;align-items:center;margin-top:10px;
+.mdonut{display:flex;flex-wrap:nowrap;gap:12px 18px;align-items:center;justify-content:center;margin-top:10px;
   padding:12px 14px;background:var(--surf);border:1px solid var(--line);border-radius:8px}
 .mring{position:relative;width:152px;height:152px;flex:0 0 auto}
 .mring svg{display:block;width:100%;height:100%}
@@ -191,15 +191,15 @@ th.sticky{z-index:3}
 .mring .hub .lab{font:700 9px/1.15 "IBM Plex Sans",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)}
 .mring .hub b{font-family:"Barlow Condensed",sans-serif;font-size:28px;font-weight:700;color:var(--amber);line-height:.95;margin-top:2px}
 .mring .hub em{font-style:normal;font-size:12px;color:var(--mut);margin-top:1px}
-.msum{flex:1 1 auto;min-width:0;max-width:260px;display:flex;flex-direction:column;justify-content:center;gap:8px}
-.msum .cell{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;column-gap:10px;row-gap:1px;
-  align-items:baseline;padding:8px 10px;background:var(--surf2);border-radius:7px;border-left:3px solid var(--blue)}
+.msum{flex:0 0 auto;width:max-content;max-width:200px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.msum .cell{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:12px;row-gap:0;
+  align-items:baseline;padding:7px 10px 7px 9px;background:var(--surf2);border-radius:6px;border-left:3px solid var(--blue)}
 .msum .cell.late{border-left-color:var(--amber)}
-.msum .cell span{font-size:11.5px;color:var(--dim);line-height:1.2}
+.msum .cell span{font-size:11px;color:var(--dim);line-height:1.25;white-space:nowrap}
 .msum .cell b{grid-row:1 / span 2;grid-column:2;align-self:center;
-  font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;color:var(--txt);line-height:1}
+  font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;color:var(--txt);line-height:1;white-space:nowrap}
 .msum .cell.late b{color:var(--amber)}
-.msum .cell .n{grid-column:1;color:var(--mut);font-size:12px}
+.msum .cell .n{grid-column:1;color:var(--mut);font-size:11.5px;white-space:nowrap}
 .mlegs{margin-top:12px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surf)}
 .mleg{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:8px 10px;align-items:baseline;
   padding:8px 12px;border-top:1px solid var(--line);font-size:13px}
@@ -262,11 +262,13 @@ b.wip{font-weight:500}
   .metstrip{top:56px}
   .chartbox.desk-chart{display:none}
   .jbars{height:220px}
-  .mring{width:132px;height:132px}
-  .mring .hub{padding:28px 22px}
-  .mring .hub b{font-size:24px}
-  .msum{max-width:none}
-  .msum .cell b{font-size:20px}
+  .mring{width:128px;height:128px}
+  .mring .hub{padding:26px 20px}
+  .mring .hub b{font-size:23px}
+  .msum{max-width:168px}
+  .msum .cell{padding:6px 8px 6px 7px;column-gap:8px}
+  .msum .cell b{font-size:19px}
+  .msum .cell span,.msum .cell .n{font-size:10.5px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
