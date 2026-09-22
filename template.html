@@ -182,28 +182,29 @@ th.sticky{z-index:3}
 .kcell b{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;line-height:1}
 .tdetail{margin-top:10px}
 .tbox.collapsed{display:none}
-.mdonut{display:flex;flex-wrap:wrap;gap:16px 22px;align-items:center;margin-top:10px;
+.mdonut{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:flex-start;margin-top:10px;
   padding:14px;background:var(--surf);border:1px solid var(--line);border-radius:8px}
-.mring{position:relative;width:148px;height:148px;flex:0 0 auto}
+.mring{position:relative;width:168px;height:168px;flex:0 0 auto}
 .mring svg{display:block;width:100%;height:100%}
 .mring .hub{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  pointer-events:none;text-align:center;padding:18px}
-.mring .hub .lab{font:700 10px/1 "IBM Plex Sans",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
-.mring .hub b{font-family:"Barlow Condensed",sans-serif;font-size:34px;font-weight:700;color:var(--amber);line-height:1;margin-top:4px}
-.mring .hub em{font-style:normal;font-size:13px;color:var(--mut);margin-top:2px}
-.msum{flex:1;min-width:160px;display:flex;flex-direction:column;gap:10px}
-.msum .cell{padding:10px 12px;background:var(--surf2);border-radius:7px;border-left:3px solid var(--blue)}
+  pointer-events:none;text-align:center;padding:36px 28px}
+.mring .hub .lab{font:700 9px/1.1 "IBM Plex Sans",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);max-width:5.5em}
+.mring .hub b{font-family:"Barlow Condensed",sans-serif;font-size:26px;font-weight:700;color:var(--amber);line-height:1;margin-top:3px}
+.mring .hub em{font-style:normal;font-size:12px;color:var(--mut);margin-top:2px}
+.msum{flex:0 0 auto;width:min(100%,220px);display:flex;flex-direction:column;gap:8px}
+.msum .cell{padding:8px 10px;background:var(--surf2);border-radius:7px;border-left:3px solid var(--blue)}
 .msum .cell.late{border-left-color:var(--amber)}
-.msum .cell span{display:block;font-size:12px;color:var(--dim);margin-bottom:2px}
-.msum .cell b{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;color:var(--txt)}
+.msum .cell span{display:block;font-size:11.5px;color:var(--dim);line-height:1.25}
+.msum .cell b{font-family:"Barlow Condensed",sans-serif;font-size:20px;font-weight:600;color:var(--txt);line-height:1.1;margin:2px 0}
 .msum .cell.late b{color:var(--amber)}
+.msum .cell .n{color:var(--mut);font-size:12px}
 .mlegs{margin-top:12px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surf)}
-.mleg{display:grid;grid-template-columns:72px 1fr auto;gap:10px;align-items:baseline;
-  padding:9px 12px;border-top:1px solid var(--line);font-size:13px}
+.mleg{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:8px 10px;align-items:baseline;
+  padding:8px 12px;border-top:1px solid var(--line);font-size:13px}
 .mleg:first-child{border-top:0}
 .mleg .mlab{font-weight:500;color:var(--mut)}
-.mleg .mhint{font-size:12px;color:var(--dim)}
-.mleg .mval{font-family:"Barlow Condensed",sans-serif;font-size:18px;font-weight:600;color:var(--txt)}
+.mleg .mhint{font-size:12px;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.mleg .mval{font-family:"Barlow Condensed",sans-serif;font-size:17px;font-weight:600;color:var(--txt);white-space:nowrap}
 .mleg.latebucket{background:color-mix(in srgb,var(--amber) 12%,transparent)}
 .mleg.latebucket .mlab,.mleg.latebucket .mval{color:var(--amber)}
 .mlate{margin-top:12px;border-left:3px solid var(--amber);padding:9px 0 9px 13px;font-size:13.5px;color:var(--mut)}
@@ -259,6 +260,10 @@ b.wip{font-weight:500}
   .metstrip{top:56px}
   .chartbox.desk-chart{display:none}
   .jbars{height:220px}
+  .mring{width:148px;height:148px}
+  .mring .hub{padding:30px 24px}
+  .mring .hub b{font-size:24px}
+  .msum{width:100%;max-width:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
@@ -863,7 +868,7 @@ function minutes(){
     el("#minbars").innerHTML=""; return;}
   const late=st.latePct, early=100-late;
   const lateN=Math.round(st.goals*late/100), earlyN=st.goals-lateN;
-  const r=54, circ=2*Math.PI*r, sw=14;
+  const r=52, circ=2*Math.PI*r, sw=12;
   const lateLen=circ*late/100, earlyLen=circ-lateLen;
   const hints=["Ouverture","Installation","Fin 1ʳᵉ MT","Reprise","Amorce live","Pic 70ᵉ+"];
   el("#minnote").textContent=`Répartition des ${st.goals} buts dont la minute est connue, sur ${st.n} match${st.n>1?"s":""}.`;
@@ -881,8 +886,8 @@ function minutes(){
       <div class="hub"><span class="lab">Zone critique</span><b>${fr(late)} %</b><em>70ᵉ+</em></div>
     </div>
     <div class="msum">
-      <div class="cell"><span>Avant la 70ᵉ</span><b>${fr(early)} %</b><span>${earlyN} but${earlyN>1?"s":""}</span></div>
-      <div class="cell late"><span>Dès la 70ᵉ</span><b>${fr(late)} %</b><span>${lateN} but${lateN>1?"s":""}</span></div>
+      <div class="cell"><span>Avant la 70ᵉ</span><b>${fr(early)} %</b><span class="n">${earlyN} but${earlyN>1?"s":""}</span></div>
+      <div class="cell late"><span>Dès la 70ᵉ</span><b>${fr(late)} %</b><span class="n">${lateN} but${lateN>1?"s":""}</span></div>
     </div>
   </div>
   <div class="mlegs">${BUCKETS.map(([a,,lab],i)=>{
