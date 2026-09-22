@@ -18,12 +18,22 @@ La copie embarquée dans `index.html` n'est qu'un secours si le réseau échoue.
 
 ## Mise en route
 
-1. Déposer à la racine du dépôt : `fetch_espn.py`, `build.py`, `template.html`
-2. Déposer `update.yml` dans `.github/workflows/`
-3. Onglet **Actions**, lancer « Mise à jour et publication » à la main
-4. **Settings → Pages → Source : Deploy from a branch → main / (root)**
+### En local
 
-Le dashboard est alors servi sur `https://<compte>.github.io/<dépôt>/`
+```bash
+python3 fetch_espn.py
+python3 build.py
+# ouvrir index.html, ou : python3 -m http.server 8000
+```
+
+### En ligne (GitHub Pages)
+
+1. Déposer à la racine : `fetch_espn.py`, `build.py`, `template.html`
+2. Déposer `update.yml` dans `.github/workflows/`
+3. **Settings → Pages → Source : Deploy from a branch → main / (root)**
+4. Onglet **Actions**, lancer « Mise à jour des résultats » à la main
+
+Dashboard : [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
 
 ## Fichiers
 

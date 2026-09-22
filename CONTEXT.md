@@ -24,6 +24,8 @@ update.yml       enchaîne les deux, chaque heure, commit + push
 GitHub Pages     sert index.html
 ```
 
+URL publique : [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
+
 **Point essentiel** : `index.html` embarque une copie des données, mais le dashboard
 **interroge ESPN lui-même** au chargement du navigateur et remplace tout. La copie
 embarquée n'est qu'un secours pour le cas hors ligne.

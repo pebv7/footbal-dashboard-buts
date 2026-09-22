@@ -2,7 +2,7 @@ name: Mise à jour des résultats
 
 on:
   schedule:
-    - cron: '20 1 * * *'      # toutes les heures, à la 20e minute
+    - cron: '20 * * * *'      # toutes les heures, à la 20e minute
   workflow_dispatch:           # bouton manuel dans l'onglet Actions
 
 permissions:
@@ -21,11 +21,14 @@ jobs:
       - name: Récupérer les résultats ESPN
         run: python fetch_espn.py
 
+      - name: Construire le dashboard
+        run: python build.py
+
       - name: Publier si changement
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data.json
+          git add data.json index.html
           git diff --staged --quiet && echo "aucun changement" && exit 0
           git commit -m "résultats au $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
