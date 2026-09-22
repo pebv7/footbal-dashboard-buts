@@ -182,18 +182,30 @@ th.sticky{z-index:3}
 .kcell b{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;line-height:1}
 .tdetail{margin-top:10px}
 .tbox.collapsed{display:none}
-.mrow{display:grid;grid-template-columns:62px 1fr 52px;gap:10px;align-items:center;margin-top:9px}
-.mrow.latebucket .mlab{color:var(--amber);font-weight:600}
-.mlab{font-size:12.5px;color:var(--mut)}
-.mtrack{height:14px;background:var(--surf2);border-radius:7px;overflow:hidden}
-.mtrack i{display:block;height:100%;background:var(--blue);border-radius:7px;opacity:.85}
-.mrow.latebucket .mtrack i{background:var(--amber);opacity:1}
-.mval{font-family:"Barlow Condensed",sans-serif;font-size:17px;font-weight:600;text-align:right}
-.mzone{margin-top:14px;padding:12px;background:var(--surf);border:1px solid var(--amber);border-radius:8px}
-.mzone .zh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;margin-bottom:8px}
-.mzone .zh .tag{font:700 12px/1 "IBM Plex Sans",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--amber)}
-.mzone .zh .kpi{font-family:"Barlow Condensed",sans-serif;font-size:28px;font-weight:700;color:var(--amber);line-height:1}
-.mzone .zh .kpi em{font-style:normal;font-size:14px;color:var(--mut);font-weight:500;margin-left:4px}
+.mdonut{display:flex;flex-wrap:wrap;gap:16px 22px;align-items:center;margin-top:10px;
+  padding:14px;background:var(--surf);border:1px solid var(--line);border-radius:8px}
+.mring{position:relative;width:148px;height:148px;flex:0 0 auto}
+.mring svg{display:block;width:100%;height:100%}
+.mring .hub{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;text-align:center;padding:18px}
+.mring .hub .lab{font:700 10px/1 "IBM Plex Sans",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.mring .hub b{font-family:"Barlow Condensed",sans-serif;font-size:34px;font-weight:700;color:var(--amber);line-height:1;margin-top:4px}
+.mring .hub em{font-style:normal;font-size:13px;color:var(--mut);margin-top:2px}
+.msum{flex:1;min-width:160px;display:flex;flex-direction:column;gap:10px}
+.msum .cell{padding:10px 12px;background:var(--surf2);border-radius:7px;border-left:3px solid var(--blue)}
+.msum .cell.late{border-left-color:var(--amber)}
+.msum .cell span{display:block;font-size:12px;color:var(--dim);margin-bottom:2px}
+.msum .cell b{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;color:var(--txt)}
+.msum .cell.late b{color:var(--amber)}
+.mlegs{margin-top:12px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surf)}
+.mleg{display:grid;grid-template-columns:72px 1fr auto;gap:10px;align-items:baseline;
+  padding:9px 12px;border-top:1px solid var(--line);font-size:13px}
+.mleg:first-child{border-top:0}
+.mleg .mlab{font-weight:500;color:var(--mut)}
+.mleg .mhint{font-size:12px;color:var(--dim)}
+.mleg .mval{font-family:"Barlow Condensed",sans-serif;font-size:18px;font-weight:600;color:var(--txt)}
+.mleg.latebucket{background:color-mix(in srgb,var(--amber) 12%,transparent)}
+.mleg.latebucket .mlab,.mleg.latebucket .mval{color:var(--amber)}
 .mlate{margin-top:12px;border-left:3px solid var(--amber);padding:9px 0 9px 13px;font-size:13.5px;color:var(--mut)}
 .mlate b{color:var(--txt);font-weight:500}
 .crow{border-top:1px solid var(--line);padding:13px 0 11px}
@@ -849,19 +861,35 @@ function minutes(){
   if(!st){
     el("#minnote").textContent="Les minutes de but ne sont pas dans les données actuellement chargées. Elles arrivent avec le flux ESPN quand il les fournit ; la copie embarquée ne les contient pas.";
     el("#minbars").innerHTML=""; return;}
-  const max=Math.max(...st.counts);
-  const early=BUCKETS.slice(0,4), lateB=BUCKETS.slice(4);
-  const row=(a,lab,i,late)=>{
-    const p=100*st.counts[i]/st.goals;
-    return `<div class="mrow${late?" latebucket":""}"><span class="mlab">${lab}</span>
-      <span class="mtrack"><i style="width:${max?100*st.counts[i]/max:0}%"></i></span>
-      <span class="mval">${fr(p)} %</span></div>`;};
+  const late=st.latePct, early=100-late;
+  const lateN=Math.round(st.goals*late/100), earlyN=st.goals-lateN;
+  const r=54, circ=2*Math.PI*r, sw=14;
+  const lateLen=circ*late/100, earlyLen=circ-lateLen;
+  const hints=["Ouverture","Installation","Fin 1ʳᵉ MT","Reprise","Amorce live","Pic 70ᵉ+"];
   el("#minnote").textContent=`Répartition des ${st.goals} buts dont la minute est connue, sur ${st.n} match${st.n>1?"s":""}.`;
-  el("#minbars").innerHTML=early.map(([a,,lab],i)=>row(a,lab,i,false)).join("")
-    +`<div class="mzone"><div class="zh"><span class="tag">Fenêtre live 60–90</span>
-        <span class="kpi">${fr(st.latePct)}<em>% dès la 70ᵉ</em></span></div>`
-    +lateB.map(([a,,lab],i)=>row(a,lab,i+4,true)).join("")
-    +`<div class="mlate">À partir de la 70ᵉ minute : <b>${fr(st.latePct)} %</b> des buts, soit ${fr(st.latePerMatch,2)} but par match sur les vingt dernières minutes. Probabilité qu\u2019il en tombe au moins un : <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> si les buts arrivent au hasard.</div></div>`;
+  el("#minbars").innerHTML=`<div class="mdonut">
+    <div class="mring" role="img" aria-label="${fr(late)} % des buts dès la 70ᵉ">
+      <svg viewBox="0 0 140 140">
+        <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--surf2)" stroke-width="${sw}"/>
+        <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--blue)" stroke-width="${sw}"
+          stroke-dasharray="${earlyLen.toFixed(2)} ${circ.toFixed(2)}" stroke-dashoffset="0"
+          transform="rotate(-90 70 70)" stroke-linecap="butt"/>
+        <circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--amber)" stroke-width="${sw}"
+          stroke-dasharray="${lateLen.toFixed(2)} ${circ.toFixed(2)}" stroke-dashoffset="${(-earlyLen).toFixed(2)}"
+          transform="rotate(-90 70 70)" stroke-linecap="butt"/>
+      </svg>
+      <div class="hub"><span class="lab">Zone critique</span><b>${fr(late)} %</b><em>70ᵉ+</em></div>
+    </div>
+    <div class="msum">
+      <div class="cell"><span>Avant la 70ᵉ</span><b>${fr(early)} %</b><span>${earlyN} but${earlyN>1?"s":""}</span></div>
+      <div class="cell late"><span>Dès la 70ᵉ</span><b>${fr(late)} %</b><span>${lateN} but${lateN>1?"s":""}</span></div>
+    </div>
+  </div>
+  <div class="mlegs">${BUCKETS.map(([a,,lab],i)=>{
+    const p=100*st.counts[i]/st.goals, lateB=a>=60;
+    return `<div class="mleg${lateB?" latebucket":""}"><span class="mlab">${lab}</span>
+      <span class="mhint">${hints[i]}</span><span class="mval">${fr(p)} %</span></div>`;}).join("")}</div>
+  <div class="mlate">À partir de la 70ᵉ minute : <b>${fr(st.latePct)} %</b> des buts, soit ${fr(st.latePerMatch,2)} but par match sur les vingt dernières minutes. Probabilité qu\u2019il en tombe au moins un : <b>${fr(100*(1-Math.exp(-st.latePerMatch)))} %</b> si les buts arrivent au hasard.</div>`;
 }
 
 
