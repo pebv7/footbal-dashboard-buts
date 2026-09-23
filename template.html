@@ -820,7 +820,8 @@ function teams(){
     const s=touch(side);s.p++;s.gf+=gf;s.ga+=ga;
     if(m.hg>0&&m.ag>0)s.gg++; if(m.tot>1.5)s.o15++; if(m.tot>2.5)s.o25++; if(m.tot>3.5)s.o35++;
     if(ga===0)s.cs++; if(gf>ga)s.w++; else if(gf===ga)s.d++;}
-  const raw=(SNAP[lgSel.value]||{}).prevTeams||{};
+  const snapEnt=SNAP[lgSel.value]||{};
+  const raw=snapEnt.prevTeams||{};
   const hist={}; for(const k in raw) hist[norm(k)]=raw[k]; hist.__names={};
   for(const k in raw) hist.__names[norm(k)]=k;
   const rows=[...T.entries()].map(([raw,v])=>({raw,t:shorten(raw),
@@ -845,11 +846,16 @@ function teams(){
     body.push(`<tr style="opacity:.55"><td class="l sticky" data-v="${nm}">${nm} <span class="thin">left</span></td>`+
       c.map((v,i)=>cell(v,i,false)).join("")+"</tr>");}
   el("#tm tbody").innerHTML=body.join("");
+  const hasPrev=Object.keys(raw).length>0;
   el("#tmnote").textContent = teamView==="cur"
     ? "Matches already played this season, both teams counted in each fixture."
     : teamView==="prev"
-    ? "Full 2025/26 record. Promoted sides have no numbers yet; relegated sides stay visible in grey."
-    : "Percentage-point gap between the current season and 2025/26 — up in amber, down in blue. With so few matches played, this is mostly noise.";
+    ? (hasPrev
+      ? "Full 2025/26 record. Promoted sides have no numbers yet; relegated sides stay visible in grey."
+      : "Previous season is not embedded yet — run the ESPN fetch to build historique.json.")
+    : (hasPrev
+      ? "Percentage-point gap between the current season and 2025/26 — up in amber, down in blue. With so few matches played, this is mostly noise."
+      : "Previous season is not embedded yet — Diff needs historique.json from the ESPN fetch.");
   resort("#tm"); filterTeams();}
 function filterTeams(){
   const q=el("#q").value.trim().toLowerCase();

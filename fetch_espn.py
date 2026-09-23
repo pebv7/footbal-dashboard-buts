@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Récupère les résultats ESPN des compétitions suivies et écrit data.json.
+"""Récupère les résultats ESPN des compétitions suivies.
+
+Écrit data.json (saison en cours) et historique.json (saison précédente).
 Aucune dépendance externe : bibliothèque standard uniquement."""
 import json, urllib.request, datetime, zoneinfo, pathlib, time
 
 PARIS = zoneinfo.ZoneInfo("Europe/Paris")
-SAISON_DEBUT = datetime.date(2026, 7, 1)
+SAISON_COURANTE = datetime.date(2026, 7, 1)
+SAISON_PREV_DEBUT = datetime.date(2025, 7, 1)
+SAISON_PREV_FIN = datetime.date(2026, 6, 30)
 
 # site.api.espn.com est souvent en 403 (Akamai). site.web.api accepte
 # un jour à la fois ; une plage dates=A-B renvoie 400.
@@ -13,6 +17,7 @@ SCOREBOARD = [
     "https://site.api.espn.com/apis/site/v2/sports/soccer/{slug}/scoreboard?dates={d}",
 ]
 CALENDRIER = [
+    "https://sports.core.api.espn.com/v2/sports/soccer/leagues/{slug}/seasons/{year}/types/1/calendar/ondays",
     "https://sports.core.api.espn.com/v2/sports/soccer/leagues/{slug}/calendar/ondays",
 ]
 
@@ -48,7 +53,7 @@ def essayer(modeles, **params):
                 time.sleep(1 * (essai + 1))
     raise derniere
 
-def extraire_jours(valeur, limite):
+def extraire_jours(valeur, debut, limite):
     """Normalise les dates de calendrier ESPN (chaînes ISO ou structures imbriquées)."""
     jours = set()
     if isinstance(valeur, str) and len(valeur) >= 10:
@@ -56,45 +61,50 @@ def extraire_jours(valeur, limite):
             d = datetime.date.fromisoformat(valeur[:10])
         except ValueError:
             return jours
-        if SAISON_DEBUT <= d <= limite:
+        if debut <= d <= limite:
             jours.add(d)
         return jours
     if isinstance(valeur, dict):
         dates = valeur.get("dates")
         if isinstance(dates, list) and dates and isinstance(dates[0], str):
-            return extraire_jours(dates, limite)
+            return extraire_jours(dates, debut, limite)
         event_date = valeur.get("eventDate")
         if isinstance(event_date, dict):
-            trouves = extraire_jours(event_date, limite)
+            trouves = extraire_jours(event_date, debut, limite)
             if trouves:
                 return trouves
         for cle in ("calendar", "entries", "items"):
             if cle in valeur:
-                jours |= extraire_jours(valeur[cle], limite)
+                jours |= extraire_jours(valeur[cle], debut, limite)
         return jours
     if isinstance(valeur, list):
         for item in valeur:
-            jours |= extraire_jours(item, limite)
+            jours |= extraire_jours(item, debut, limite)
     return jours
 
-def jours_matchs(slug, limite):
+def jours_matchs(slug, debut, limite):
+    year = debut.year
     try:
-        cal = essayer(CALENDRIER, slug=slug)
-        jours = extraire_jours(cal, limite)
+        cal = essayer(CALENDRIER, slug=slug, year=year)
+        jours = extraire_jours(cal, debut, limite)
         if jours:
             return sorted(jours)
     except Exception:
         pass
-    payload = essayer(SCOREBOARD, slug=slug, d=limite.strftime("%Y%m%d"))
-    jours = extraire_jours((payload.get("leagues") or [{}])[0].get("calendar"), limite)
-    if not jours:
-        jours = {limite - datetime.timedelta(days=i) for i in range(16)}
+    try:
+        payload = essayer(SCOREBOARD, slug=slug, d=limite.strftime("%Y%m%d"))
+        jours = extraire_jours((payload.get("leagues") or [{}])[0].get("calendar"), debut, limite)
+        if jours:
+            return sorted(jours)
+    except Exception:
+        pass
+    jours = {limite - datetime.timedelta(days=i) for i in range(16)
+             if debut <= limite - datetime.timedelta(days=i)}
     return sorted(jours)
 
-def recuperer(slug):
-    """Agrège le scoreboard de chaque jour de match déjà joué (ou prévu demain)."""
-    limite = datetime.datetime.now(PARIS).date() + datetime.timedelta(days=1)
-    jours = jours_matchs(slug, limite)
+def recuperer(slug, debut, limite):
+    """Agrège le scoreboard de chaque jour de match dans [debut, limite]."""
+    jours = jours_matchs(slug, debut, limite)
     fusion = {"leagues": [], "events": []}
     vus = set()
     derniere = None
@@ -117,7 +127,7 @@ def recuperer(slug):
         raise derniere or RuntimeError(f"aucune journée récupérée pour {slug}")
     return fusion
 
-def matchs_termines(payload):
+def matchs_termines(payload, debut, limite):
     """-> [date, heure_paris, domicile, exterieur, buts_dom, buts_ext, [minutes_buts]]"""
     sortie = []
     for ev in payload.get("events", []):
@@ -136,6 +146,9 @@ def matchs_termines(payload):
             quand = datetime.datetime.fromisoformat(
                 (comp.get("date") or ev["date"]).replace("Z", "+00:00")).astimezone(PARIS)
         except Exception:
+            continue
+        jour = quand.date()
+        if jour < debut or jour > limite:
             continue
         minutes = []
         for d in comp.get("details") or []:
@@ -165,13 +178,14 @@ def journees(matchs):
 def total_ok(data):
     return sum(len(c.get("matchs", [])) for c in data["competitions"].values()) > 0
 
-def main():
+def recuperer_saison(label, debut, limite):
     data = {"_genere": datetime.datetime.now(PARIS).isoformat(timespec="seconds"),
             "_source": "ESPN", "competitions": {}}
+    print(f"\n=== {label} ({debut} → {limite}) ===")
     for code, slug in COMPETITIONS.items():
         try:
-            payload = recuperer(slug)
-            matchs = journees(matchs_termines(payload))
+            payload = recuperer(slug, debut, limite)
+            matchs = journees(matchs_termines(payload, debut, limite))
             nom = (payload.get("leagues") or [{}])[0].get("name") or code
             total = len(payload.get("events") or [])
             data["competitions"][code] = {"nom": nom, "total_programme": total, "matchs": matchs}
@@ -181,15 +195,31 @@ def main():
         except Exception as e:
             print(f"{code:6} ECHEC : {e}")
             data["competitions"][code] = {"nom": code, "erreur": str(e), "matchs": []}
-    if total_ok(data):
-        pathlib.Path("data.json").write_text(
-            json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return data
+
+def ecrire(path, data, obligatoire=True):
     total = sum(len(c["matchs"]) for c in data["competitions"].values())
     echecs = sum(1 for c in data["competitions"].values() if c.get("erreur"))
-    print(f"\ndata.json écrit : {total} matchs, {echecs} compétition(s) en échec")
-    if total == 0:
-        print("ECHEC TOTAL : aucune donnée récupérée, data.json non écrasé")
+    if total_ok(data):
+        pathlib.Path(path).write_text(
+            json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        print(f"\n{path} écrit : {total} matchs, {echecs} compétition(s) en échec")
+        return True
+    print(f"\n{path} non écrit : {total} matchs, {echecs} échec(s)")
+    if obligatoire and total == 0:
+        return False
+    return total > 0
+
+def main():
+    limite_courante = datetime.datetime.now(PARIS).date() + datetime.timedelta(days=1)
+    courant = recuperer_saison("saison en cours", SAISON_COURANTE, limite_courante)
+    if not ecrire("data.json", courant, obligatoire=True):
+        print("ECHEC TOTAL : aucune donnée courante, data.json non écrasé")
         raise SystemExit(1)
+
+    precedent = recuperer_saison("saison 2025/26", SAISON_PREV_DEBUT, SAISON_PREV_FIN)
+    if not ecrire("historique.json", precedent, obligatoire=False):
+        print("AVERTISSEMENT : historique.json non mis à jour (saison précédente vide)")
 
 if __name__ == "__main__":
     main()

@@ -28,7 +28,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data.json index.html
+          git add data.json index.html historique.json
           git diff --staged --quiet && echo "aucun changement" && exit 0
           git commit -m "résultats au $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
