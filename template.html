@@ -66,7 +66,7 @@ section{padding-top:26px;scroll-margin-top:104px}
 .hero .t em{font-style:normal;display:block;font-size:11.5px;color:var(--dim)}
 .pair{margin-top:14px}
 .pair:first-child{margin-top:0}
-.plab{font-size:11.5px;color:var(--dim);margin-bottom:5px}
+.plab{font-size:12.5px;font-weight:500;color:var(--mut);margin-bottom:5px}
 .pbar{display:flex;height:9px;border-radius:5px;overflow:hidden;background:var(--surf2)}
 .pbar i{display:block;height:100%;min-width:2px}
 .pends{display:flex;justify-content:space-between;gap:10px;margin-top:5px}
@@ -92,7 +92,7 @@ section{padding-top:26px;scroll-margin-top:104px}
 /* ---- chart ---- */
 .chartbox{margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .chartbox svg{display:block;width:100%;height:auto;min-width:0}
-.jbars{display:grid;margin-top:10px;gap:6px;align-items:end;height:240px;
+.jbars{display:none;margin-top:10px;gap:6px;align-items:end;height:240px;
   padding:10px 8px 8px;background:var(--surf);border:1px solid var(--line);border-radius:8px;
   overflow-x:auto;-webkit-overflow-scrolling:touch}
 .jcol{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;
@@ -262,7 +262,7 @@ b.wip{font-weight:500}
   .tbox.desk-only{margin-top:8px}
   .metstrip{top:56px}
   .chartbox.desk-chart{display:none}
-  .jbars{height:220px}
+  .jbars{display:grid;height:220px}
   .mring{width:128px;height:128px}
   .mring .hub{padding:26px 20px}
   .mring .hub b{font-size:23px}
@@ -608,10 +608,10 @@ const METRICS=[["ggp","BTTS"],["ngp","No BTTS"],["o05","+0.5"],["u05","−0.5"],
 const colour=k=>k==="avg"?"var(--amber)":/^o\d/.test(k)?"var(--amber)":/^u\d/.test(k)?"var(--blue)":
   k==="ggp"?"var(--mint)":k==="ngp"?"var(--dim)":k==="hw"?"var(--rose)":k==="dr"?"var(--dim)":"var(--blue)";
 const PAIRS=[
-  ["0.5 goals",  "o05","+0.5","u05","−0.5","The −0.5 side is exactly the 0‑0 rate."],
-  ["1.5 goals",  "o15","+1.5","u15","−1.5",""],
-  ["2.5 goals", "o25","+2.5","u25","−2.5",""],
-  ["3.5 goals", "o35","+3.5","u35","−3.5",""]];
+  ["Over / Under 0.5",  "o05","Over 0.5","u05","Under 0.5","Under 0.5 is exactly the 0‑0 rate."],
+  ["Over / Under 1.5",  "o15","Over 1.5","u15","Under 1.5",""],
+  ["Over / Under 2.5", "o25","Over 2.5","u25","Under 2.5",""],
+  ["Over / Under 3.5", "o35","Over 3.5","u35","Under 3.5",""]];
 function delta(k){ if(!prev||prev[k]===null||prev[k]===undefined||isNaN(prev[k]))return "";
   const d=S[k]-prev[k]; return (d>=0?"+":"−")+fr(Math.abs(d),k==="avg"?2:1)+(k==="avg"?"":" pp")+" vs "+PREVLAB; }
 const CPAIR={o05:["u05","−0.5"],u05:["o05","+0.5"],o15:["u15","−1.5"],u15:["o15","+1.5"],
@@ -628,7 +628,7 @@ function pairRow(lab,ka,la,kb,lb,note){
 function tiles(){
   const d=delta("avg");
   let s=`<div class="grp">
-    <div class="grpH"><h3>Goal volume</h3><span>share of matches above and below the line</span></div>
+    <div class="grpH"><h3>Goal volume</h3><span>share of matches that finished over or under each goal line</span></div>
     <button class="hero" data-k="avg" aria-pressed="${metric==="avg"}">
       <span class="n">${fr(S.avg,2)}</span>
       <span class="t">goals per match<em>${S.goals} goals in ${S.n} matches${d?" · "+d:""}</em></span></button>
@@ -636,11 +636,11 @@ function tiles(){
   </div>
   <div class="grp">
     <div class="grpH"><h3>Both teams to score</h3><span>BTTS and No BTTS are complementary</span></div>
-    ${pairRow("Across all matches","ggp","BTTS","ngp","No BTTS","")}
+    ${pairRow("Season share","ggp","BTTS","ngp","No BTTS","")}
   </div>
   <div class="grp">
     <div class="grpH"><h3>Match result</h3><span>home, draw, away</span></div>
-    <div class="pair"><div class="plab">1 / X / 2 split</div>
+    <div class="pair"><div class="plab">Home / Draw / Away</div>
       <div class="pbar"><i style="width:${S.hw}%;background:var(--rose)"></i><i style="width:${S.dr}%;background:var(--dim)"></i><i style="width:${S.aw}%;background:var(--blue)"></i></div>
       <div class="pends">
         <button class="end" data-k="hw" aria-pressed="${metric==="hw"}">1 home<b style="color:var(--rose)">${fr(S.hw)} %</b><em>${delta("hw")}</em></button>
