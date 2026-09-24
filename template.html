@@ -12,7 +12,7 @@ html[data-theme="dark"]{
   --line:#1E293B;--line2:#334155;
   --txt:#F8FAFC;--mut:#94A3B8;--dim:#64748B;
   --amber:#10B981;--amber-fill:#10B981;--amber-warn:#F59E0B;
-  --blue:#06B6D4;--rose:#EF4444;--mint:#10B981;--band:#334155;
+  --blue:#06B6D4;--rose:#6366F1;--mint:#10B981;--band:#334155;
   --emerald-tint:rgba(16,185,129,.12);--amber-tint:rgba(245,158,11,.12);
   --hair:rgba(148,163,184,.12);--on-primary:#0B0F17;
 }
@@ -21,7 +21,7 @@ html[data-theme="light"]{
   --line:#E2E8F0;--line2:#CBD5E1;
   --txt:#0F172A;--mut:#475569;--dim:#64748B;
   --amber:#059669;--amber-fill:#059669;--amber-warn:#D97706;
-  --blue:#0891B2;--rose:#DC2626;--mint:#059669;--band:#CBD5E1;
+  --blue:#0891B2;--rose:#4F46E5;--mint:#059669;--band:#CBD5E1;
   --emerald-tint:rgba(5,150,105,.12);--amber-tint:rgba(217,119,6,.12);
   --hair:rgba(15,23,42,.08);--on-primary:#FFFFFF;
 }
@@ -760,7 +760,7 @@ function resort(sel){const t=el(sel),ths=[...t.tHead.rows[0].cells];
 const METRICS=[["ggp","BTTS"],["ngp","No BTTS"],["o05","+0.5"],["u05","−0.5"],["o15","+1.5"],["u15","−1.5"],
  ["o25","+2.5"],["u25","−2.5"],["o35","+3.5"],["u35","−3.5"],["hw","Home win"],["dr","Draw"],
  ["aw","Away win"],["avg","Goals per match"]];
-const colour=k=>k==="avg"?"var(--amber)":/^o\d/.test(k)?"var(--amber)":/^u\d/.test(k)?"var(--rose)":
+const colour=k=>k==="avg"?"var(--amber)":/^o\d/.test(k)?"var(--amber)":/^u\d/.test(k)?"var(--blue)":
   k==="ggp"?"var(--mint)":k==="ngp"?"var(--dim)":k==="hw"?"var(--rose)":k==="dr"?"var(--dim)":"var(--blue)";
 const PAIRS=[
   ["Over / Under 0.5",  "o05","Over 0.5","u05","Under 0.5","Under 0.5 is exactly the 0‑0 rate."],
@@ -818,7 +818,8 @@ function metricStrip(){
 }
 function jbarTone(k){
   if(k==="avg"||/^o\d/.test(k))return "";
-  if(/^u\d/.test(k)||k==="hw")return "rose";
+  if(/^u\d/.test(k))return "cool";
+  if(k==="hw")return "rose";
   if(k==="ggp")return "mint";
   if(k==="ngp"||k==="dr")return "dim";
   return "cool";
