@@ -15,25 +15,25 @@ Institutional terminal: pitch-dark canvas, tonal slate panels, emerald signal. A
 
 ## Color
 
-CSS aliases `--amber` / `--blue` / `--rose` / `--mint` kept for JS `colour()`. Prefer Stitch **Neutral Core** overrides (`#0B0F17` canvas, `#10B981` Pitch Emerald) over Material mint/olive namedColors (`#4edea3` / `#bbcabf`), which read muddy on this shell.
+CSS aliases `--amber` / `--blue` / `--rose` / `--mint` kept for JS `colour()`. Signal is Stitch **Kinetic Amber** (`#F59E0B`) on Neutral Core slate — not Pitch Emerald + cyan.
 
 ### Dark (primary)
 - Canvas / rail: `#0B0F17`
 - Cards: `#111827`; hover / inset: `#1E293B`
 - Text: `#F8FAFC` / muted `#94A3B8` / dim `#64748B`
-- Primary Pitch Emerald: `#10B981` (Over, selection, live)
-- Secondary Kinetic Amber: `#F59E0B` (outliers, BTTS highlight, MA)
-- Tertiary Cool Cyan: `#06B6D4` (away / cool metrics)
-- Under / destructive: `#EF4444`
-- Tint: `rgba(16,185,129,.12)`; hairline `rgba(148,163,184,.12)`
+- Signal amber: `#F59E0B` (Over, selection, live)
+- Soft gold: `#FBBF24` (BTTS / warn)
+- Cool violet: `#818CF8` / `#A78BFA` (Under, away, home)
+- Tint: `rgba(245,158,11,.12)`; hairline `rgba(148,163,184,.12)`
 
 ### Light
-- Cool slate neutrals; emerald `#059669`; cyan `#0891B2`; crimson under; amber-warn secondary.
+- Slate neutrals; amber `#B45309`; indigo/violet cool accents.
 
 ### Pair bars
-- Over → emerald (`--amber`)
-- Under → crimson (`--rose`)
-- 1X2: home crimson, draw dim, away cyan
+- Over → amber (`--amber`)
+- Under → violet (`--blue`)
+- 1X2: home violet, draw dim, away indigo
+
 
 ## Typography
 
