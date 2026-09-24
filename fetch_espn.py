@@ -166,6 +166,48 @@ def matchs_termines(payload, debut, limite):
     sortie.sort(key=lambda m: (m[0], m[1]))
     return sortie
 
+def matchs_a_venir(payload, debut, limite):
+    """-> [date, heure_paris, domicile, exterieur] pour les matchs pas encore commencés."""
+    sortie = []
+    for ev in payload.get("events", []):
+        comp = (ev.get("competitions") or [None])[0]
+        if not comp:
+            continue
+        statut = (comp.get("status") or {}).get("type") or {}
+        if statut.get("state") != "pre" or statut.get("completed"):
+            continue
+        equipes = comp.get("competitors") or []
+        dom = next((c for c in equipes if c.get("homeAway") == "home"), None)
+        ext = next((c for c in equipes if c.get("homeAway") == "away"), None)
+        if not dom or not ext:
+            continue
+        try:
+            quand = datetime.datetime.fromisoformat(
+                (comp.get("date") or ev["date"]).replace("Z", "+00:00")).astimezone(PARIS)
+        except Exception:
+            continue
+        if quand.date() < debut or quand.date() > limite:
+            continue
+        sortie.append([quand.strftime("%Y-%m-%d"), quand.strftime("%H:%M"),
+                       dom["team"]["displayName"], ext["team"]["displayName"]])
+    sortie.sort(key=lambda m: (m[0], m[1]))
+    return sortie
+
+def prochaine_journee(slug, apres, horizon=45, largeur=3):
+    """Matchs de la prochaine série de jours de match après `apres` (trêve, pause…)."""
+    jours = [j for j in jours_matchs(slug, apres, apres + datetime.timedelta(days=horizon)) if j > apres]
+    if not jours:
+        return []
+    debut = jours[0]
+    fin = debut + datetime.timedelta(days=largeur)
+    fusion = {"events": []}
+    for jour in (j for j in jours if j <= fin):
+        try:
+            fusion["events"] += essayer(SCOREBOARD, slug=slug, d=jour.strftime("%Y%m%d")).get("events") or []
+        except Exception:
+            continue
+    return matchs_a_venir(fusion, debut, fin)
+
 def journees(matchs):
     """Reconstitue le numéro de journée : n-ième match de chaque équipe."""
     compteur, resultat = {}, []
@@ -178,7 +220,7 @@ def journees(matchs):
 def total_ok(data):
     return sum(len(c.get("matchs", [])) for c in data["competitions"].values()) > 0
 
-def recuperer_saison(label, debut, limite):
+def recuperer_saison(label, debut, limite, avenir_depuis=None):
     data = {"_genere": datetime.datetime.now(PARIS).isoformat(timespec="seconds"),
             "_source": "ESPN", "competitions": {}}
     print(f"\n=== {label} ({debut} → {limite}) ===")
@@ -189,9 +231,15 @@ def recuperer_saison(label, debut, limite):
             nom = (payload.get("leagues") or [{}])[0].get("name") or code
             total = len(payload.get("events") or [])
             data["competitions"][code] = {"nom": nom, "total_programme": total, "matchs": matchs}
+            a_venir = []
+            if avenir_depuis:
+                a_venir = matchs_a_venir(payload, avenir_depuis, limite)
+                if not a_venir:
+                    a_venir = prochaine_journee(slug, limite)
+                data["competitions"][code]["a_venir"] = a_venir
             buts = sum(m[5] + m[6] for m in matchs)
             moy = round(buts / len(matchs), 2) if matchs else 0
-            print(f"{code:6} {nom[:34]:34} {len(matchs):3} matchs  {moy} buts/match")
+            print(f"{code:6} {nom[:34]:34} {len(matchs):3} matchs  {moy} buts/match  {len(a_venir)} à venir")
         except Exception as e:
             print(f"{code:6} ECHEC : {e}")
             data["competitions"][code] = {"nom": code, "erreur": str(e), "matchs": []}
@@ -211,8 +259,10 @@ def ecrire(path, data, obligatoire=True):
     return total > 0
 
 def main():
-    limite_courante = datetime.datetime.now(PARIS).date() + datetime.timedelta(days=1)
-    courant = recuperer_saison("saison en cours", SAISON_COURANTE, limite_courante)
+    aujourdhui = datetime.datetime.now(PARIS).date()
+    limite_courante = aujourdhui + datetime.timedelta(days=7)
+    courant = recuperer_saison("saison en cours", SAISON_COURANTE, limite_courante,
+                               avenir_depuis=aujourdhui)
     if not ecrire("data.json", courant, obligatoire=True):
         print("ECHEC TOTAL : aucune donnée courante, data.json non écrasé")
         raise SystemExit(1)

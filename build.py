@@ -67,7 +67,8 @@ def main():
         matchs = v.get("matchs") or []
         if not matchs:
             continue
-        e = {"name": v.get("nom", code), "total": TOTAL.get(code, len(matchs)), "m": matchs}
+        e = {"name": v.get("nom", code), "total": TOTAL.get(code, len(matchs)), "m": matchs,
+             "u": v.get("a_venir") or []}
         if code in ("cl", "el"):
             e["labels"] = LABELS_COUPES
         h = (ancien.get("competitions") or {}).get(code)
