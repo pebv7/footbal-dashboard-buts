@@ -1,8 +1,8 @@
 # Goal Rates
 
-Pre-match goal-rate research for Europe’s top leagues — Over 1.5 / 2.5 / 3.5 and BTTS as **historical frequencies**, not tips or odds.
+Pre-match goal-rate research for Europe’s top leagues — Over 1.5 / 2.5 / 3.5 and BTTS as **historical frequencies** from completed matches.
 
-**FR:** Recherche de taux de buts avant match sur les grands championnats européens — fréquences historiques, pas de tips ni de cotes.
+**FR:** Recherche de taux de buts avant match sur les grands championnats européens — fréquences historiques sur matchs terminés.
 
 Live: [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
 
@@ -20,7 +20,8 @@ On load, the page also queries ESPN from the browser. The embedded snapshot is a
 ## Local
 
 ```bash
-python3 fetch_espn.py
+python3 fetch_espn.py              # current season → data.json
+# python3 fetch_espn.py --historique  # also refresh historique.json (slow)
 python3 build.py
 # open index.html, or: python3 -m http.server 8000
 ```
@@ -49,7 +50,7 @@ Shareable state uses query params, e.g. `?lang=fr&league=fr.1&market=o25&view=fi
 
 | File | Role |
 |---|---|
-| `fetch_espn.py` | completed matches + goal minutes from ESPN |
+| `fetch_espn.py` | current season from ESPN (`--historique` for previous season) |
 | `build.py` | merges `data.json` into `template.html` |
 | `template.html` | app source (`__SNAP__` marker) |
 | `index.html` | build output — **do not edit by hand** |

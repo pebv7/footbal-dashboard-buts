@@ -32,7 +32,7 @@ ENTETES = {
 COMPETITIONS = {
     "fr.1": "fra.1", "en.1": "eng.1", "es.1": "esp.1", "de.1": "ger.1",
     "it.1": "ita.1", "pt.1": "por.1", "nl.1": "ned.1", "tr.1": "tur.1",
-    "cl": "uefa.champions", "el": "uefa.europa",
+    "cl": "uefa.champions", "el": "uefa.europa", "unl": "uefa.nations",
 }
 
 def lire_json(url):
@@ -259,6 +259,12 @@ def ecrire(path, data, obligatoire=True):
     return total > 0
 
 def main():
+    import argparse
+    p = argparse.ArgumentParser(description="Récupère les résultats ESPN des compétitions suivies.")
+    p.add_argument("--historique", action="store_true",
+                   help="Aussi régénérer historique.json (saison précédente ; lent).")
+    args = p.parse_args()
+
     aujourdhui = datetime.datetime.now(PARIS).date()
     limite_courante = aujourdhui + datetime.timedelta(days=7)
     courant = recuperer_saison("saison en cours", SAISON_COURANTE, limite_courante,
@@ -267,9 +273,12 @@ def main():
         print("ECHEC TOTAL : aucune donnée courante, data.json non écrasé")
         raise SystemExit(1)
 
-    precedent = recuperer_saison("saison 2025/26", SAISON_PREV_DEBUT, SAISON_PREV_FIN)
-    if not ecrire("historique.json", precedent, obligatoire=False):
-        print("AVERTISSEMENT : historique.json non mis à jour (saison précédente vide)")
+    if args.historique:
+        precedent = recuperer_saison("saison 2025/26", SAISON_PREV_DEBUT, SAISON_PREV_FIN)
+        if not ecrire("historique.json", precedent, obligatoire=False):
+            print("AVERTISSEMENT : historique.json non mis à jour (saison précédente vide)")
+    else:
+        print("\nHistorique inchangé (passe --historique pour le régénérer).")
 
 if __name__ == "__main__":
     main()

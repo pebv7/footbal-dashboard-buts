@@ -7,13 +7,13 @@ Document de passation. Il décrit l'état du projet, les décisions prises et su
 
 ## 1. Ce que fait le projet
 
-**Goal Rates** — outil d’**analyse sportive** (pas de tips, cotes ou pronostics) pour
-la recherche de **taux de buts** avant match sur dix compétitions européennes.
+**Goal Rates** — outil d’**analyse sportive** pour
+la recherche de **taux de buts** avant match sur onze compétitions européennes.
 Moyennes de buts, fréquences Over 1.5 / 2.5 / 3.5 et BTTS, minutes de but,
-comparaison entre championnats. Les chiffres sont des **fréquences historiques**,
-pas des probabilités.
+comparaison entre championnats. Les chiffres sont des **fréquences historiques**
+sur matchs terminés.
 
-One-liner EN: *Pre-match goal-rate research for Europe’s top leagues — Over / BTTS as historical frequencies, not tips or odds.*
+One-liner EN: *Pre-match goal-rate research for Europe’s top leagues — Over / BTTS as historical frequencies from completed matches.*
 
 Domaine cible : `goalrates.com` (voir README pour CNAME / GitHub Pages).
 
@@ -48,8 +48,8 @@ Aucune dépendance : bibliothèque standard Python, JavaScript vanilla, zéro bu
 
 ## 3. Compétitions suivies
 
-`fr.1 en.1 es.1 de.1 it.1 pt.1 nl.1 tr.1 cl el` mappées sur les slugs ESPN
-`fra.1 eng.1 esp.1 ger.1 ita.1 por.1 ned.1 tur.1 uefa.champions uefa.europa`.
+`fr.1 en.1 es.1 de.1 it.1 pt.1 nl.1 tr.1 cl el unl` mappées sur les slugs ESPN
+`fra.1 eng.1 esp.1 ger.1 ita.1 por.1 ned.1 tur.1 uefa.champions uefa.europa uefa.nations`.
 
 Moyennes constatées au 21/09/2026 (465 matchs) :
 

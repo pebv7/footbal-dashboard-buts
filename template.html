@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Goal Rates — pre-match Over / BTTS frequencies</title>
-<meta name="description" id="meta-desc" content="Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies — not tips or odds.">
+<meta name="description" id="meta-desc" content="Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies from completed matches.">
 <meta name="theme-color" content="#0E1116">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -15,17 +15,17 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Goal Rates">
 <meta property="og:title" id="og-title" content="Goal Rates — pre-match Over / BTTS frequencies">
-<meta property="og:description" id="og-desc" content="Pre-match goal-rate research for Europe’s top leagues. Historical frequencies for Over 1.5 / 2.5 / 3.5 and BTTS — not tips or odds.">
+<meta property="og:description" id="og-desc" content="Pre-match goal-rate research for Europe’s top leagues. Historical frequencies for Over 1.5 / 2.5 / 3.5 and BTTS from completed matches.">
 <meta property="og:url" id="og-url" content="https://pebv7.github.io/footbal-dashboard-buts/">
 <meta property="og:image" id="og-image" content="https://pebv7.github.io/footbal-dashboard-buts/og.png">
 <meta property="og:locale" id="og-locale" content="en_GB">
 <meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" id="tw-title" content="Goal Rates — pre-match Over / BTTS frequencies">
-<meta name="twitter:description" id="tw-desc" content="Pre-match goal-rate research for Europe’s top leagues. Historical frequencies — not tips or odds.">
+<meta name="twitter:description" id="tw-desc" content="Pre-match goal-rate research for Europe’s top leagues. Historical frequencies from completed matches.">
 <meta name="twitter:image" id="tw-image" content="https://pebv7.github.io/footbal-dashboard-buts/og.png">
 <script type="application/ld+json" id="jsonld">
-{"@context":"https://schema.org","@type":"WebApplication","name":"Goal Rates","alternateName":"Taux de buts","url":"https://pebv7.github.io/footbal-dashboard-buts/","applicationCategory":"SportsApplication","operatingSystem":"Any","inLanguage":["en","fr"],"description":"Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies, not tips or odds.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
+{"@context":"https://schema.org","@type":"WebApplication","name":"Goal Rates","alternateName":"Taux de buts","url":"https://pebv7.github.io/footbal-dashboard-buts/","applicationCategory":"SportsApplication","operatingSystem":"Any","inLanguage":["en","fr"],"description":"Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies from completed matches.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -374,7 +374,7 @@ td.rk{color:var(--dim);width:36px}
       <div class="brand">
         <span class="word" data-i18n="brand">Goal Rates</span>
       </div>
-      <p class="line" data-i18n="mastLine">Pre-match goal-rate research — historical frequencies, not tips.</p>
+      <p class="line" data-i18n="mastLine">Pre-match goal-rate research — historical frequencies from completed matches.</p>
     </div>
   </div>
 </div>
@@ -409,7 +409,7 @@ td.rk{color:var(--dim);width:36px}
       </div>
     </div>
     <div id="fxlist"></div>
-    <p class="foot" id="fx-foot" data-i18n="fxFoot">Combined = mean of the home club's rate in its home matches and the away club's rate in its away matches, this season. It is a historical frequency, not a probability; the tick marks the league average. Green means above that average. Fixtures with fewer than 6 matches behind them are dimmed.</p>
+    <p class="foot" id="fx-foot" data-i18n="fxFoot">Combined = mean of the home club's rate in its home matches and the away club's rate in its away matches, this season. It is a historical frequency from completed matches; the tick marks the league average. Green means above that average. Fixtures with fewer than 6 matches behind them are dimmed.</p>
   </section>
 
   <section class="view" id="v-league" hidden aria-labelledby="lg-t">
@@ -481,9 +481,9 @@ td.rk{color:var(--dim);width:36px}
 
   <section class="about" id="about" aria-labelledby="about-t">
     <h2 id="about-t" data-i18n="aboutTitle">Method</h2>
-    <p data-i18n="aboutP1">Goal Rates is a sports-analytics tool for pre-match research. Figures are historical frequencies from completed matches this season (and last season where noted) — not probabilities, tips, or odds.</p>
+    <p data-i18n="aboutP1">Goal Rates is a sports-analytics tool for pre-match research. Figures are historical frequencies from completed matches this season (and last season where noted).</p>
     <p data-i18n="aboutP2">Data comes from the ESPN scoreboard API. Sample sizes are shown next to every rate; anything under 6 matches is treated as a small sample and dimmed. Green marks values above the relevant average.</p>
-    <p data-i18n="aboutP3">Competitions covered: Ligue 1, Premier League, La Liga, Bundesliga, Serie A, Primeira Liga, Eredivisie, Süper Lig, Champions League, Europa League. Kick-off times use Europe/Paris.</p>
+    <p data-i18n="aboutP3">Competitions covered: Ligue 1, Premier League, La Liga, Bundesliga, Serie A, Primeira Liga, Eredivisie, Süper Lig, Champions League, Europa League, Nations League. Kick-off times use Europe/Paris.</p>
   </section>
 </main>
 
@@ -503,7 +503,8 @@ const LEAGUES=[["fr.1","France · Ligue 1","Ligue 1"],["en.1","England · Premie
  ["es.1","Spain · La Liga","La Liga"],["de.1","Germany · Bundesliga","Bundesliga"],
  ["it.1","Italy · Serie A","Serie A"],["pt.1","Portugal · Primeira Liga","Primeira Liga"],
  ["nl.1","Netherlands · Eredivisie","Eredivisie"],["tr.1","Turkey · Süper Lig","Süper Lig"],
- ["cl","Europe · Champions League","Champions League"],["el","Europe · Europa League","Europa League"]];
+ ["cl","Europe · Champions League","Champions League"],["el","Europe · Europa League","Europa League"],
+ ["unl","Europe · Nations League","Nations League"]];
 const MARKETS={
   o15:{lab:"+1.5",longKey:"mO15",key:"o15",line:1.5,pi:6,under:false,hit:m=>m.tot>1.5},
   o25:{lab:"+2.5",longKey:"mO25",key:"o25",line:2.5,pi:7,under:false,hit:m=>m.tot>2.5},
@@ -524,20 +525,20 @@ const ICONS={
   compare:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg>'};
 const I18N={
 en:{
-  brand:"Goal Rates",mastLine:"Pre-match goal-rate research — historical frequencies, not tips.",skip:"Skip to content",loading:"Loading…",
+  brand:"Goal Rates",mastLine:"Pre-match goal-rate research — historical frequencies from completed matches.",skip:"Skip to content",loading:"Loading…",
   fixtures:"Fixtures",league:"League",clubs:"Clubs",compare:"Compare",
   mO15:"Over 1.5 goals",mO25:"Over 2.5 goals",mO35:"Over 3.5 goals",
   mU15:"Under 1.5 goals",mU25:"Under 2.5 goals",mU35:"Under 3.5 goals",mBtts:"Both teams to score",
   sideOver:"Over",sideUnder:"Under",ariaSide:"Over or under",
   metaTitle:"Goal Rates — pre-match Over / BTTS frequencies",
-  metaDesc:"Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies — not tips or odds.",
+  metaDesc:"Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies from completed matches.",
   ariaCompetition:"Competition",ariaMarket:"Market",ariaView:"View",ariaSortFx:"Sort fixtures",
   ariaChartOpt:"Chart options",ariaGroupBy:"Group by",ariaSeason:"Season",ariaSearchClub:"Search club",
   refreshTitle:"Refresh from ESPN",refreshAria:"Refresh from ESPN",themeTitle:"Toggle light / dark",themeAria:"Toggle light or dark theme",
   closePanel:"Close panel",langSwitch:"Français",
   fxTitle:"Next 7 days",sortKickoff:"Kick-off",sortRate:"Highest combined",
-  fxFoot:"Combined = mean of the home club's rate in its home matches and the away club's rate in its away matches, this season. It is a historical frequency, not a probability; the tick marks the league average. Green means above that average. Fixtures with fewer than 6 matches behind them are dimmed.",
-  histFreq:"historical frequency, not a probability",leagueAvg:"league average",
+  fxFoot:"Combined = mean of the home club's rate in its home matches and the away club's rate in its away matches, this season. It is a historical frequency from completed matches; the tick marks the league average. Green means above that average. Fixtures with fewer than 6 matches behind them are dimmed.",
+  histFreq:"historical frequency from completed matches",leagueAvg:"league average",
   nothingNext:"Nothing in the next {n} days · ",nextDays:"Next {n} days",nextRound:"Next round",
   noFxTitle:"No fixtures in the next {n} days",noFxBody:"International break, winter pause, or the schedule is not published yet. Refresh to query ESPN directly, or read the season trends.",
   openLeague:"Open League view",earlySeason:"Early season.",earlyBody:"{a} of {b} fixtures rest on fewer than {n} matches (dimmed). Treat these rates as a first read, not a trend.",
@@ -554,9 +555,9 @@ en:{
   showTable:"Show table",hideTable:"Hide table",
   cpFoot:"Highest value per column in green. Goals 70′+ needs goal minutes from the ESPN feed.",
   aboutTitle:"Method",
-  aboutP1:"Goal Rates is a sports-analytics tool for pre-match research. Figures are historical frequencies from completed matches this season (and last season where noted) — not probabilities, tips, or odds.",
+  aboutP1:"Goal Rates is a sports-analytics tool for pre-match research. Figures are historical frequencies from completed matches this season (and last season where noted).",
   aboutP2:"Data comes from the ESPN scoreboard API. Sample sizes are shown next to every rate; anything under 6 matches is treated as a small sample and dimmed. Green marks values above the relevant average.",
-  aboutP3:"Competitions covered: Ligue 1, Premier League, La Liga, Bundesliga, Serie A, Primeira Liga, Eredivisie, Süper Lig, Champions League, Europa League. Kick-off times use Europe/Paris.",
+  aboutP3:"Competitions covered: Ligue 1, Premier League, La Liga, Bundesliga, Serie A, Primeira Liga, Eredivisie, Süper Lig, Champions League, Europa League, Nations League. Kick-off times use Europe/Paris.",
   matchesPlayed:"Matches played",ofSeason:"% of the season",goalsPerMatchK:"Goals per match",nilDraws:"0-0 draws",matches:"matches",
   greenCells:"green cells beat it · click a club for detail",
   greenAbove:"Green = above the league average for this market.",
@@ -574,20 +575,20 @@ en:{
   across:"across competitions",
 },
 fr:{
-  brand:"Goal Rates",mastLine:"Recherche de taux de buts avant match — fréquences historiques, pas de tips.",skip:"Aller au contenu",loading:"Chargement…",
+  brand:"Goal Rates",mastLine:"Recherche de taux de buts avant match — fréquences historiques sur matchs terminés.",skip:"Aller au contenu",loading:"Chargement…",
   fixtures:"Matchs",league:"Championnat",clubs:"Clubs",compare:"Comparer",
   mO15:"Plus de 1,5 buts",mO25:"Plus de 2,5 buts",mO35:"Plus de 3,5 buts",
   mU15:"Moins de 1,5 buts",mU25:"Moins de 2,5 buts",mU35:"Moins de 3,5 buts",mBtts:"Les deux équipes marquent",
   sideOver:"Over",sideUnder:"Under",ariaSide:"Over ou under",
   metaTitle:"Goal Rates — fréquences Over / BTTS avant match",
-  metaDesc:"Recherche de taux de buts avant match sur les grands championnats européens. Over 1,5 / 2,5 / 3,5 et BTTS en fréquences historiques — pas de tips ni de cotes.",
+  metaDesc:"Recherche de taux de buts avant match sur les grands championnats européens. Over 1,5 / 2,5 / 3,5 et BTTS en fréquences historiques sur matchs terminés.",
   ariaCompetition:"Compétition",ariaMarket:"Marché",ariaView:"Vue",ariaSortFx:"Trier les matchs",
   ariaChartOpt:"Options du graphique",ariaGroupBy:"Grouper par",ariaSeason:"Saison",ariaSearchClub:"Rechercher un club",
   refreshTitle:"Actualiser depuis ESPN",refreshAria:"Actualiser depuis ESPN",themeTitle:"Clair / sombre",themeAria:"Basculer clair ou sombre",
   closePanel:"Fermer le panneau",langSwitch:"English",
   fxTitle:"7 prochains jours",sortKickoff:"Coup d’envoi",sortRate:"Combiné le plus haut",
-  fxFoot:"Le combiné est la moyenne du taux du club à domicile et du taux du club à l’extérieur, cette saison. C’est une fréquence historique, pas une probabilité ; le trait marque la moyenne du championnat. Le vert indique un chiffre au-dessus de cette moyenne. Les matchs avec moins de 6 observations sont atténués.",
-  histFreq:"fréquence historique, pas une probabilité",leagueAvg:"moyenne du championnat",
+  fxFoot:"Le combiné est la moyenne du taux du club à domicile et du taux du club à l’extérieur, cette saison. C’est une fréquence historique sur matchs terminés ; le trait marque la moyenne du championnat. Le vert indique un chiffre au-dessus de cette moyenne. Les matchs avec moins de 6 observations sont atténués.",
+  histFreq:"fréquence historique sur matchs terminés",leagueAvg:"moyenne du championnat",
   nothingNext:"Rien dans les {n} prochains jours · ",nextDays:"{n} prochains jours",nextRound:"Prochaine journée",
   noFxTitle:"Aucun match dans les {n} prochains jours",noFxBody:"Trêve internationale, pause hivernale, ou calendrier pas encore publié. Actualisez pour interroger ESPN, ou consultez les tendances de saison.",
   openLeague:"Ouvrir la vue Championnat",earlySeason:"Début de saison.",earlyBody:"{a} matchs sur {b} reposent sur moins de {n} observations (atténués). Lisez ces taux comme un premier aperçu, pas une tendance.",
@@ -604,9 +605,9 @@ fr:{
   showTable:"Afficher le tableau",hideTable:"Masquer le tableau",
   cpFoot:"La valeur la plus haute de chaque colonne est en vert. Les buts 70′+ nécessitent les minutes ESPN.",
   aboutTitle:"Méthode",
-  aboutP1:"Goal Rates est un outil d’analyse sportive pour la préparation avant match. Les chiffres sont des fréquences historiques sur les matchs terminés de la saison (et la précédente le cas échéant) — pas des probabilités, tips ou cotes.",
+  aboutP1:"Goal Rates est un outil d’analyse sportive pour la préparation avant match. Les chiffres sont des fréquences historiques sur les matchs terminés de la saison (et la précédente le cas échéant).",
   aboutP2:"Les données viennent de l’API scoreboard ESPN. La taille d’échantillon figure à côté de chaque taux ; en dessous de 6 matchs, l’échantillon est petit et atténué. Le vert signale une valeur au-dessus de la moyenne de référence.",
-  aboutP3:"Compétitions : Ligue 1, Premier League, La Liga, Bundesliga, Serie A, Primeira Liga, Eredivisie, Süper Lig, Ligue des champions, Ligue Europa. Coups d’envoi en Europe/Paris.",
+  aboutP3:"Compétitions : Ligue 1, Premier League, La Liga, Bundesliga, Serie A, Primeira Liga, Eredivisie, Süper Lig, Ligue des champions, Ligue Europa, Ligue des nations. Coups d’envoi en Europe/Paris.",
   matchesPlayed:"Matchs joués",ofSeason:"% de la saison",goalsPerMatchK:"Buts par match",nilDraws:"Nuls 0-0",matches:"matchs",
   greenCells:"vert = au-dessus de la moyenne · cliquer un club pour le détail",
   greenAbove:"Vert = au-dessus de la moyenne du championnat pour ce marché.",
@@ -760,7 +761,7 @@ const dShort=d=>new Date(d+"T12:00:00").toLocaleDateString(loc(),{day:"numeric",
 
 /* ---------- ESPN (browser refresh) ---------- */
 const ESPN={"fr.1":"fra.1","en.1":"eng.1","es.1":"esp.1","de.1":"ger.1","it.1":"ita.1",
- "pt.1":"por.1","nl.1":"ned.1","tr.1":"tur.1","cl":"uefa.champions","el":"uefa.europa"};
+ "pt.1":"por.1","nl.1":"ned.1","tr.1":"tur.1","cl":"uefa.champions","el":"uefa.europa","unl":"uefa.nations"};
 const AHEAD=7;
 function ymd(d){return d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0");}
 const PARIS={timeZone:"Europe/Paris",hour12:false};
@@ -980,7 +981,7 @@ function renderLeague(){
     kp(t("nilDraws"),fr(S.nil,1)+"%",`${M.filter(m=>m.tot===0).length} ${t("matches")}`,false);
   const lines=[["0.5","o05","u05"],["1.5","o15","u15"],["2.5","o25","u25"],["3.5","o35","u35"],["BTTS","ggp","ngp"]];
   el("#ladder").innerHTML=lines.map(([l,o,u])=>{const on=o===k||u===k;
-    return `<div class="lrow${on?" on":""}"><span class="ll">${l==="BTTS"?"BTTS":"O/U "+l}</span>
+    return `<div class="lrow${on?" on":""}"><span class="ll">${l==="BTTS"?"BTTS":"+/− "+l}</span>
       <div class="split" role="img" aria-label="${l}: over ${fr(S[o],0)}%, under ${fr(S[u],0)}%">
       <span class="o" style="width:${S[o].toFixed(1)}%">${S[o]>=14?fr(S[o],0)+"%":""}</span>
       <span class="u">${S[u]>=14?fr(S[u],0)+"%":""}</span></div></div>`;}).join("")+

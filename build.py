@@ -10,7 +10,7 @@ RACINE = pathlib.Path(__file__).parent
 LABELS_COUPES = ["League MD1","League MD2","League MD3","League MD4","League MD5","League MD6","League MD7","League MD8",
                  "Play-offs 1","Play-offs 2","Round of 16","Quarter-finals","Semi-finals","Final"]
 TOTAL = {"fr.1":306,"en.1":380,"es.1":380,"de.1":306,"it.1":380,
-         "pt.1":306,"nl.1":306,"tr.1":306,"cl":189,"el":189}
+         "pt.1":306,"nl.1":306,"tr.1":306,"cl":189,"el":189,"unl":200}
 
 
 def agreger(matchs):
