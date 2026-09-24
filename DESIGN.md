@@ -1,69 +1,58 @@
-# Apex Pitch — Design System
+# Terminal V4.2 — Goal Markets
 
-Dense sports-data dashboard for live under-goal tracking. Visual language aligned with Stitch **Apex Pitch & Odds Terminal** (colors, type, denser terminal chrome). Product scope stays the existing section structure and ESPN pipeline — **no bet-slip, fair-odds, DEC/FRAC odds, or left-sidebar terminal IA**.
+Dense multi-league goal-markets dashboard. Visual shell aligned with Stitch **Football Dashboard Redesign** / **Apex Pitch & Odds Terminal** (sidebar, status chrome, section tabs, Material surfaces). Data and section logic stay on the ESPN pipeline — **no bet-slip, fair-odds, DEC/FRAC odds, Simulate MD, or radar club charts**.
 
 ## Atmosphere
 
-Dark terminal field, slate surfaces, emerald signal. Analytical and compact — broadcast-style panels without marketing chrome. Avoid purple gradients, cream editorial themes, amber-on-navy legacy look, glow effects, and decorative pill clusters.
+Institutional terminal: pitch-dark canvas, tonal slate panels, emerald signal. Analytical and dense. Avoid purple gradients, cream editorial themes, and decorative glow.
+
+## Shell layout
+
+- **Rail** (256px, fixed left): brand `TERMINAL V4.2` / `GOAL MARKETS`, competition list (active emerald + pulse), Market Scope (season + round, read-only), Data Feed footer (ESPN + stamp).
+- **Chrome** (sticky): Live data chip, `ESPN API · Paris (CET)`, Refresh, theme toggle.
+- **Subnav** (sticky under chrome): Overview & Markets, Matchday Trends, All Matchdays, Kick-offs, Clubs, Minutes, Leagues (+ Live when matches in progress). Micro KPIs (Avg / BTTS / Over 2.5) from ≥1100px.
+- **Canvas**: full remaining width (no 1080px cap). Mobile: rail off-canvas via menu + scrim; bottom nav Live / Stats / Compare.
 
 ## Color
 
-CSS variable names (`--amber`, `--blue`, `--rose`, `--mint`) are kept for JS/`colour()` compatibility; values map to Apex roles.
+CSS aliases `--amber` / `--blue` / `--rose` / `--mint` kept for JS `colour()`.
 
-### Dark mode (primary)
-- **Field** `#0B0F17` — page background (`--bg`)
-- **Surface** `#111827` — panels, tables, sticky chrome (`--surf`)
-- **Inset** `#1E293B` — wells, tracks, hover (`--surf2`)
-- **Hairline** `#1E293B` / `#334155` — borders (`--line` / `--line2`); panels also use `rgba(148,163,184,.12)`
-- **Paper** `#F8FAFC` — primary text (`--txt`)
-- **Muted / dim** `#94A3B8` / `#64748B` (`--mut` / `--dim`)
-- **Signal emerald** `#10B981` — selection, Over, KPIs, focus, live pulse (`--amber`)
-- **Cool cyan** `#06B6D4` — Under / away / cool metrics (`--blue`)
-- **Crimson** `#EF4444` — home-win / high extremes (`--rose`)
-- **Mint** `#4EDEA3` — GG / both-teams-scored (`--mint`)
-- **Emerald tint** `rgba(16,185,129,.12)` — selected fills (`--emerald-tint`)
+### Dark (primary)
+- Canvas / lowest: `#0f131c` / `#0a0e16`
+- Surfaces: `#181c24` / `#1c2028` / `#262a33`
+- Text: `#dfe2ee` / muted `#bbcabf` / dim `#86948a`
+- Primary emerald: `#4edea3` (signal), fill `#10b981`
+- Secondary amber: `#ffb95f` (outliers, peaks, MA line)
+- Tertiary cyan: `#4cd7f6` (away / cool)
+- Under / destructive: `#EF4444` (`--rose` — Over/Under pair Under side)
+- Tint: `rgba(16,185,129,.12)`; hairline `rgba(148,163,184,.12)`
 
-### Light mode
-- Background `#F1F5F9`, surface `#FFFFFF`, inset `#E2E8F0`
-- Lines `#CBD5E1` / `#94A3B8`
-- Text `#0F172A`, muted `#475569`, dim `#64748B`
-- Emerald `#059669`, cyan `#0891B2`, crimson `#DC2626`, mint `#047857`
-- Tint `rgba(5,150,105,.12)`
+### Light
+- Slate neutrals; emerald primary; cyan tertiary; crimson under; amber-warn secondary.
 
 ### Pair bars
-- **Over** → emerald (`--amber`)
-- **Under** → cyan (`--blue`)
+- Over → emerald (`--amber`)
+- Under → crimson (`--rose`)
 - 1X2: home crimson, draw dim, away cyan
 
 ## Typography
 
-- **Body / UI**: Inter, ~14px body, 12–13px helpers.
-- **Numbers / KPIs / clocks / table metrics**: JetBrains Mono, weights 600–700, with `font-feature-settings: "tnum" 1`.
-- **Micro labels** (`.plab`, `.lbl`, table headers, chip labels): uppercase JetBrains Mono ~10–12px, tracking ~0.08em.
+- Inter for UI / section titles
+- JetBrains Mono for KPIs, clocks, table metrics, micro labels (`tnum` + `zero`)
+- Label-caps: ~10px, tracking 0.08em, uppercase
 
-## Shape & layout
+## Shape
 
-- Corner radius **8px** on panels/tables; inputs often **4px**; interactive filter chips stay full pill.
-- Max content width **1080px**, horizontal padding 16px.
-- Sticky top + mobile bottom nav: same structure as before; Apex surfaces + optional light `backdrop-filter` on chrome only (not table scroll areas).
-- Pair bars: complementary over/under on one 100% track.
+- Panels / tables: 12px radius; controls often 8px; pills only for interactive chips where needed
+- Glass on chrome only (`backdrop-filter: blur(12px)`), not on scrolling tables
 
-## Components (existing markup)
+## Out of scope
 
-- **Panels** (`.grp`, `.chartbox`, `.mdonut`, `.lv`, tables): hairline border, 8px radius.
-- **Pills** (`.opt`): selected = emerald border + `--emerald-tint` fill.
-- **Selection / `aria-pressed` / `aria-current`**: emerald underline or border (not amber).
-- **Focus ring**: 2px emerald.
-- **Live**: emerald clock + pulse; late match inset emerald.
-- **Matchday SVG + minutes donut**: strokes/fills via CSS vars (`colour()` + `--amber` / `--blue` / `--rose`).
-
-## Out of scope (do not pull from Stitch)
-
-- Bet-slip drawer, Simulate MD, market vs fair odds, sidebar navigation IA.
-- Replacing ESPN / `build.py` / section JS with odds-terminal features.
+Do not pull from Stitch: DEC/FRAC/AMER toggles, fair vs implied odds, Asian handicap, Simulate MD, bet-slip drawer, Poisson badges, user avatar, attack/defense radar.
 
 ## Interaction
 
-- Emerald underline / inset for pressed and current.
-- Live clock may pulse; respect `prefers-reduced-motion`.
-- English UI; kickoff times in Europe/Paris.
+- Emerald `aria-current` / `aria-pressed` / focus ring 2px
+- Live chip pulses when matches in progress
+- Respect `prefers-reduced-motion`
+- English UI; kick-offs in Europe/Paris
