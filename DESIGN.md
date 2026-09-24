@@ -1,6 +1,6 @@
-# Goal Markets — pre-match dashboard
+# Goal Rates — pre-match dashboard
 
-Pre-match research tool for goal markets (Over 1.5 / 2.5 / 3.5, BTTS) across ten European competitions. The main job: before a round, spot fixtures likely to be goal-heavy or goal-light, then check the club and league context behind them. Data comes from the ESPN pipeline (`fetch_espn.py` → `data.json` → `build.py` → `index.html`). No odds, bet slips or probability models: every figure is a historical frequency and is labelled as one.
+Sports-analytics tool for pre-match goal-rate research (Over 1.5 / 2.5 / 3.5, BTTS) across ten European competitions. The main job: before a round, spot fixtures with high or low historical goal rates, then check the club and league context behind them. Data comes from the ESPN pipeline (`fetch_espn.py` → `data.json` → `build.py` → `index.html`). No tips, odds, or probability models: every figure is a historical frequency and is labelled as one. Brand: **Goal Rates**; FR descriptor “taux de buts”, not a second brand. Mark is a football in a goal net (`logo.png`). UI is bilingual EN (default) / FR.
 
 ## Atmosphere
 
@@ -8,8 +8,9 @@ Quiet slate with amber for brand and selection, and a muted green for values abo
 
 ## Information architecture
 
-- **Header** (one row, 56px, sticky): brand, scrollable league strip, market segmented control (O 1.5 / O 2.5 / O 3.5 / BTTS), view tabs (Fixtures / League / Clubs / Compare), live link when matches are in progress, data stamp, refresh, theme. Wraps to two rows below 1280px.
-- **State in the URL**: `#<league>/<market>/<view>`, e.g. `#fr.1/o25/fixtures`. Shareable and restored on load.
+- **Mast** (not sticky): full-bleed green pitch + goal photo (`mast-banner.png`), large football mark, wordmark, bilingual one-liner. On scroll it leaves; the compact mark stays in the header.
+- **Header** (one row, 56px, sticky): compact football mark + wordmark (wordmark hidden ≤900px), scrollable league strip, market segmented control (O 1.5 / O 2.5 / O 3.5 / BTTS), view tabs (Fixtures / League / Clubs / Compare), live link when matches are in progress, data stamp, language toggle, refresh, theme. Wraps to two rows below 1280px.
+- **State in the URL**: `?lang=&league=&market=&view=`, e.g. `?lang=en&league=fr.1&market=o25&view=fixtures`. Old `#league/market/view` hashes migrate on load.
 - **Keyboard**: `1`–`4` switch views, `[` / `]` change market, `/` focuses club search, `Esc` closes the drawer.
 - **Fixtures** (default): next 7 days grouped by day; falls back to the next scheduled round when the week is empty (international breaks). Each row shows the home club's rate at home, the away club's rate away, and their mean as the combined value, drawn as a bar with a league-average tick. Sort by kick-off or by highest combined.
 - **League**: KPI strip (with deltas vs 2025/26), goal-line ladder 0.5–3.5 plus BTTS, per-matchday chart with ±1 SD band (click a bar for its results), goal-minute distribution, kick-off weekday / time-slot table.

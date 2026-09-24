@@ -7,13 +7,17 @@ Document de passation. Il décrit l'état du projet, les décisions prises et su
 
 ## 1. Ce que fait le projet
 
-Un dashboard d'analyse des **marchés de buts** au football, sur dix compétitions.
-Il sert à préparer des paris de type « moins de N,5 buts » : moyennes de buts par
-journée, taux GG/NG, seuils over/under, répartition des minutes de but, comparaison
-entre championnats.
+**Goal Rates** — outil d’**analyse sportive** (pas de tips, cotes ou pronostics) pour
+la recherche de **taux de buts** avant match sur dix compétitions européennes.
+Moyennes de buts, fréquences Over 1.5 / 2.5 / 3.5 et BTTS, minutes de but,
+comparaison entre championnats. Les chiffres sont des **fréquences historiques**,
+pas des probabilités.
 
-L'utilisateur parie en direct, généralement vers la 70ᵉ minute, avec un but de marge
-par rapport au score en cours.
+One-liner EN: *Pre-match goal-rate research for Europe’s top leagues — Over / BTTS as historical frequencies, not tips or odds.*
+
+Domaine cible : `goalrates.com` (voir README pour CNAME / GitHub Pages).
+
+URL actuelle : [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
 
 ## 2. Architecture
 
@@ -25,6 +29,7 @@ GitHub Pages     sert index.html
 ```
 
 URL publique : [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
+(domaine prévu : goalrates.com — instructions CNAME dans le README)
 
 **Point essentiel** : `index.html` embarque une copie des données, mais le dashboard
 **interroge ESPN lui-même** au chargement du navigateur et remplace tout. La copie

@@ -1,56 +1,65 @@
-# Dashboard des marchés de buts
+# Goal Rates
 
-Suivi des statistiques de buts sur dix compétitions : moyennes par journée, GG/NG,
-seuils over/under, répartition des minutes de but, comparaison entre championnats.
+Pre-match goal-rate research for Europe’s top leagues — Over 1.5 / 2.5 / 3.5 and BTTS as **historical frequencies**, not tips or odds.
 
-## Comment ça marche
+**FR:** Recherche de taux de buts avant match sur les grands championnats européens — fréquences historiques, pas de tips ni de cotes.
+
+Live: [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
+
+## Pipeline
 
 ```
-fetch_espn.py   interroge l'API ESPN         -> data.json
-build.py        injecte data.json            -> index.html
-GitHub Actions  enchaîne les deux, une fois par jour, et publie
-GitHub Pages    sert index.html
+fetch_espn.py   ESPN scoreboard API  -> data.json
+build.py        inject into template -> index.html
+GitHub Actions  daily fetch + build + publish
+GitHub Pages    serves index.html (+ robots.txt, sitemap.xml, og.png)
 ```
 
-Une fois en ligne, le dashboard interroge **lui-même** ESPN à chaque ouverture :
-les données affichées sont donc celles du moment, pas celles du dernier build.
-La copie embarquée dans `index.html` n'est qu'un secours si le réseau échoue.
+On load, the page also queries ESPN from the browser. The embedded snapshot is a fallback when the network fails.
 
-## Mise en route
-
-### En local
+## Local
 
 ```bash
 python3 fetch_espn.py
 python3 build.py
-# ouvrir index.html, ou : python3 -m http.server 8000
+# open index.html, or: python3 -m http.server 8000
 ```
 
-### En ligne (GitHub Pages)
+## Custom domain (goalrates.com)
 
-1. Déposer à la racine : `fetch_espn.py`, `build.py`, `template.html`
-2. Déposer `update.yml` dans `.github/workflows/`
-3. **Settings → Pages → Source : Deploy from a branch → main / (root)**
-4. Onglet **Actions**, lancer « Mise à jour des résultats » à la main
+Preferred brand domain: **goalrates.com** (fallback: goalfreq.com, goalscope.com; FR: goalrates.fr / tauxbuts.fr).
 
-Dashboard : [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
+1. Buy the domain at your registrar.
+2. In the repo root, add a `CNAME` file with a single line:
+   ```
+   goalrates.com
+   ```
+3. GitHub → **Settings → Pages → Custom domain** → enter `goalrates.com` → enable **Enforce HTTPS**.
+4. At the registrar, point DNS:
+   - **Apex:** A records to GitHub Pages IPs (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`), or an ALIAS/ANAME to `pebv7.github.io`
+   - **www (optional):** CNAME → `pebv7.github.io`
+5. After the domain is live, update canonical / OG / sitemap / robots URLs in `template.html` and `sitemap.xml` / `robots.txt` from the `github.io` path to `https://goalrates.com/`. Keep `github.io` as a redirect only.
+6. Optional: redirect `goalrates.fr` → `goalrates.com` (or `?lang=fr`).
 
-## Fichiers
+Until the custom domain is attached, SEO tags and the sitemap point at the GitHub Pages URL.
 
-| Fichier | Rôle |
+Shareable state uses query params, e.g. `?lang=fr&league=fr.1&market=o25&view=fixtures` (old `#league/market/view` hashes still migrate).
+
+## Files
+
+| File | Role |
 |---|---|
-| `fetch_espn.py` | récupère les matchs terminés, avec les minutes de but |
-| `build.py` | fusionne `data.json` dans `template.html` |
-| `template.html` | le dashboard, avec le marqueur `__SNAP__` |
-| `index.html` | résultat du build, servi par Pages — **ne pas modifier à la main** |
-| `data.json` | données ESPN brutes, régénérées une fois par jour |
-| `historique.json` | optionnel : même format, saison précédente, pour les comparaisons |
+| `fetch_espn.py` | completed matches + goal minutes from ESPN |
+| `build.py` | merges `data.json` into `template.html` |
+| `template.html` | app source (`__SNAP__` marker) |
+| `index.html` | build output — **do not edit by hand** |
+| `data.json` | daily ESPN snapshot |
+| `historique.json` | optional previous season |
+| `robots.txt` / `sitemap.xml` | crawl hints |
+| `og.png` | Open Graph / Twitter image |
 
-## Points de vigilance
+## Notes
 
-- **GitHub désactive les workflows planifiés après 60 jours sans activité** sur le dépôt.
-  Un commit quelconque relance le compteur.
-- L'API ESPN n'est pas documentée. Si elle change, le dashboard cesse de se mettre à
-  jour sans message d'erreur. Le bandeau reste bloqué sur « copie ESPN du … » au lieu
-  d'afficher « ESPN en direct » : c'est le signal d'alerte.
-- Le dépôt doit rester public pour que Pages le serve gratuitement.
+- GitHub disables scheduled workflows after 60 days of inactivity — any commit resets the clock.
+- ESPN’s API is undocumented; if it breaks, the UI stays on the embedded copy.
+- The repo must stay public for free GitHub Pages.
