@@ -4,7 +4,7 @@ Pre-match research tool for goal markets (Over 1.5 / 2.5 / 3.5, BTTS) across ten
 
 ## Atmosphere
 
-Quiet, near-monochrome slate with a single amber accent. The accent carries one meaning only: **this value is above its reference** (league average, cross-league mean, or an even share). Everything else is grey. No green, blue, red or purple; no gradients, glow or decorative shadows.
+Quiet slate with amber for brand and selection, and a muted green for values above their reference. No neon mint, no blue, no red, no purple.
 
 ## Information architecture
 
@@ -26,16 +26,18 @@ Quiet, near-monochrome slate with a single amber accent. The accent carries one 
 ### Dark (default)
 - `--bg #0E1116`, `--surf #151922`, `--surf2 #1C212B`, `--line #262C38`
 - `--txt #E8EAEE`, `--mut #9AA3B2`, `--dim #7A8496`
-- `--acc #E8A33D`, `--acc-tint rgba(232,163,61,.14)`
+- Brand amber: `--acc #E8A33D`, `--acc-tint rgba(232,163,61,.14)`
+- Above-average green: `--pos #7DCF8A`, `--pos-tint rgba(125,207,138,.16)`
 - Neutral bars: `--bar #4A5263`, `--bar-lo #2C323E`
 
 ### Light
 - `--bg #F6F7F9`, `--surf #FFFFFF`, `--surf2 #EFF1F4`, `--line #DDE1E7`
 - `--txt #111418`, `--mut #4B5563`, `--dim #6B7280`
-- `--acc #A0620F` (darker so amber text keeps 4.5:1 on white)
+- Brand amber: `--acc #A0620F`
+- Above-average green: `--pos #1B6B34`, `--pos-tint rgba(27,107,52,.12)`
 
 ### `tone(value, reference)`
-The only colour decision in the code. Returns `--acc` when the value beats the reference, `--bar` when close to or below it, `--bar-lo` when well below (more than 10 points). Heat cells use `--acc-tint` with amber text.
+Returns `--pos` when the value beats the reference, `--bar` when close to or below it, `--bar-lo` when well below (more than 10 points). Heat cells use `--pos-tint` with green text. Amber stays for brand, selection, and the goal-line ladder.
 
 ## Typography
 

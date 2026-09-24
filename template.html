@@ -13,6 +13,7 @@
   --bg:#0E1116;--surf:#151922;--surf2:#1C212B;--line:#262C38;
   --txt:#E8EAEE;--mut:#9AA3B2;--dim:#7A8496;
   --acc:#E8A33D;--acc-tint:rgba(232,163,61,.14);--on-acc:#1A1206;
+  --pos:#7DCF8A;--pos-tint:rgba(125,207,138,.16);
   --bar:#4A5263;--bar-lo:#2C323E;--band:rgba(154,163,178,.10);
   --font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
@@ -23,6 +24,7 @@
   --bg:#F6F7F9;--surf:#FFFFFF;--surf2:#EFF1F4;--line:#DDE1E7;
   --txt:#111418;--mut:#4B5563;--dim:#6B7280;
   --acc:#A0620F;--acc-tint:rgba(160,98,15,.12);--on-acc:#FFFFFF;
+  --pos:#1B6B34;--pos-tint:rgba(27,107,52,.12);
   --bar:#A3ABB8;--bar-lo:#D5DAE1;--band:rgba(75,85,99,.08);
   color-scheme:light;
 }
@@ -94,7 +96,7 @@ input{font:inherit;color:inherit}
 .stack{display:grid;gap:16px}
 .hint{color:var(--dim);font-size:12px}
 .foot{margin-top:24px;color:var(--dim);font-size:12px;max-width:760px}
-.hi{color:var(--acc)}
+.hi{color:var(--pos)}
 .tag{display:inline-block;font:500 10px var(--mono);letter-spacing:.02em;text-transform:uppercase;
   color:var(--dim);border:1px solid var(--line);border-radius:3px;padding:1px 5px;vertical-align:1px}
 .btn{height:32px;padding:0 12px;border-radius:var(--rc);border:1px solid var(--line);color:var(--mut);font-size:13px}
@@ -166,7 +168,7 @@ input{font:inherit;color:inherit}
 .games{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:4px 16px;margin-top:8px}
 .g{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;font-size:12px;padding:4px 0;color:var(--mut)}
 .g .sc{font:500 12px var(--mono);color:var(--txt)}
-.g .sc.hit{color:var(--acc)}
+.g .sc.hit{color:var(--pos)}
 .g .aw{text-align:right}
 
 /* ---------- bars list (minutes, ranking) ---------- */
@@ -200,7 +202,8 @@ tr.clk{cursor:pointer}
 tr.sel td{background:var(--surf2)}
 tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--acc)}
 td.heat{position:relative}
-td.heat.hi{background:var(--acc-tint);color:var(--acc)}
+td.heat.hi{background:var(--pos-tint);color:var(--pos);font-weight:600}
+td.heat.hi .n{color:var(--pos);opacity:.7}
 td .n{color:var(--dim);font-size:11px;margin-left:4px}
 td.thin,.thin{color:var(--dim)}
 tr.small td:not(.l){opacity:.55}
@@ -237,7 +240,7 @@ td.rk{color:var(--dim);width:36px}
 .l8{display:flex;align-items:flex-end;gap:6px;height:92px;position:relative;padding-top:4px}
 .l8 .c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
 .l8 .c i{display:block;width:100%;border-radius:3px 3px 0 0;background:var(--bar-lo);min-height:2px}
-.l8 .c.hit i{background:var(--acc)}
+.l8 .c.hit i{background:var(--pos)}
 .l8 .c b{font:500 11px var(--mono);color:var(--mut)}
 .l8 .c span{font:10px/14px var(--mono);height:14px;color:var(--dim)}
 .l8 .line{position:absolute;left:0;right:0;border-top:1px dashed var(--mut);opacity:.6}
@@ -349,7 +352,7 @@ td.rk{color:var(--dim);width:36px}
       </div>
     </div>
     <div id="fxlist"></div>
-    <p class="foot">Combined = mean of the home club's rate in its home matches and the away club's rate in its away matches, this season. It is a historical frequency, not a probability; the tick marks the league average. Amber means above that average. Fixtures with fewer than 6 matches behind them are dimmed.</p>
+    <p class="foot">Combined = mean of the home club's rate in its home matches and the away club's rate in its away matches, this season. It is a historical frequency, not a probability; the tick marks the league average. Green means above that average. Fixtures with fewer than 6 matches behind them are dimmed.</p>
   </section>
 
   <section class="view" id="v-league" hidden aria-labelledby="lg-t">
@@ -414,7 +417,7 @@ td.rk{color:var(--dim);width:36px}
         <div id="cpbox" hidden><div class="tscroll"><table id="cp"><thead><tr>
           <th class="l">Competition</th><th>Matches</th><th>Goals/m</th><th>BTTS</th><th>O 1.5</th><th>O 2.5</th><th>O 3.5</th><th>0-0</th><th>Goals 70′+</th>
         </tr></thead><tbody></tbody></table></div>
-        <div class="tfoot">Highest value per column in amber. Goals 70′+ needs goal minutes from the ESPN feed.</div></div>
+        <div class="tfoot">Highest value per column in green. Goals 70′+ needs goal minutes from the ESPN feed.</div></div>
       </div>
     </div>
   </section>
@@ -483,7 +486,7 @@ el("#th").onclick=()=>{root.dataset.theme=root.dataset.theme==="dark"?"light":"d
 /* tone: the accent only when a value beats its reference */
 function tone(v,avg){
   if(v===null||v===undefined||isNaN(v)||avg===null||avg===undefined)return "var(--bar-lo)";
-  if(v>avg+0.05)return "var(--acc)";
+  if(v>avg+0.05)return "var(--pos)";
   return v<avg-10?"var(--bar-lo)":"var(--bar)";}
 const hot=(v,avg)=>v!==null&&v!==undefined&&avg!==null&&avg!==undefined&&v>avg+0.05;
 
@@ -687,7 +690,7 @@ function fixtureRow(f){
     <span class="rt h"><em>Home</em>${fr(hr.v,0)}${hr.v===null?"":"%"}<i>n ${hr.n}</i></span>
     <span class="rt a"><em>Away</em>${fr(ar.v,0)}${ar.v===null?"":"%"}<i>n ${ar.n}</i></span>
     <span class="cbar" aria-hidden="true"><span class="trk"><span class="fill" style="width:${comb===null?0:comb.toFixed(1)}%;background:${tone(comb,avg)}"></span><span class="tick" style="left:calc(${avg.toFixed(1)}% - 1px)"></span></span></span>
-    <span class="cv"><b style="color:${hot(comb,avg)?"var(--acc)":"var(--txt)"}">${fr(comb,0)}${comb===null?"":"%"}</b><i>${comb===null?"no data":(comb-avg>=0?"+":"−")+fr(Math.abs(comb-avg),0)+" pp"}</i></span>
+    <span class="cv"><b style="color:${hot(comb,avg)?"var(--pos)":"var(--txt)"}">${fr(comb,0)}${comb===null?"":"%"}</b><i>${comb===null?"no data":(comb-avg>=0?"+":"−")+fr(Math.abs(comb-avg),0)+" pp"}</i></span>
   </div>`};}
 function renderFixtures(){
   const avg=S[MK().key];
@@ -751,7 +754,7 @@ function renderLeague(){
     el("#minbars").innerHTML=BUCKETS.map(([,,lab],i)=>`<div class="br"><span class="bl">${lab}</span>
       <span class="bt"><span class="bf" style="width:${(100*share[i]/mx).toFixed(1)}%;background:${tone(share[i],100/6)}"></span></span>
       <span class="bv">${fr(share[i],0)}%</span></div>`).join("");
-    el("#minnote").innerHTML=`From the 70th minute: <b>${fr(st.latePct,0)}%</b> of goals, ${fr(st.latePerMatch,2)} per match. Amber = more than an even 1/6 share.`;}
+    el("#minnote").innerHTML=`From the 70th minute: <b>${fr(st.latePct,0)}%</b> of goals, ${fr(st.latePerMatch,2)} per match. Green = more than an even 1/6 share.`;}
   kickoff();}
 function chart(){
   const k=MK().key,box=el("#chart");
@@ -766,7 +769,7 @@ function chart(){
   for(const g of [0,25,50,75,100])s+=`<line x1="${pl}" x2="${W-pr}" y1="${y(g)}" y2="${y(g)}" stroke="${grid}"/><text x="${pl-8}" y="${y(g)+4}" text-anchor="end" font-size="10" fill="${txt}" font-family="JetBrains Mono,monospace">${g}</text>`;
   if(showBand)s+=`<rect x="${pl}" width="${iw}" y="${y(hi)}" height="${y(lo)-y(hi)}" fill="var(--band)"/>`;
   R.forEach((r,i)=>{const v=r[k],w=Math.min(bw-gap,44),x=pl+i*bw+(bw-w)/2;
-    const fill=v>hi&&showBand?"var(--acc)":(v<lo&&showBand?"var(--bar-lo)":"var(--bar)");
+    const fill=v>hi&&showBand?"var(--pos)":(v<lo&&showBand?"var(--bar-lo)":"var(--bar)");
     s+=`<g class="b" data-md="${r.md}" tabindex="0" role="button" aria-label="${r.lab}: ${fr(v,0)}% over ${r.n} matches"><rect x="${pl+i*bw}" y="${pt}" width="${bw}" height="${ih}" fill="transparent"/>
       <rect class="bar" x="${x}" y="${y(v)}" width="${w}" height="${Math.max(1,y(0)-y(v))}" rx="2" fill="${fill}" opacity="${r.full?1:.5}" ${r.md===pickedMd?'stroke="var(--txt)" stroke-width="1.5"':""}/>
       <title>${r.lab}: ${fr(v,0)}% · ${r.n} matches${r.full?"":" (in progress)"}</title></g>`;
@@ -777,7 +780,7 @@ function chart(){
     s+=`<polyline points="${pts.join(" ")}" fill="none" stroke="var(--mut)" stroke-width="2"/>`;}
   box.innerHTML=s+"</svg>";
   el("#chleg").innerHTML=`<span><i style="background:var(--bar)"></i>Within the usual range</span>
-    ${showBand?`<span><i style="background:var(--acc)"></i>Above +1 SD</span><span><i style="background:var(--bar-lo)"></i>Below −1 SD</span>`:""}
+    ${showBand?`<span><i style="background:var(--pos)"></i>Above +1 SD</span><span><i style="background:var(--bar-lo)"></i>Below −1 SD</span>`:""}
     <span><i style="background:none;border-top:2px dashed var(--mut);height:0;border-radius:0"></i>Season ${fr(mean,0)}%</span>
     ${R.some(r=>!r.full)?`<span><i style="background:var(--bar);opacity:.5"></i>In progress</span>`:""}`;}
 function verdict(){const k=MK().key;
@@ -801,14 +804,14 @@ function kickoff(){
       <td data-v="${ms.reduce((s,m)=>s+m.tot,0)/ms.length}">${fr(ms.reduce((s,m)=>s+m.tot,0)/ms.length,2)}</td>
       <td class="heat${hot(r,avg)?" hi":""}" data-v="${r}">${fr(r,0)}%</td></tr>`;}).join("");
   resort("#ko");
-  el("#konote").textContent=byDow?"Paris time. Amber = above the league average for this market."
-    :`Paris time. Kick-off known for ${M.filter(m=>m.time).length} of ${M.length} matches. Amber = above the league average.`;}
+  el("#konote").textContent=byDow?"Paris time. Green = above the league average for this market."
+    :`Paris time. Kick-off known for ${M.filter(m=>m.time).length} of ${M.length} matches. Green = above the league average.`;}
 
 /* ---------- clubs ---------- */
 function renderClubs(){
   const mk=MK(),avg=S[mk.key],q=el("#q").value.trim().toLowerCase(),hideSmall=el("#hidesmall").checked;
   syncClubHeaders();
-  el("#cl-sub").textContent=`${mk.long} · league average ${fr(avg,0)}% · cells in amber beat it · click a club for detail`;
+  el("#cl-sub").textContent=`${mk.long} · league average ${fr(avg,0)}% · green cells beat it · click a club for detail`;
   const P=prevTeamsIndex();
   el("#clprev").disabled=!P.size; el("#clprev").title=P.size?"":"Previous season not embedded";
   let rows;
@@ -816,11 +819,11 @@ function renderClubs(){
     const pavg=prev?prev[mk.key]:null;
     rows=[...P.values()].map(p=>{const v=p.v;
       return {k:norm(p.raw),name:p.name,small:false,cells:[[v[0],v[0]],[v[2],v[2]],[v[3],v[3]],[v[4],fr(v[4],2)],null,null,[v[mk.pi],fr(v[mk.pi],0)+"%",hot(v[mk.pi],pavg)]]};});
-    el("#tmnote").textContent=`Full ${PREVLAB} season, all matches. The home / away split is not kept for past seasons. Amber = above the ${PREVLAB} league average (${fr(pavg,0)}%).`;
+    el("#tmnote").textContent=`Full ${PREVLAB} season, all matches. The home / away split is not kept for past seasons. Green = above the ${PREVLAB} league average (${fr(pavg,0)}%).`;
   }else{
     rows=[...CLUBS.values()].map(c=>{const p=c.all.length,gf=c.home.reduce((s,m)=>s+m.hg,0)+c.away.reduce((s,m)=>s+m.ag,0),
         ga=c.home.reduce((s,m)=>s+m.ag,0)+c.away.reduce((s,m)=>s+m.hg,0),h=rate(c.home),a=rate(c.away),o=rate(c.all);
-      const rc=r=>[r.v,`${fr(r.v,0)}${r.v===null?"":"%"}<span class="n">${r.n}</span>`,hot(r.v,avg)];
+      const rc=r=>[r.v,`${fr(r.v,0)}${r.v===null?"":"%"}<span class="n">n ${r.n}</span>`,hot(r.v,avg)];
       return {k:c.k,name:c.name,small:p<SMALL,cells:[[p,p],[gf,gf],[ga,ga],[(gf+ga)/p,fr((gf+ga)/p,2)],rc(h),rc(a),rc(o)]};});
     el("#tmnote").textContent=`Both clubs counted in every fixture. Small digits = matches behind the rate; rows under ${SMALL} matches are dimmed.`;}
   const sel=el("#drawer").hidden?null:el("#drawer").dataset.club;
@@ -849,7 +852,7 @@ function openClub(k){
   const nx=U.find(f=>norm(f.h)===k||norm(f.a)===k);
   let nxHtml=`<p class="sub" style="margin:0">No fixture in the next ${AHEAD} days.</p>`;
   if(nx){const r=fixtureRow(nx);
-    nxHtml=`<div class="nextfx"><b>${esc(shorten(nx.h))} vs ${esc(shorten(nx.a))}</b><span>${dLong(nx.date)} · ${nx.time||""} · combined ${mk.lab} <b class="mono" style="display:inline;color:${hot(r.comb,avg)?"var(--acc)":"var(--txt)"}">${fr(r.comb,0)}%</b>${r.small?" · small sample":""}</span></div>`;}
+    nxHtml=`<div class="nextfx"><b>${esc(shorten(nx.h))} vs ${esc(shorten(nx.a))}</b><span>${dLong(nx.date)} · ${nx.time||""} · combined ${mk.lab} <b class="mono" style="display:inline;color:${hot(r.comb,avg)?"var(--pos)":"var(--txt)"}">${fr(r.comb,0)}%</b>${r.small?" · small sample":""}</span></div>`;}
   const st=minuteStats(c.all);
   const cell=(lab,r,g)=>`<div><span>${lab}</span><b${hot(r.v,avg)?' class="hi"':""}>${fr(r.v,0)}${r.v===null?"":"%"}</b><em>n ${r.n} · ${fr(g,2)} goals/m</em></div>`;
   el("#dwb").innerHTML=`
@@ -861,7 +864,7 @@ function openClub(k){
         ${last.map(m=>{const home=norm(m.h)===k,opp=shorten(home?m.a:m.h);
           return `<div class="c${mk.hit(m)?" hit":""}" title="${esc(shorten(m.h))} ${m.hg}-${m.ag} ${esc(shorten(m.a))} · ${dShort(m.date)}">
           <b>${m.tot}</b><i style="height:${(m.tot/mx*56).toFixed(0)}px"></i><span>${home?"H":"A"}·${esc(opp.slice(0,3))}</span></div>`;}).join("")}
-      </div><p class="hint" style="margin:6px 0 0">Amber = ${mk.line!==null?`over ${mk.line}`:"both teams scored"}. H / A = venue, then opponent.</p></div>
+      </div><p class="hint" style="margin:6px 0 0">Green = ${mk.line!==null?`over ${mk.line}`:"both teams scored"}. H / A = venue, then opponent.</p></div>
     <div><h4>Goal minutes (their matches)</h4>${st?`<div class="bars">${BUCKETS.map(([,,lab],i)=>{const p=100*st.counts[i]/st.goals;
       return `<div class="br"><span class="bl">${lab}</span><span class="bt"><span class="bf" style="width:${Math.min(100,p*2.5).toFixed(1)}%;background:${tone(p,100/6)}"></span></span><span class="bv">${fr(p,0)}%</span></div>`;}).join("")}</div>
       <p class="hint" style="margin:6px 0 0">${st.goals} goals with a minute · 70′+ share ${fr(st.latePct,0)}%.</p>`:`<p class="sub" style="margin:0">Goal minutes not available in the loaded data.</p>`}</div>
@@ -916,7 +919,7 @@ function rankList(sel,key,fmt,scaleMax){
     <span class="bv${hot(l.S[key],mean)?" hi":""}">${fmt(l.S[key])}</span></button>`).join("");}
 function renderCompare(){
   const mk=MK(),L=allSeasons(),p=v=>fr(v,0)+"%",g=v=>fr(v,2);
-  el("#cp-sub").textContent=`${L.length} competitions, current season · amber = above the cross-league mean`;
+  el("#cp-sub").textContent=`${L.length} competitions, current season · green = above the cross-league mean`;
   el("#dot-t").textContent=`${mk.long} across competitions`;
   el("#rk-t").textContent=`${mk.lab} ranking`;
   dotRange("#dotm",mk.key,p); rankList("#rank",mk.key,p,100);
