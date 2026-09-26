@@ -4,7 +4,7 @@ Pre-match goal-frequency research for Europe’s top leagues — Over 1.5 / 2.5 
 
 **FR:** Recherche de fréquences de buts avant match sur les grands championnats européens — fréquences historiques sur matchs terminés.
 
-**Production (AWS CloudFront):** [https://d25r7vf4jjcqyi.cloudfront.net](https://d25r7vf4jjcqyi.cloudfront.net)
+**Production (AWS CloudFront):** [https://matchfreq.com](https://matchfreq.com)
 
 Brand domain (later): **matchfreq.com** — see [`infra/HOSTING.md`](infra/HOSTING.md).
 

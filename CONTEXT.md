@@ -17,7 +17,7 @@ One-liner EN: *Pre-match goal-rate research for Europe’s top leagues — Over 
 
 Domaine cible : `matchfreq.com` (voir [`infra/HOSTING.md`](infra/HOSTING.md)).
 
-URL actuelle : [https://d25r7vf4jjcqyi.cloudfront.net/](https://d25r7vf4jjcqyi.cloudfront.net/)
+URL actuelle : [https://matchfreq.com/](https://matchfreq.com/)
 
 ## 2. Architecture
 
@@ -28,7 +28,7 @@ deploy.yml       fetch/build + S3 sync + CloudFront invalidate
 AWS              S3 (privé) + CloudFront (OAC)
 ```
 
-URL publique : [https://d25r7vf4jjcqyi.cloudfront.net/](https://d25r7vf4jjcqyi.cloudfront.net/)
+URL publique : [https://matchfreq.com/](https://matchfreq.com/)
 (domaine prévu : matchfreq.com — ACM us-east-1 + DNS, voir infra/HOSTING.md)
 
 **Point essentiel** : `index.html` embarque une copie des données, mais le dashboard

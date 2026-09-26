@@ -8,24 +8,24 @@
 <meta name="theme-color" content="#0E1116">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="canonical" id="canonical" href="https://d25r7vf4jjcqyi.cloudfront.net/">
-<link rel="alternate" hreflang="en" id="hreflang-en" href="https://d25r7vf4jjcqyi.cloudfront.net/?lang=en">
-<link rel="alternate" hreflang="fr" id="hreflang-fr" href="https://d25r7vf4jjcqyi.cloudfront.net/?lang=fr">
-<link rel="alternate" hreflang="x-default" id="hreflang-default" href="https://d25r7vf4jjcqyi.cloudfront.net/">
+<link rel="canonical" id="canonical" href="https://matchfreq.com/">
+<link rel="alternate" hreflang="en" id="hreflang-en" href="https://matchfreq.com/?lang=en">
+<link rel="alternate" hreflang="fr" id="hreflang-fr" href="https://matchfreq.com/?lang=fr">
+<link rel="alternate" hreflang="x-default" id="hreflang-default" href="https://matchfreq.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MatchFreq">
 <meta property="og:title" id="og-title" content="MatchFreq — pre-match Over / BTTS frequencies">
 <meta property="og:description" id="og-desc" content="Pre-match goal-rate research for Europe’s top leagues. Historical frequencies for Over 1.5 / 2.5 / 3.5 and BTTS from completed matches.">
-<meta property="og:url" id="og-url" content="https://d25r7vf4jjcqyi.cloudfront.net/">
-<meta property="og:image" id="og-image" content="https://d25r7vf4jjcqyi.cloudfront.net/og.png">
+<meta property="og:url" id="og-url" content="https://matchfreq.com/">
+<meta property="og:image" id="og-image" content="https://matchfreq.com/og.png">
 <meta property="og:locale" id="og-locale" content="en_GB">
 <meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" id="tw-title" content="MatchFreq — pre-match Over / BTTS frequencies">
 <meta name="twitter:description" id="tw-desc" content="Pre-match goal-rate research for Europe’s top leagues. Historical frequencies from completed matches.">
-<meta name="twitter:image" id="tw-image" content="https://d25r7vf4jjcqyi.cloudfront.net/og.png">
+<meta name="twitter:image" id="tw-image" content="https://matchfreq.com/og.png">
 <script type="application/ld+json" id="jsonld">
-{"@context":"https://schema.org","@type":"WebApplication","name":"MatchFreq","alternateName":"Taux de buts","url":"https://d25r7vf4jjcqyi.cloudfront.net/","applicationCategory":"SportsApplication","operatingSystem":"Any","inLanguage":["en","fr"],"description":"Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies from completed matches.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
+{"@context":"https://schema.org","@type":"WebApplication","name":"MatchFreq","alternateName":"Taux de buts","url":"https://matchfreq.com/","applicationCategory":"SportsApplication","operatingSystem":"Any","inLanguage":["en","fr"],"description":"Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies from completed matches.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,8 +76,12 @@ input{font:inherit;color:inherit}
 .mast .line{margin:0;color:rgba(255,255,255,.95);font-size:16px;line-height:1.4;max-width:520px;
   text-align:left;white-space:normal;text-shadow:0 2px 14px rgba(0,0,0,.65)}
 .hd{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);
-  display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:center;
-  gap:12px 16px;min-height:var(--hd);padding:8px 20px}
+  display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"lgs tools" "mkt tabs";
+  align-items:center;gap:8px 16px;min-height:var(--hd);padding:8px 20px}
+.hd .lgs{grid-area:lgs}
+.hd .tools{grid-area:tools;justify-self:end}
+.hd .mktrow{grid-area:mkt;justify-self:start}
+.hd .tabs{grid-area:tabs;justify-self:end}
 .lgs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;min-width:0;
   mask-image:linear-gradient(90deg,#000 92%,transparent)}
 .lgs::-webkit-scrollbar{display:none}
@@ -342,11 +346,7 @@ td.rk{color:var(--dim);width:36px}
 .btabs{display:none}
 
 @media (max-width:1280px){
-  .hd{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"lgs tools" "mkt tabs";
-    row-gap:0;padding-bottom:8px}
-  .hd .lgs{grid-area:lgs}.hd .tools{grid-area:tools;justify-self:end}
-  .hd .mktrow{grid-area:mkt;justify-self:start}.hd .tabs{grid-area:tabs;justify-self:end}
-  .hd>*{margin-top:8px}
+  .hd{padding-bottom:8px}
 }
 @media (max-width:1100px){
   .fxhead,.fx{grid-template-columns:52px minmax(180px,1fr) 90px 90px minmax(120px,.9fr) 80px;gap:12px}
@@ -556,7 +556,7 @@ td.rk{color:var(--dim);width:36px}
 
 <script>
 const SNAP=__SNAP__;
-const SITE_ORIGIN="https://d25r7vf4jjcqyi.cloudfront.net";
+const SITE_ORIGIN="https://matchfreq.com";
 const LEAGUES=[["fr.1","France · Ligue 1","Ligue 1"],["en.1","England · Premier League","Premier League"],
  ["es.1","Spain · La Liga","La Liga"],["de.1","Germany · Bundesliga","Bundesliga"],
  ["it.1","Italy · Serie A","Serie A"],["pt.1","Portugal · Primeira Liga","Primeira Liga"],
