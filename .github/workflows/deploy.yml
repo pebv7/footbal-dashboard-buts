@@ -20,6 +20,9 @@ jobs:
     # Data commit push already deployed in the same run — skip the echo.
     if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     env:
       AWS_REGION: eu-west-1
       S3_BUCKET: matchfreq-site-848937835337
