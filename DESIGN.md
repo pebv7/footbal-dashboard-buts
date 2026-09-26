@@ -8,11 +8,11 @@ Quiet slate with amber for brand and selection, and a muted green for values abo
 
 ## Information architecture
 
-- **Mast** (not sticky): full-bleed green pitch + goal photo (`mast-banner.png`), large football mark, wordmark, bilingual one-liner. On scroll it leaves; the compact mark stays in the header.
-- **Header** (one row, 56px, sticky): compact football mark + wordmark (wordmark hidden ≤900px), scrollable league strip, market segmented control (O 1.5 / O 2.5 / O 3.5 / BTTS), view tabs (Fixtures / League / Clubs / Compare), live link when matches are in progress, data stamp, language toggle, refresh, theme. Wraps to two rows below 1280px.
+- **Mast** (not sticky): compact full-bleed pitch photo (`mast-banner.png`), amber wordmark, one-liner (~160px desktop / ~120px mobile). On scroll it leaves; controls stay in the sticky header.
+- **Header** (sticky filter bar): scrollable league pills, market + Over|Under cluster, view tabs, tools (live / stamp / lang / refresh / theme). Data stamp also appears on the fixtures subtitle. Wraps below 1280px; mobile uses a horizontally scrollable market row + bottom tabs.
 - **State in the URL**: `?lang=&league=&market=&view=`, e.g. `?lang=en&league=fr.1&market=o25&view=fixtures`. Old `#league/market/view` hashes migrate on load.
 - **Keyboard**: `1`–`4` switch views, `[` / `]` change market, `/` focuses club search, `Esc` closes the drawer.
-- **Fixtures** (default): next 7 days grouped by day; falls back to the next scheduled round when the week is empty (international breaks). Each row shows the home club's rate at home, the away club's rate away, and their mean as the combined value, drawn as a bar with a league-average tick. Sort by kick-off or by highest combined.
+- **Fixtures** (default): next 7 days grouped by day; falls back to the next scheduled round when the week is empty (international breaks). Each row shows home rate at home, away rate away, and combined mean as a bar with a labelled league-average tick. Sort Date / Rate (sans-serif control); top 2–3 combined rates get an amber leading edge.
 - **League**: KPI strip (with deltas vs 2025/26), goal-line ladder 0.5–3.5 plus BTTS, per-matchday chart with ±1 SD band (click a bar for its results), goal-minute distribution, kick-off weekday / time-slot table.
 - **Clubs**: sortable table with the selected market at home, away and overall (sample size beside each rate), search, current season vs 2025/26, "hide small samples". Clicking a club opens the drawer: home vs away, last 8 match totals against the line, goal minutes, next fixture.
 - **Compare**: dot range and ranking for the selected market and for goals per match; full figures table behind a toggle. Clicking a league switches to it.
@@ -42,7 +42,7 @@ Returns `--pos` when the value beats the reference, `--bar` when close to or bel
 
 ## Typography
 
-- Inter for UI and headings; JetBrains Mono with tabular figures for every number.
+- Inter for UI and headings; JetBrains Mono with tabular figures for every number and market chips. Label segments (Date/Rate, chart opts, season) use Inter.
 - Scale: 12 (meta), 13–14 (body), 16 (row values), 24 (view titles and KPIs).
 
 ## Shape
