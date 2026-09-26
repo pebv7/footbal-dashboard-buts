@@ -21,6 +21,8 @@ Production is **Amazon S3 + CloudFront**, deployed by GitHub Actions (OIDC).
 
 Workflow: [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml)
 
+Uses repository secrets `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` (IAM user `matchfreq-ci`). CloudFormation also provisions a GitHub OIDC deploy role for a later keyless switch.
+
 - **Daily** 01:20 UTC: `fetch_espn.py` → `build.py` → commit snapshot if changed → S3 upload → CloudFront invalidation
 - **Push to `main`**: rebuild + upload (skips the bot’s own data-commit push)
 - **Manual**: Actions → “Update and deploy MatchFreq” → Run workflow

@@ -55,4 +55,4 @@ Shareable state uses query params, e.g. `?lang=fr&league=fr.1&market=o25&view=fi
 
 - GitHub disables scheduled workflows after 60 days of inactivity — any commit resets the clock.
 - ESPN’s API is undocumented; if it breaks, the UI stays on the embedded copy.
-- Deploy uses GitHub Actions **OIDC** into AWS (no long-lived access keys in the repo).
+- Deploy uses GitHub Actions with an IAM user (`matchfreq-ci`) stored as repository secrets `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`. An OIDC role also exists in the CloudFormation stack for a future keyless migrate.
