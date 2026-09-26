@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pebv7.github.io/footbal-dashboard-buts/sitemap.xml
+Sitemap: https://d25r7vf4jjcqyi.cloudfront.net/sitemap.xml

@@ -1,0 +1,77 @@
+name: Update and deploy MatchFreq
+
+on:
+  schedule:
+    - cron: "20 1 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: matchfreq-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # Data commit push already deployed in the same run — skip the echo.
+    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: eu-west-1
+      S3_BUCKET: matchfreq-site-848937835337
+      CLOUDFRONT_DISTRIBUTION_ID: E29GO3DGPWDS6K
+      AWS_ROLE_ARN: arn:aws:iam::848937835337:role/matchfreq-github-deploy-848937835337
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch ESPN results
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python fetch_espn.py
+
+      - name: Build dashboard
+        run: python build.py
+
+      - name: Commit snapshot if changed
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json index.html historique.json
+          git diff --staged --quiet && echo "no data changes" && exit 0
+          git commit -m "résultats au $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Upload site to S3
+        run: |
+          aws s3 cp index.html "s3://${S3_BUCKET}/index.html" \
+            --cache-control "public,max-age=60,must-revalidate" \
+            --content-type "text/html; charset=utf-8"
+          aws s3 cp robots.txt "s3://${S3_BUCKET}/robots.txt" \
+            --cache-control "public,max-age=300" \
+            --content-type "text/plain"
+          aws s3 cp sitemap.xml "s3://${S3_BUCKET}/sitemap.xml" \
+            --cache-control "public,max-age=300" \
+            --content-type "application/xml"
+          for f in logo.png mast-banner.png og.png favicon.png apple-touch-icon.png; do
+            aws s3 cp "$f" "s3://${S3_BUCKET}/$f" --cache-control "public,max-age=86400"
+          done
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+            --paths "/*"

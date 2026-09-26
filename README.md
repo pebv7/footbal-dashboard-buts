@@ -1,21 +1,23 @@
-# Goal Rates
+# MatchFreq
 
-Pre-match goal-rate research for Europe’s top leagues — Over 1.5 / 2.5 / 3.5 and BTTS as **historical frequencies** from completed matches.
+Pre-match goal-frequency research for Europe’s top leagues — Over 1.5 / 2.5 / 3.5 and BTTS as **historical frequencies** from completed matches.
 
-**FR:** Recherche de taux de buts avant match sur les grands championnats européens — fréquences historiques sur matchs terminés.
+**FR:** Recherche de fréquences de buts avant match sur les grands championnats européens — fréquences historiques sur matchs terminés.
 
-Live: [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
+**Production (AWS CloudFront):** [https://d25r7vf4jjcqyi.cloudfront.net](https://d25r7vf4jjcqyi.cloudfront.net)
+
+Brand domain (later): **matchfreq.com** — see [`infra/HOSTING.md`](infra/HOSTING.md).
 
 ## Pipeline
 
 ```
 fetch_espn.py   ESPN scoreboard API  -> data.json
 build.py        inject into template -> index.html
-GitHub Actions  daily fetch + build + publish
-GitHub Pages    serves index.html (+ robots.txt, sitemap.xml, og.png)
+GitHub Actions  daily fetch + build + S3 sync + CloudFront invalidate
+AWS             S3 (private) + CloudFront (OAC) serves the site
 ```
 
-On load, the page also queries ESPN from the browser. The embedded snapshot is a fallback when the network fails.
+On load, the page may also query ESPN from the browser. The embedded snapshot is a fallback when the network fails.
 
 ## Local
 
@@ -26,25 +28,14 @@ python3 build.py
 # open index.html, or: python3 -m http.server 8000
 ```
 
-## Custom domain (goalrates.com)
+## Custom domain (matchfreq.com)
 
-Preferred brand domain: **goalrates.com** (fallback: goalfreq.com, goalscope.com; FR: goalrates.fr / tauxbuts.fr).
+1. Buy `matchfreq.com`.
+2. ACM certificate in **us-east-1**, attach to the CloudFront distribution.
+3. Point DNS at CloudFront; set `SITE_ORIGIN` to `https://matchfreq.com` in `template.html`, rebuild, deploy.
+4. Full checklist: [`infra/HOSTING.md`](infra/HOSTING.md).
 
-1. Buy the domain at your registrar.
-2. In the repo root, add a `CNAME` file with a single line:
-   ```
-   goalrates.com
-   ```
-3. GitHub → **Settings → Pages → Custom domain** → enter `goalrates.com` → enable **Enforce HTTPS**.
-4. At the registrar, point DNS:
-   - **Apex:** A records to GitHub Pages IPs (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`), or an ALIAS/ANAME to `pebv7.github.io`
-   - **www (optional):** CNAME → `pebv7.github.io`
-5. After the domain is live, update canonical / OG / sitemap / robots URLs in `template.html` and `sitemap.xml` / `robots.txt` from the `github.io` path to `https://goalrates.com/`. Keep `github.io` as a redirect only.
-6. Optional: redirect `goalrates.fr` → `goalrates.com` (or `?lang=fr`).
-
-Until the custom domain is attached, SEO tags and the sitemap point at the GitHub Pages URL.
-
-Shareable state uses query params, e.g. `?lang=fr&league=fr.1&market=o25&view=fixtures` (old `#league/market/view` hashes still migrate).
+Shareable state uses query params, e.g. `?lang=fr&league=fr.1&market=o25&view=fixtures`.
 
 ## Files
 
@@ -58,9 +49,10 @@ Shareable state uses query params, e.g. `?lang=fr&league=fr.1&market=o25&view=fi
 | `historique.json` | optional previous season |
 | `robots.txt` / `sitemap.xml` | crawl hints |
 | `og.png` | Open Graph / Twitter image |
+| `infra/matchfreq-site.yaml` | CloudFormation (S3 + CloudFront + OIDC role) |
 
 ## Notes
 
 - GitHub disables scheduled workflows after 60 days of inactivity — any commit resets the clock.
 - ESPN’s API is undocumented; if it breaks, the UI stays on the embedded copy.
-- The repo must stay public for free GitHub Pages.
+- Deploy uses GitHub Actions **OIDC** into AWS (no long-lived access keys in the repo).

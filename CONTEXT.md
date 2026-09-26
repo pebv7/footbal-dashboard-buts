@@ -7,7 +7,7 @@ Document de passation. Il décrit l'état du projet, les décisions prises et su
 
 ## 1. Ce que fait le projet
 
-**Goal Rates** — outil d’**analyse sportive** pour
+**MatchFreq** — outil d’**analyse sportive** pour
 la recherche de **taux de buts** avant match sur onze compétitions européennes.
 Moyennes de buts, fréquences Over 1.5 / 2.5 / 3.5 et BTTS, minutes de but,
 comparaison entre championnats. Les chiffres sont des **fréquences historiques**
@@ -15,21 +15,21 @@ sur matchs terminés.
 
 One-liner EN: *Pre-match goal-rate research for Europe’s top leagues — Over / BTTS as historical frequencies from completed matches.*
 
-Domaine cible : `goalrates.com` (voir README pour CNAME / GitHub Pages).
+Domaine cible : `matchfreq.com` (voir [`infra/HOSTING.md`](infra/HOSTING.md)).
 
-URL actuelle : [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
+URL actuelle : [https://d25r7vf4jjcqyi.cloudfront.net/](https://d25r7vf4jjcqyi.cloudfront.net/)
 
 ## 2. Architecture
 
 ```
 fetch_espn.py    API ESPN  ──────────────►  data.json
 build.py         data.json + template.html ►  index.html
-update.yml       enchaîne les deux, une fois par jour, commit + push
-GitHub Pages     sert index.html
+deploy.yml       fetch/build + S3 sync + CloudFront invalidate
+AWS              S3 (privé) + CloudFront (OAC)
 ```
 
-URL publique : [https://pebv7.github.io/footbal-dashboard-buts/](https://pebv7.github.io/footbal-dashboard-buts/)
-(domaine prévu : goalrates.com — instructions CNAME dans le README)
+URL publique : [https://d25r7vf4jjcqyi.cloudfront.net/](https://d25r7vf4jjcqyi.cloudfront.net/)
+(domaine prévu : matchfreq.com — ACM us-east-1 + DNS, voir infra/HOSTING.md)
 
 **Point essentiel** : `index.html` embarque une copie des données, mais le dashboard
 **interroge ESPN lui-même** au chargement du navigateur et remplace tout. La copie

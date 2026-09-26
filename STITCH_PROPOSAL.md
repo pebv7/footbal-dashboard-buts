@@ -1,15 +1,15 @@
-# Goal Rates — Stitch UX proposal
+# MatchFreq — Stitch UX proposal
 
-Mocks-only pass (evolve Goal Rates slate + amber). **Live `template.html` unchanged.**
+Mocks-only pass (evolve MatchFreq slate + amber). **Live `template.html` unchanged.**
 
 ## Stitch project
 
 | | |
 |---|---|
-| **Title** | Goal Rates — UX proposal |
+| **Title** | MatchFreq — UX proposal |
 | **Project ID** | `5170020727712277226` |
-| **Design system** | `assets/14547378215595196146` (Goal Rates: dark slate, amber `#E8A33D`, pos green `#7DCF8A`, Inter, round 8) |
-| **Open** | [Stitch](https://stitch.withgoogle.com/) → project **Goal Rates — UX proposal** |
+| **Design system** | `assets/14547378215595196146` (MatchFreq: dark slate, amber `#E8A33D`, pos green `#7DCF8A`, Inter, round 8) |
+| **Open** | [Stitch](https://stitch.withgoogle.com/) → project **MatchFreq — UX proposal** |
 
 ### Screens generated
 

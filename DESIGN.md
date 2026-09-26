@@ -1,6 +1,6 @@
-# Goal Rates — pre-match dashboard
+# MatchFreq — pre-match dashboard
 
-Sports-analytics tool for pre-match goal-rate research (Over 1.5 / 2.5 / 3.5, BTTS) across eleven European competitions. The main job: before a round, spot fixtures with high or low historical goal rates, then check the club and league context behind them. Data comes from the ESPN pipeline (`fetch_espn.py` → `data.json` → `build.py` → `index.html`). Every figure is a historical frequency from completed matches and is labelled as one. Brand: **Goal Rates**; FR descriptor “taux de buts”, not a second brand. Mark is a football in a goal net (`logo.png`). UI is bilingual EN (default) / FR.
+Sports-analytics tool for pre-match goal-rate research (Over 1.5 / 2.5 / 3.5, BTTS) across eleven European competitions. The main job: before a round, spot fixtures with high or low historical goal rates, then check the club and league context behind them. Data comes from the ESPN pipeline (`fetch_espn.py` → `data.json` → `build.py` → `index.html`). Every figure is a historical frequency from completed matches and is labelled as one. Brand: **MatchFreq**; FR descriptor “taux de buts”, not a second brand. Mark is a football in a goal net (`logo.png`). UI is bilingual EN (default) / FR.
 
 ## Atmosphere
 
