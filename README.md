@@ -4,9 +4,9 @@ Pre-match goal-frequency research for Europe’s top leagues — Over 1.5 / 2.5 
 
 **FR:** Recherche de fréquences de buts avant match sur les grands championnats européens — fréquences historiques sur matchs terminés.
 
-**Production (AWS CloudFront):** [https://matchfreq.com](https://matchfreq.com)
+**Production (AWS CloudFront):** [https://www.matchfreq.com](https://www.matchfreq.com)
 
-Brand domain (later): **matchfreq.com** — see [`infra/HOSTING.md`](infra/HOSTING.md).
+Brand domain: **www.matchfreq.com** — see [`infra/HOSTING.md`](infra/HOSTING.md).
 
 ## Pipeline
 
@@ -32,7 +32,7 @@ python3 build.py
 
 1. Buy `matchfreq.com`.
 2. ACM certificate in **us-east-1**, attach to the CloudFront distribution.
-3. Point DNS at CloudFront; set `SITE_ORIGIN` to `https://matchfreq.com` in `template.html`, rebuild, deploy.
+3. Point DNS at CloudFront; set `SITE_ORIGIN` to `https://www.matchfreq.com` in `template.html`, rebuild, deploy.
 4. Full checklist: [`infra/HOSTING.md`](infra/HOSTING.md).
 
 Shareable state uses query params, e.g. `?lang=fr&league=fr.1&market=o25&view=fixtures`.

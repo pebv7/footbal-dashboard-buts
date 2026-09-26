@@ -1,12 +1,14 @@
 # MatchFreq hosting (AWS)
 
-Production is **Amazon S3 + CloudFront** behind **https://matchfreq.com**, deployed by GitHub Actions.
+Production is **Amazon S3 + CloudFront** behind **https://www.matchfreq.com**, deployed by GitHub Actions.
 
 ## Live URL
 
-**https://matchfreq.com** (also `https://www.matchfreq.com`)
+**https://www.matchfreq.com**
 
 Distribution hostname (origin): `d25r7vf4jjcqyi.cloudfront.net`
+
+Apex `https://matchfreq.com` **301 →** `https://www.matchfreq.com` (CloudFront Function `matchfreq-apex-to-www`).
 
 ## Stack
 
