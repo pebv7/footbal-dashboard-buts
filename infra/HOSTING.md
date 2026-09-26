@@ -51,3 +51,13 @@ aws cloudfront create-invalidation --distribution-id E29GO3DGPWDS6K --paths "/*"
 ## GitHub Pages
 
 Disabled / not production (avoid duplicate canonicals).
+
+## Search Console / Bing
+
+After DNS and first deploy:
+
+1. [Google Search Console](https://search.google.com/search-console) — add property `https://www.matchfreq.com/` (URL-prefix).
+2. Verify ownership (HTML tag or DNS TXT on `matchfreq.com`).
+3. Submit sitemap: `https://www.matchfreq.com/sitemap.xml`.
+4. Request indexing for `https://www.matchfreq.com/` and `https://www.matchfreq.com/?lang=fr`.
+5. [Bing Webmaster Tools](https://www.bing.com/webmasters) — import the same property / sitemap.

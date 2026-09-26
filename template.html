@@ -3,30 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MatchFreq — pre-match Over / BTTS frequencies</title>
-<meta name="description" id="meta-desc" content="Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies from completed matches.">
+<title>MatchFreq — Over 1.5/2.5/3.5 &amp; BTTS stats</title>
+<meta name="description" id="meta-desc" content="Pre-match Over 1.5 / 2.5 / 3.5 and BTTS frequencies for Europe’s top football leagues. Historical rates from completed matches — not tips.">
 <meta name="theme-color" content="#0E1116">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="canonical" id="canonical" href="https://www.matchfreq.com/">
+<link rel="canonical" id="canonical" href="https://www.matchfreq.com/?lang=en">
 <link rel="alternate" hreflang="en" id="hreflang-en" href="https://www.matchfreq.com/?lang=en">
 <link rel="alternate" hreflang="fr" id="hreflang-fr" href="https://www.matchfreq.com/?lang=fr">
-<link rel="alternate" hreflang="x-default" id="hreflang-default" href="https://www.matchfreq.com/">
+<link rel="alternate" hreflang="x-default" id="hreflang-default" href="https://www.matchfreq.com/?lang=en">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MatchFreq">
-<meta property="og:title" id="og-title" content="MatchFreq — pre-match Over / BTTS frequencies">
-<meta property="og:description" id="og-desc" content="Pre-match goal-rate research for Europe’s top leagues. Historical frequencies for Over 1.5 / 2.5 / 3.5 and BTTS from completed matches.">
-<meta property="og:url" id="og-url" content="https://www.matchfreq.com/">
+<meta property="og:title" id="og-title" content="MatchFreq — Over 1.5/2.5/3.5 &amp; BTTS stats">
+<meta property="og:description" id="og-desc" content="Pre-match Over 1.5 / 2.5 / 3.5 and BTTS frequencies for Europe’s top football leagues. Historical rates from completed matches — not tips.">
+<meta property="og:url" id="og-url" content="https://www.matchfreq.com/?lang=en">
 <meta property="og:image" id="og-image" content="https://www.matchfreq.com/og.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
 <meta property="og:locale" id="og-locale" content="en_GB">
 <meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" id="tw-title" content="MatchFreq — pre-match Over / BTTS frequencies">
-<meta name="twitter:description" id="tw-desc" content="Pre-match goal-rate research for Europe’s top leagues. Historical frequencies from completed matches.">
+<meta name="twitter:title" id="tw-title" content="MatchFreq — Over 1.5/2.5/3.5 &amp; BTTS stats">
+<meta name="twitter:description" id="tw-desc" content="Pre-match Over / BTTS frequencies for Europe’s top football leagues. Historical rates from completed matches.">
 <meta name="twitter:image" id="tw-image" content="https://www.matchfreq.com/og.png">
+<meta name="twitter:image:alt" id="tw-image-alt" content="MatchFreq — pre-match football goal-frequency research">
 <script type="application/ld+json" id="jsonld">
-{"@context":"https://schema.org","@type":"WebApplication","name":"MatchFreq","alternateName":"Taux de buts","url":"https://www.matchfreq.com/","applicationCategory":"SportsApplication","operatingSystem":"Any","inLanguage":["en","fr"],"description":"Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies from completed matches.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
+{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.matchfreq.com/#org","name":"MatchFreq","url":"https://www.matchfreq.com/","logo":"https://www.matchfreq.com/logo.png"},{"@type":"WebSite","@id":"https://www.matchfreq.com/#website","name":"MatchFreq","url":"https://www.matchfreq.com/","inLanguage":["en","fr"],"publisher":{"@id":"https://www.matchfreq.com/#org"}},{"@type":"WebApplication","@id":"https://www.matchfreq.com/#app","name":"MatchFreq","alternateName":"Taux de buts","url":"https://www.matchfreq.com/","applicationCategory":"SportsApplication","operatingSystem":"Any","inLanguage":["en","fr"],"description":"Pre-match Over 1.5 / 2.5 / 3.5 and BTTS frequencies for Europe’s top football leagues. Historical rates from completed matches.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"image":"https://www.matchfreq.com/og.png","publisher":{"@id":"https://www.matchfreq.com/#org"}}]}
 </script>
+<link rel="preload" as="image" href="mast-banner.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -72,7 +76,7 @@ input{font:inherit;color:inherit}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
 .brand .word{font-size:14px;line-height:1}
 .mast-copy{display:flex;flex-direction:column;gap:8px;min-width:0}
-.mast .brand .word{font-size:36px;color:#E8A33D;letter-spacing:-.03em;text-shadow:0 2px 18px rgba(0,0,0,.65)}
+.mast .brand .word{margin:0;font-size:36px;font-weight:700;line-height:1.1;color:#E8A33D;letter-spacing:-.03em;text-shadow:0 2px 18px rgba(0,0,0,.65)}
 .mast .line{margin:0;color:rgba(255,255,255,.95);font-size:16px;line-height:1.4;max-width:520px;
   text-align:left;white-space:normal;text-shadow:0 2px 14px rgba(0,0,0,.65)}
 .hd{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);
@@ -131,7 +135,7 @@ input{font:inherit;color:inherit}
 .hd,.mast,.panel,.stack,.grid2,.pb,.ph,.tscroll,.chartbox{min-width:0;max-width:100%}
 .state{padding:48px 20px;text-align:center;color:var(--mut)}
 .vhead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin:0 0 16px}
-.vhead h1{margin:0;font-size:24px;line-height:1.2;letter-spacing:-.02em;font-weight:600}
+.vhead h1,.vhead h2{margin:0;font-size:24px;line-height:1.2;letter-spacing:-.02em;font-weight:600}
 .vhead p{margin:4px 0 0;color:var(--mut);font-size:13px}
 .vhead .ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .panel{background:var(--surf);border:1px solid var(--line);border-radius:var(--r)}
@@ -423,7 +427,7 @@ td.rk{color:var(--dim);width:36px}
   <div class="mast-inner">
     <div class="mast-copy">
       <div class="brand">
-        <span class="word" data-i18n="brand">MatchFreq</span>
+        <h1 class="word" data-i18n="brand">MatchFreq</h1>
       </div>
       <p class="line" data-i18n="mastLine">Pre-match goal-rate research — historical frequencies from completed matches.</p>
     </div>
@@ -452,7 +456,7 @@ td.rk{color:var(--dim);width:36px}
 
   <section class="view" id="v-fixtures" hidden aria-labelledby="fx-t">
     <div class="vhead">
-      <div><h1 id="fx-t" data-i18n="fxTitle">Next 7 days</h1><p id="fx-sub"></p></div>
+      <div><h2 id="fx-t" data-i18n="fxTitle">Next 7 days</h2><p id="fx-sub"></p></div>
       <div class="ctl">
         <div class="seg" id="fxsort" role="group" aria-label="Sort fixtures" data-i18n-aria="ariaSortFx">
           <button data-v="time" aria-pressed="true" data-i18n="sortKickoff">Date</button>
@@ -465,7 +469,7 @@ td.rk{color:var(--dim);width:36px}
   </section>
 
   <section class="view" id="v-league" hidden aria-labelledby="lg-t">
-    <div class="vhead"><div><h1 id="lg-t"></h1><p id="lg-sub"></p></div></div>
+    <div class="vhead"><div><h2 id="lg-t"></h2><p id="lg-sub"></p></div></div>
     <div class="kpis" id="kpis"></div>
     <div class="stack">
       <div class="grid2">
@@ -493,7 +497,7 @@ td.rk{color:var(--dim);width:36px}
 
   <section class="view" id="v-clubs" hidden aria-labelledby="cl-t">
     <div class="vhead">
-      <div><h1 id="cl-t" data-i18n="clubs">Clubs</h1><p id="cl-sub"></p></div>
+      <div><h2 id="cl-t" data-i18n="clubs">Clubs</h2><p id="cl-sub"></p></div>
       <div class="ctl">
         <input class="search" id="q" type="search" placeholder="Search club  /" aria-label="Search club" autocomplete="off" data-i18n-placeholder="searchClub" data-i18n-aria="ariaSearchClub">
         <div class="seg" id="clseason" role="group" aria-label="Season" data-i18n-aria="ariaSeason">
@@ -513,7 +517,7 @@ td.rk{color:var(--dim);width:36px}
   </section>
 
   <section class="view" id="v-compare" hidden aria-labelledby="cp-t">
-    <div class="vhead"><div><h1 id="cp-t" data-i18n="compareLeagues">Compare leagues</h1><p id="cp-sub"></p></div></div>
+    <div class="vhead"><div><h2 id="cp-t" data-i18n="compareLeagues">Compare leagues</h2><p id="cp-sub"></p></div></div>
     <div class="stack">
       <div class="panel"><div class="ph"><h2 id="dot-t"></h2><span class="hint" data-i18n="dotsHint">Each dot is a competition · line = cross-league mean</span></div>
         <div class="pb"><div class="dots" id="dotm"></div></div></div>
@@ -534,7 +538,7 @@ td.rk{color:var(--dim);width:36px}
   </section>
 
   <section class="about" id="about" aria-labelledby="about-t">
-    <details>
+    <details open>
       <summary id="about-t" data-i18n="aboutTitle">Method</summary>
       <div class="about-body">
         <p data-i18n="aboutP1">MatchFreq is a sports-analytics tool for pre-match research. Figures are historical frequencies from completed matches this season (and last season where noted).</p>
@@ -543,6 +547,9 @@ td.rk{color:var(--dim);width:36px}
       </div>
     </details>
   </section>
+  <noscript>
+    <p>MatchFreq needs JavaScript for live fixture and league tables. Method notes above describe Over 1.5 / 2.5 / 3.5 and BTTS historical frequencies for Europe’s top football leagues.</p>
+  </noscript>
 </main>
 
 <div class="scrim" id="scrim" hidden></div>
@@ -588,8 +595,8 @@ en:{
   mO15:"Over 1.5 goals",mO25:"Over 2.5 goals",mO35:"Over 3.5 goals",
   mU15:"Under 1.5 goals",mU25:"Under 2.5 goals",mU35:"Under 3.5 goals",mBtts:"Both teams to score",
   sideOver:"Over",sideUnder:"Under",ariaSide:"Over or under",
-  metaTitle:"MatchFreq — pre-match Over / BTTS frequencies",
-  metaDesc:"Pre-match goal-rate research for Europe’s top leagues. Over 1.5 / 2.5 / 3.5 and BTTS as historical frequencies from completed matches.",
+  metaTitle:"MatchFreq — Over 1.5/2.5/3.5 & BTTS stats",
+  metaDesc:"Pre-match Over 1.5 / 2.5 / 3.5 and BTTS frequencies for Europe’s top football leagues. Historical rates from completed matches — not tips.",
   ariaCompetition:"Competition",ariaLine:"Goal line",ariaBtts:"Both teams to score",ariaView:"View",ariaSortFx:"Sort fixtures",
   ariaChartOpt:"Chart options",ariaGroupBy:"Group by",ariaSeason:"Season",ariaSearchClub:"Search club",
   refreshTitle:"Refresh from ESPN",refreshAria:"Refresh from ESPN",themeTitle:"Toggle light / dark",themeAria:"Toggle light or dark theme",
@@ -642,8 +649,8 @@ fr:{
   mO15:"Plus de 1,5 buts",mO25:"Plus de 2,5 buts",mO35:"Plus de 3,5 buts",
   mU15:"Moins de 1,5 buts",mU25:"Moins de 2,5 buts",mU35:"Moins de 3,5 buts",mBtts:"Les deux équipes marquent",
   sideOver:"Over",sideUnder:"Under",ariaSide:"Over ou under",
-  metaTitle:"MatchFreq — fréquences Over / BTTS avant match",
-  metaDesc:"Recherche de taux de buts avant match sur les grands championnats européens. Over 1,5 / 2,5 / 3,5 et BTTS en fréquences historiques sur matchs terminés.",
+  metaTitle:"MatchFreq — stats Over 1,5/2,5/3,5 & BTTS",
+  metaDesc:"Fréquences Over 1,5 / 2,5 / 3,5 et BTTS avant match sur les grands championnats européens. Taux historiques sur matchs terminés — pas de tips.",
   ariaCompetition:"Compétition",ariaLine:"Seuil de buts",ariaBtts:"Les deux équipes marquent",ariaView:"Vue",ariaSortFx:"Trier les matchs",
   ariaChartOpt:"Options du graphique",ariaGroupBy:"Grouper par",ariaSeason:"Saison",ariaSearchClub:"Rechercher un club",
   refreshTitle:"Actualiser depuis ESPN",refreshAria:"Actualiser depuis ESPN",themeTitle:"Clair / sombre",themeAria:"Basculer clair ou sombre",
@@ -740,18 +747,31 @@ function writeState(){
 function syncMeta(){
   document.title=t("metaTitle");
   root.lang=lang;
-  const desc=t("metaDesc"),title=t("metaTitle"),url=siteBase()+(location.search||"");
+  const desc=t("metaDesc"),title=t("metaTitle");
+  const origin=SITE_ORIGIN.replace(/\/$/,"");
+  const canon=origin+"/?lang="+lang;
   const set=(id,val,attr="content")=>{const n=el("#"+id);if(n)n.setAttribute(attr,val);};
-  set("meta-desc",desc); set("og-title",title); set("og-desc",desc); set("og-url",url);
+  set("meta-desc",desc); set("og-title",title); set("og-desc",desc); set("og-url",canon);
   set("tw-title",title); set("tw-desc",desc);
+  set("tw-image-alt",lang==="fr"?"MatchFreq — fréquences de buts avant match":"MatchFreq — pre-match football goal-frequency research");
   set("og-locale",lang==="fr"?"fr_FR":"en_GB");
-  set("canonical",siteBase(),"href");
-  set("hreflang-en",siteBase()+"?lang=en","href");
-  set("hreflang-fr",siteBase()+"?lang=fr","href");
-  set("hreflang-default",siteBase(),"href");
+  set("canonical",canon,"href");
+  set("hreflang-en",origin+"/?lang=en","href");
+  set("hreflang-fr",origin+"/?lang=fr","href");
+  set("hreflang-default",origin+"/?lang=en","href");
   set("og-image",absolute("og.png")); set("tw-image",absolute("og.png"));
   const jd=el("#jsonld");
-  if(jd)jd.textContent=JSON.stringify({"@context":"https://schema.org","@type":"WebApplication","name":"MatchFreq","alternateName":"Taux de buts","url":siteBase(),"applicationCategory":"SportsApplication","operatingSystem":"Any","inLanguage":["en","fr"],"description":t("metaDesc"),"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"image":absolute("og.png")});
+  if(jd){
+    const base=origin+"/";
+    const stamp=(typeof SNAP==="object"&&SNAP&&SNAP._date)?SNAP._date:null;
+    const app={"@type":"WebApplication","@id":base+"#app","name":"MatchFreq","alternateName":"Taux de buts","url":base,"applicationCategory":"SportsApplication","operatingSystem":"Any","inLanguage":["en","fr"],"description":desc,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"image":absolute("og.png"),"publisher":{"@id":base+"#org"}};
+    if(stamp)app.dateModified=stamp;
+    jd.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[
+      {"@type":"Organization","@id":base+"#org","name":"MatchFreq","url":base,"logo":absolute("logo.png")},
+      {"@type":"WebSite","@id":base+"#website","name":"MatchFreq","url":base,"inLanguage":["en","fr"],"publisher":{"@id":base+"#org"}},
+      app
+    ]});
+  }
   el("#lang").textContent=lang==="en"?"FR":"EN";
   el("#lang").title=t("langSwitch");
   el("#lang").setAttribute("aria-label",t("langSwitch"));}

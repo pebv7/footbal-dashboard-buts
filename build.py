@@ -88,6 +88,33 @@ def main():
     total = sum(len(v["m"]) for k, v in snap.items() if isinstance(v, dict) and "m" in v)
     print(f"index.html écrit : {len(sortie)//1024} Ko, {total} matchs embarqués")
 
+    lastmod = snap["_date"]
+    sitemap = f'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.matchfreq.com/?lang=en</loc>
+    <lastmod>{lastmod}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.matchfreq.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.matchfreq.com/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.matchfreq.com/?lang=en"/>
+  </url>
+  <url>
+    <loc>https://www.matchfreq.com/?lang=fr</loc>
+    <lastmod>{lastmod}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.matchfreq.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.matchfreq.com/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.matchfreq.com/?lang=en"/>
+  </url>
+</urlset>
+'''
+    (RACINE / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+    print(f"sitemap.xml écrit : lastmod={lastmod}")
+
 
 if __name__ == "__main__":
     main()
