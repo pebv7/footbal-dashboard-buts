@@ -115,7 +115,7 @@ Resources:
               StringEquals:
                 token.actions.githubusercontent.com:aud: sts.amazonaws.com
               StringLike:
-                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrgRepo}:ref:refs/heads/${GitHubBranch}
+                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrgRepo}:*
       Policies:
         - PolicyName: MatchFreqDeploy
           PolicyDocument:
